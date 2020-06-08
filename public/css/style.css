@@ -1,0 +1,155 @@
+@font-face{
+    font-family: "aileron";
+    src: url("../fonts/aileron-regular.otf") format("opentype");
+}
+
+html{
+    font-family: aileron;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+header{
+    position: relative;
+}
+
+.header_img{
+    width: 100%;
+}
+
+.headband{
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    padding-left: 10px;
+}
+
+nav{
+    width: 45%;
+}
+
+.menu{
+    box-sizing: border-box;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.menu li i{
+    margin-right: 5px;
+}
+
+#titre{
+    font-style: italic;
+}
+
+header h1{
+    width: 40%;
+    height: 10%;
+    font-size: 2rem;
+    position: absolute;
+    left: 30%;
+    top: 45%;
+    font-weight: bold;
+    color: white;
+}
+
+.welcoming_text{
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcoming_text p{
+    width: 70%;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+main{
+    width: 100%;
+}
+
+.about_me{
+    width: 20%;
+    border: 1px solid blueviolet;
+    border-radius: 15px;
+    padding: 10px;
+    padding-top: 0;
+    text-align: justify;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portrait{
+    width: 220px;
+    border: 1px solid black;   
+}
+
+figcaption{
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.last_episodes{
+    border: 1px solid burlywood;
+    width: 77%;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#thumbnail{
+    width: 300px;
+    height: 150px;
+}
+
+article{
+    display: flex;
+}
+
+#title_extract{
+    border: 1px solid black;
+}
+
+main{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer{
+    margin-top: 10px;
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.footer_links{
+    width: 25%;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.footer_links a{
+    color: white;
+}
