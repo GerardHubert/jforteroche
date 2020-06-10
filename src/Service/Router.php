@@ -6,6 +6,7 @@ namespace App\Service;
 use App\Service\Database;
 use App\Model\PostManager;
 use App\Controller\PostController;
+use App\View\View;
 
 class Router {
 
@@ -14,7 +15,8 @@ class Router {
         // injection des dépendances
         $this->database = new Database();
         $this->postManager = new PostManager($this->database);
-        $this->postController = new PostController($this->postManager);
+        $this->view = new View();
+        $this->postController = new PostController($this->postManager, $this->view);
 
         $this->get = $_GET;
     }

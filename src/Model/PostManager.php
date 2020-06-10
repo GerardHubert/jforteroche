@@ -14,14 +14,18 @@ class PostManager {
     }
 
     public function getOneEpisode(int $id) {
-        //selon l'id transmis par postController, non requete la database
+        //selon l'id transmis par postController, on requete la database
         //pour obtenir les infos concernat 1 épisode
         //retourner les data au postController
         $this->request = $this->database->query("SELECT * FROM episodes WHERE episode_id = $id");
 
         while($this->data = $this->request->fetch()) {
-            var_dump ($this->data['episode_id']);
-            var_dump ($this->data['episode_title']);
+            $episodeId = ($this->data['episode_id']);
+            $episodeTitle = ($this->data['episode_title']);
+            $episodeContent = ($this->data['episode_content']);
         }
+
+        $post = ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent];
+        return $post;
     }
 }
