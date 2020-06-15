@@ -22,12 +22,13 @@ class Router {
     }
 
     public function run(): void {
+        $test = isset($this->get['action'], $this->get['id']);
         
-        if (isset($this->get['action']) && isset($this->get['id']) && $this->get['action'] === 'post') {
+        if ($test && $this->get['action'] === 'post') {
             $this->postController->displayOneEpisode((int)$this->get['id']);
         }
         else {
-            echo "Action non définie ou non égale à 'post' ou id non défini";
+            $this->postController->displayHome();
         }
     }
 }

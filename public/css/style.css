@@ -1,6 +1,6 @@
 @font-face{
     font-family: "aileron";
-    src: url("../fonts/aileron-regular.otf") format("opentype");
+    src: url("../font/Aileron-Regular.otf") format("opentype");
 }
 
 html{
@@ -121,6 +121,7 @@ figcaption{
 
 article{
     display: flex;
+    flex-direction: column;
 }
 
 #title_extract{

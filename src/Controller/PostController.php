@@ -20,4 +20,11 @@ class PostController {
         $data = $this->postManager->getOneEpisode($id);
         $this->view->display(['onepost' => $data]);
     }
+
+    public function displayHome() {
+        //pour afficher les 3 derniers posts
+        //on récupère les donnees des 3 derniers posts du  model
+        $data = $this->postManager->getThreeEpisodes();
+        $this->view->display(['home' => $data]);
+    }
 }

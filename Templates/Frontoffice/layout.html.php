@@ -3,9 +3,9 @@
 
 	<head>
         <meta charset="utf-8" />
-		<link rel="icon" type="image.png" href="../../public/images/encrier.ico" />
-		<link rel="stylesheet" href="../../public/css/style.css" />
-		<link rel="stylesheet" href="../../public/fontawesome/css/all.css" />
+		<link rel="icon" type="image.png" href="../public/images/encrier.ico" />
+		<link rel="stylesheet" href="../public/css/style.css" />
+		<link rel="stylesheet" href="../public/fontawesome/css/all.css" />
 		<title>Billet simple pour l'Alaska</title>
 	</head>
 	
@@ -27,7 +27,7 @@
 					</div>
 				</nav>
 			</div>
-			<img class="header_img" src="../../public/images/landscape_01.jpg" alt="aurore boréale en alaska" />
+			<img class="header_img" src="../public/images/landscape_01.jpg" alt="aurore boréale en alaska" />
 			<h1>Bienvenue sur le blog de Jean Forteroche</h1>
 
 
@@ -74,7 +74,7 @@
 			<aside class="about_me">
 				<h3>A propos de l'auteur</h3>
 				<figure>
-					<img class="portrait" src="../../public/images/portrait.jpg" alt="Portrait de Jean Forteroche" />
+					<img class="portrait" src="../public/images/portrait.jpg" alt="Portrait de Jean Forteroche" />
 					<figcaption>Portrait de Jean Forteroche</figcaption>
 				</figure>
 				<p>Jean Forteroche est connu pour quelques grands rôles au cinéma, mais il est avant tout un auteur de romans d'aventure. 

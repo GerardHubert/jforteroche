@@ -27,5 +27,20 @@ class PostManager {
 
         $post = ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent];
         return $post;
+        $this->request->closeCursor();
+    }
+
+    public function getThreeEpisodes() {
+        $this->request = $this->database->query("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
+        $post = [];
+
+        while($this->data = $this->request->fetch()) {
+            $episodeId = ($this->data['episode_id']);
+            $episodeTitle = ($this->data['episode_title']);
+            $episodeContent = ($this->data['episode_content']);
+            array_push($post, ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent]);
+        }
+        return($post);
+        $this->request->closeCursor();
     }
 }
