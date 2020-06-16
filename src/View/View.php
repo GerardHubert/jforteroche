@@ -11,7 +11,8 @@ class View {
         $dataLength = count($data);
         ob_start();
 
-        if (isset($_GET['action']) && $dataLength === (int) 1) {  
+        if (isset($_GET['action']) && $dataLength === (int) 1) {
+            //on affiche le post et les commentaires du post affiché  
             require_once('../Templates/Frontoffice/onepost.html.php');
         }
 

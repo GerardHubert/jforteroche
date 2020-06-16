@@ -111,7 +111,6 @@ figcaption{
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 #thumbnail{
@@ -153,4 +152,10 @@ footer{
 
 .footer_links a{
     color: white;
+}
+
+.comment_form{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
 }

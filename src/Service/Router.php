@@ -7,6 +7,8 @@ use App\Service\Database;
 use App\Model\PostManager;
 use App\Controller\PostController;
 use App\View\View;
+use App\Controller\CommentController;
+use App\Model\CommentManager;
 
 class Router {
 
@@ -15,8 +17,10 @@ class Router {
         // injection des dépendances
         $this->database = new Database();
         $this->postManager = new PostManager($this->database);
+        $this->commentManager = new CommentManager($this->database);
         $this->view = new View();
         $this->postController = new PostController($this->postManager, $this->view);
+        $this->commentController = new CommentController($this->commentManager, $this->view);
 
         $this->get = $_GET;
     }
@@ -26,8 +30,9 @@ class Router {
         
         if ($test && $this->get['action'] === 'post') {
             $this->postController->displayOneEpisode((int)$this->get['id']);
+            $this->commentController->displayComments((int)$this->get['id']);
         }
-        else {
+        elseif (!$test) {
             $this->postController->displayHome();
         }
     }

@@ -47,27 +47,6 @@
 		<main>
 
 			<section class="last_episodes">
-				<!--<article>
-					<img id="thumbnail" src="public/images/landscape_01.jpg" alt="paysage de montagne" />
-					<div id="title_extract">
-						<h3>Episode 3: Le titre du dernier épisode ici</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum hic eius odit nihil, ab cupiditate vitae! Alias nemo voluptatum, at, asperiores beatae quidem cum placeat architecto eum animi, enim cumque?</p>
-					</div>
-				</article>
-				<article>
-					<img id="thumbnail" src="public/images/landscape_02.jpg" alt="paysage de montagne" />
-					<div id="title_extract">
-						<h3>Episode 2: Le titre de l'épisode 2 ici</h3>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores laborum inventore aliquid quisquam voluptate aliquam omnis corrupti eius in enim. Obcaecati reprehenderit tempore nostrum pariatur praesentium quo quidem dicta perferendis?</p>
-					</div>
-				</article>
-				<article>
-					<img id="thumbnail" src="public/images/landscape_01.jpg" alt="paysage de montagne" />
-					<div id="title_extract">
-						<h3>Episode 1: Le titre du premier episode ici</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum hic eius odit nihil, ab cupiditate vitae! Alias nemo voluptatum, at, asperiores beatae quidem cum placeat architecto eum animi, enim cumque?</p>
-					</div>
-				</article>-->
 				<?=$content?>
 			</section>
 
