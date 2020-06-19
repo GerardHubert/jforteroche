@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  mer. 10 juin 2020 à 01:20
+-- Généré le :  ven. 19 juin 2020 à 23:13
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `id` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `admin`
 --
 
 INSERT INTO `admin` (`id`, `password`) VALUES
-('jean_forteroche', 'blog_2_jean');
+('jean_forteroche', '');
 
 -- --------------------------------------------------------
 
@@ -50,14 +50,14 @@ INSERT INTO `admin` (`id`, `password`) VALUES
 
 DROP TABLE IF EXISTS `commentaires`;
 CREATE TABLE IF NOT EXISTS `commentaires` (
-  `comment_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `comment_id` tinyint(11) NOT NULL AUTO_INCREMENT,
   `episode` tinyint(11) NOT NULL,
   `pseudo` varchar(50) NOT NULL,
-  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `comment` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `comment_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`comment_id`),
-  KEY `episode_comment` (`episode`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `episode_comments` (`episode`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaires`
@@ -81,12 +81,12 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `pseudo`, `comment`, `comme
 
 DROP TABLE IF EXISTS `episodes`;
 CREATE TABLE IF NOT EXISTS `episodes` (
-  `episode_id` tinyint(11) NOT NULL,
-  `episode_title` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `episode_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `episode_id` tinyint(11) NOT NULL AUTO_INCREMENT,
+  `episode_title` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `episode_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `episode_date` datetime NOT NULL,
   PRIMARY KEY (`episode_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
@@ -106,7 +106,7 @@ INSERT INTO `episodes` (`episode_id`, `episode_title`, `episode_content`, `episo
 -- Contraintes pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  ADD CONSTRAINT `episode_comment` FOREIGN KEY (`episode`) REFERENCES `episodes` (`episode_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `episode_comments` FOREIGN KEY (`episode`) REFERENCES `episodes` (`episode_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

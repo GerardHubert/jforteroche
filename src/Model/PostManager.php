@@ -6,41 +6,44 @@ namespace App\Model;
 use App\Controller\PostController;
 use App\Service\Database;
 
-class PostManager {
+class PostManager 
+{
 
-    public function __construct(Database $database){
+    public function __construct(Database $database)
+    {
         //objet Database en paramètre pour récupérer la connection
         $this->database = $database->databaseConnect();
     }
 
-    public function getOneEpisode(int $id) {
+    public function getOneEpisode(int $id)
+    {
         //selon l'id transmis par postController, on requete la database
         //pour obtenir les infos concernat 1 épisode
         //retourner les data au postController
-        $this->request = $this->database->query("SELECT * FROM episodes WHERE episode_id = $id");
+        $request = $this->database->prepare("SELECT * FROM episodes WHERE episode_id = ?");
+        $request->bindParam(1, $id);
+        $request->execute();
 
-        while($this->data = $this->request->fetch()) {
-            $episodeId = ($this->data['episode_id']);
-            $episodeTitle = ($this->data['episode_title']);
-            $episodeContent = ($this->data['episode_content']);
+        while($data = $request->fetch()){
+            $episodeId = ($data['episode_id']);
+            $episodeTitle = ($data['episode_title']);
+            $episodeContent = ($data['episode_content']);
         }
 
-        $post = ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent];
-        return $post;
-        $this->request->closeCursor();
+        return ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent];
     }
 
-    public function getThreeEpisodes() {
-        $this->request = $this->database->query("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
+    public function getThreeEpisodes()
+    {
+        $request = $this->database->query("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
         $post = [];
-
-        while($this->data = $this->request->fetch()) {
-            $episodeId = ($this->data['episode_id']);
-            $episodeTitle = ($this->data['episode_title']);
-            $episodeContent = ($this->data['episode_content']);
+        while($data = $request->fetch()) {
+            $episodeId = $data['episode_id'];
+            $episodeTitle = $data['episode_title'];
+            $episodeContent = ($data['episode_content']);
             array_push($post, ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent]);
         }
-        return($post);
-        $this->request->closeCursor();
+        return $post;
+
     }
 }

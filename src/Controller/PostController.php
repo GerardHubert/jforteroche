@@ -6,14 +6,17 @@ namespace App\Controller;
 use App\Model\PostManager;
 use App\View\View;
 
-class PostController {
+class PostController
+{
 
-    public function __construct(PostManager $postManager, View $view) {
+    public function __construct(PostManager $postManager, View $view)
+    {
         $this->postManager = $postManager;
         $this->view = $view;
     }
 
-    public function displayOneEpisode(int $id) {
+    public function displayOneEpisode(int $id) : void 
+    {
         //fonnction pour afficher un épisode selon l'id transmis par le router
         //on passe l'id au model pour récupérer les infos
         //on appelle la bonne vue
@@ -21,7 +24,8 @@ class PostController {
         $this->view->display(['onepost' => $data]);
     }
 
-    public function displayHome() {
+    public function displayHome() : void
+    {
         //pour afficher les 3 derniers posts
         //on récupère les donnees des 3 derniers posts du  model
         $data = $this->postManager->getThreeEpisodes();

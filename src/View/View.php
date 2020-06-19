@@ -5,13 +5,19 @@ namespace App\View;
 
 use App\Controller\PostController;
 
-class View {
+class View
+{
 
-    public function display(array $data) {
+    public function display(array $data)
+    {
         $dataLength = count($data);
         ob_start();
 
-        if (isset($_GET['action']) && $dataLength === (int) 1) {
+        if (empty($data)) {
+            require_once('../Templates/Frontoffice/error.html.php');
+        }
+        
+        elseif (!empty($data) && isset($_GET['action']) && $dataLength === (int) 1) {
             //on affiche le post et les commentaires du post affiché  
             require_once('../Templates/Frontoffice/onepost.html.php');
         }
