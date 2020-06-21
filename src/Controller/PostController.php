@@ -20,14 +20,18 @@ class PostController
         //fonnction pour afficher un épisode selon l'id transmis par le router
         //on passe l'id au model pour récupérer les infos
         //on appelle la bonne vue
-        $data = $this->postManager->getOneEpisode($id);
-        $this->view->display(['onepost' => $data]);
+        $data = $this->postManager->getOneEpisode((int) $id);
+        if (empty($data)) {
+            header('Location: index.php?action=error');
+        }
+        else {
+            $this->view->display(['onepost' => $data[0]]);
+        }
     }
 
     public function displayHome() : void
     {
         //pour afficher les 3 derniers posts
-        //on récupère les donnees des 3 derniers posts du  model
         $data = $this->postManager->getThreeEpisodes();
         $this->view->display(['home' => $data]);
     }

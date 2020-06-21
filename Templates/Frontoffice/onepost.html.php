@@ -1,6 +1,6 @@
 <article>
-    <h3>Episode <?=$data['onepost']['id']?>: <?=$data['onepost']['title']?></h3>
-    <p><?=$data['onepost']['content']?></p>
+    <h3>Episode <?=$data['onepost']['episode_id']?>: <?=$data['onepost']['episode_title']?></h3>
+    <p><?=$data['onepost']['episode_content']?></p>
 </article>
 
 <form class="comment_form" method="post" action="post.php">

@@ -14,6 +14,7 @@ class ErrorController
 
     public function displayError() : void
     {
-        //appeler la vue pour afficher l'erreur ici
+        $data = [];
+        $this->view->display($data);
     }
 }

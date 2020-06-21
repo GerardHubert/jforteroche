@@ -23,27 +23,23 @@ class PostManager
         $request = $this->database->prepare("SELECT * FROM episodes WHERE episode_id = ?");
         $request->bindParam(1, $id);
         $request->execute();
-
-        while($data = $request->fetch()){
-            $episodeId = ($data['episode_id']);
-            $episodeTitle = ($data['episode_title']);
-            $episodeContent = ($data['episode_content']);
-        }
-
-        return ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent];
+        $data = $request->fetchAll();
+        return $data;
     }
 
     public function getThreeEpisodes()
     {
-        $request = $this->database->query("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
-        $post = [];
+        $request = $this->database->prepare("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
+        $request->execute();
+        /*$post = [];
         while($data = $request->fetch()) {
             $episodeId = $data['episode_id'];
             $episodeTitle = $data['episode_title'];
             $episodeContent = ($data['episode_content']);
             array_push($post, ['id' => $episodeId, 'title' => $episodeTitle, 'content' => $episodeContent]);
-        }
-        return $post;
+        }*/
+        $data = $request->fetchAll();
+        return $data;
 
     }
 }

@@ -113,9 +113,8 @@ figcaption{
     flex-direction: column;
 }
 
-#thumbnail{
-    width: 300px;
-    height: 150px;
+.post_date{
+    font-size: 0.8rem;
 }
 
 article{
@@ -123,8 +122,8 @@ article{
     flex-direction: column;
 }
 
-#title_extract{
-    border: 1px solid black;
+article  p{
+    text-align: justify;
 }
 
 main{

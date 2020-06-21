@@ -27,9 +27,14 @@ class Router
 
     public function run(): void
     {
-        $test = isset($this->get['action'], $this->get['id']);
+        $testPost = isset($this->get['action'], $this->get['id']);
+        $testError = isset($this->get['action']);
 
-        if ($test && $this->get['action'] === 'post') {
+        if ($testError && $this->get['action'] === 'error') {
+            $this->errorController->displayError();
+        }
+
+        elseif ($testPost && $this->get['action'] === 'post') {
             $this->postController->displayOneEpisode((int)$this->get['id']);
             $this->commentController->displayComments((int)$this->get['id']);
         }
