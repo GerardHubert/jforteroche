@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  ven. 19 juin 2020 à 23:13
+-- Généré le :  lun. 22 juin 2020 à 22:26
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `episodes` (
   `episode_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `episode_date` datetime NOT NULL,
   PRIMARY KEY (`episode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
@@ -106,7 +106,7 @@ INSERT INTO `episodes` (`episode_id`, `episode_title`, `episode_content`, `episo
 -- Contraintes pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  ADD CONSTRAINT `episode_comments` FOREIGN KEY (`episode`) REFERENCES `episodes` (`episode_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `episode_comments` FOREIGN KEY (`episode`) REFERENCES `episodes` (`episode_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
