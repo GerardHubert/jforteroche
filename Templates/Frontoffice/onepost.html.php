@@ -6,8 +6,8 @@
 <form class="comment_form" method="post" action="post.php">
     <label for="pseudo">Pseudonyme</label>
     <input type="text" name="pseudo"/>
-    <label for="commentaire">Commentaire</label>
-    <input type="text" name="commentaire"/>
+    <label for="comment">Commentaire</label>
+    <textarea class="comment_area" name="comment" rows="10" cols="40">Votre commentaire ici</textarea>
     <input type="submit" value="Envoyer"/>
 </form>
 

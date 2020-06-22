@@ -7,6 +7,8 @@ use App\View\View;
 
 class ErrorController
 {
+    private $view;
+    
     public function __construct(View $view)
     {
         $this->view = $view;

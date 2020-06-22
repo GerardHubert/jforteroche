@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace App\View;
 
-use App\Controller\PostController;
-
 class View
 {
 
-    public function display(array $data)
+    public function display(array $data) : void
     {
         $dataLength = count($data);
         ob_start();
@@ -28,5 +26,5 @@ class View
 
         $content = ob_get_clean();
         require_once('../Templates/Frontoffice/layout.html.php');
-        }
+    }
 }

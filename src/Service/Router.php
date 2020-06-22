@@ -9,6 +9,13 @@ use App\Controller\{CommentController, ErrorController, PostController};
 
 class Router
 {
+    private $database;
+    private $postManager;
+    private $commentManager;
+    private $postController;
+    private $commentController;
+    private $errorController;
+    private $view;
 
     public function __construct()
     {
@@ -35,11 +42,10 @@ class Router
         }
 
         elseif ($testPost && $this->get['action'] === 'post') {
-            $this->postController->displayOneEpisode((int)$this->get['id']);
-            $this->commentController->displayComments((int)$this->get['id']);
+            $this->postController->displayOneEpisode((int) $this->get['id']);
         }
-        else {
-            $this->postController->displayHome();
-        }
+        
+        $this->postController->displayHome();
+        
     }
 }

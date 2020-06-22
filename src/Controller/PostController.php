@@ -8,6 +8,8 @@ use App\View\View;
 
 class PostController
 {
+    private $postManager;
+    private $view;
 
     public function __construct(PostManager $postManager, View $view)
     {
@@ -17,16 +19,16 @@ class PostController
 
     public function displayOneEpisode(int $id) : void 
     {
-        //fonnction pour afficher un épisode selon l'id transmis par le router
+        //fonction pour afficher un épisode selon l'id transmis par le router
         //on passe l'id au model pour récupérer les infos
         //on appelle la bonne vue
-        $data = $this->postManager->getOneEpisode((int) $id);
+        $data = $this->postManager->getOneEpisode($id);
         if (empty($data)) {
             header('Location: index.php?action=error');
+            exit;
         }
-        else {
-            $this->view->display(['onepost' => $data[0]]);
-        }
+        
+        $this->view->display(['onepost' => $data[0]]);        
     }
 
     public function displayHome() : void

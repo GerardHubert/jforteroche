@@ -8,16 +8,12 @@ use App\View\View;
 
 class CommentController
 {
-
+    private $commentManager;
+    private $view;
+    
     public function __construct(CommentManager $commentManager, View $view)
     {
         $this->commentManager = $commentManager;
         $this->view = $view;
-    }
-
-    public function displayComments(int $id) : void
-    {
-        $commentData = $this->commentManager->getComments($id);
-        //$this->view->display(['comments' => $commentData]);
     }
 }
