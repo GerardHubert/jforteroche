@@ -15,7 +15,7 @@ class View
             require_once('../Templates/Frontoffice/error.html.php');
         }
         
-        elseif (!empty($data) && isset($_GET['action']) && $dataLength === (int) 1) {
+        elseif (!empty($data) && isset($_GET['action']) && $dataLength >= (int) 1) {
             //on affiche le post et les commentaires du post affiché  
             require_once('../Templates/Frontoffice/onepost.html.php');
         }

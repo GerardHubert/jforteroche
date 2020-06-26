@@ -1,7 +1,9 @@
 <article>
-    <h3>Episode <?=$data['onepost']['episode_id']?>: <?=$data['onepost']['episode_title']?></h3>
-    <p><?=$data['onepost']['episode_content']?></p>
+    <h3>Episode <?=$data['episode'][0]['episode_id']?> : <?=$data['episode'][0]['episode_title']?></h3>
+    <p><?=$data['episode'][0]['episode_content']?></p>
 </article>
+
+<h3>COMMENTAIRES</h3>
 
 <form class="comment_form" method="post" action="post.php">
     <label for="pseudo">Pseudonyme</label>
@@ -11,4 +13,13 @@
     <input type="submit" value="Envoyer"/>
 </form>
 
-<h3>COMMENTAIRES</h3>
+<section class="commentaires">
+    <?php
+        foreach($data['comments'] as $commentsData) {
+    ?>
+        <h4>Commentaire laissé par <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
+        <p><?=$commentsData['comment']?></p>
+        <?php
+        }
+        ?>
+</section>

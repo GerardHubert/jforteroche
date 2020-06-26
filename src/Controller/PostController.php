@@ -27,8 +27,8 @@ class PostController
             header('Location: index.php?action=error');
             exit;
         }
-        
-        $this->view->display(['onepost' => $data[0]]);        
+
+        $this->view->display(['episode' => $data[0], 'comments' => $data[1]]);
     }
 
     public function displayHome() : void

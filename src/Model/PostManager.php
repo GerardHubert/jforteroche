@@ -23,9 +23,14 @@ class PostManager
         //retourner les data au postController
         $episodeRequest = $this->database->prepare("SELECT * FROM episodes WHERE episode_id = :episode_id");
         $episodeRequest->bindParam(':episode_id', $id);
-        $episodeRequest->execute();
 
-        return $episodeRequest->fetchAll();
+        $commentsRequest = $this->database->prepare("SELECT * FROM commentaires WHERE episode = :episode ORDER BY comment_date DESC");
+        $commentsRequest->bindParam(':episode', $id);
+
+        $episodeRequest->execute();
+        $commentsRequest->execute();
+
+        return array($episodeRequest->fetchAll(), $commentsRequest->fetchAll());
     }
 
     public function getThreeEpisodes()
