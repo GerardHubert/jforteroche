@@ -30,15 +30,22 @@ class Router
         $this->errorController = new ErrorController($this->view);
 
         $this->get = $_GET;
+        $this->post = $_POST;
     }
 
     public function run(): void
     {
+        $testComment = isset($this->post['pseudo'], $this->post['comment']);
         $testPost = isset($this->get['action'], $this->get['id']);
         $testError = isset($this->get['action']);
 
         if ($testError && $this->get['action'] === 'error') {
             $this->errorController->displayError();
+        }
+        //si le router reçoit pseudo et commentaire
+        //on appelle le commentController en lui passant les input pour enregistement dans la table
+        elseif ($testComment && $this->get['action'] === 'post') {
+            $this->commentController->displayComments((int) $this->get['id'], $this->post['pseudo'], $this->post['comment']);
         }
 
         elseif ($testPost && $this->get['action'] === 'post') {

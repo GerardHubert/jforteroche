@@ -14,12 +14,13 @@ class CommentManager
         $this->database = $database->databaseConnect();
     }
 
-    public function getComments(int $id)
+    public function postComment(int $id, string $pseudo, string $comment) : void
     {
-        $request = $this->database->prepare("SELECT * FROM commentaires WHERE episode = :episode ORDER BY comment_date DESC LIMIT 0, 10");
-        $request->bindParam('episode', $id);
-        $request->execute();
-        
-        return $request->fetchAll();
+        $postComment = $this->database->prepare('INSERT INTO commentaires (episode, pseudo, comment) VALUES (:episode, :pseudo, :comment)');
+        $postComment->bindParam(':episode', $id);
+        $postComment->bindParam(':pseudo', $pseudo);
+        $postComment->bindParam(':comment', $comment);
+
+        $postComment->execute();
     }
 }

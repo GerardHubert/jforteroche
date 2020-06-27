@@ -3,23 +3,25 @@
     <p><?=$data['episode'][0]['episode_content']?></p>
 </article>
 
-<h3>COMMENTAIRES</h3>
-
-<form class="comment_form" method="post" action="post.php">
-    <label for="pseudo">Pseudonyme</label>
-    <input type="text" name="pseudo"/>
-    <label for="comment">Commentaire</label>
-    <textarea class="comment_area" name="comment" rows="10" cols="40">Votre commentaire ici</textarea>
-    <input type="submit" value="Envoyer"/>
-</form>
-
 <section class="commentaires">
+
+    <h3>COMMENTAIRES</h3>
+
+    <form class="comment_form" method="post" action="index.php?action=post&id=<?=$data['episode'][0]['episode_id']?>">
+        <label for="pseudo">Pseudonyme</label>
+        <input type="text" name="pseudo"/>
+        <label for="comment">Commentaire</label>
+        <textarea class="comment_area" name="comment" rows="10" cols="40">Votre commentaire ici</textarea>
+        <input type="submit" value="Envoyer"/>
+    </form>
+
     <?php
         foreach($data['comments'] as $commentsData) {
     ?>
-        <h4>Commentaire laissé par <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
-        <p><?=$commentsData['comment']?></p>
+        <h4>De <?=htmlspecialchars($commentsData['pseudo'])?>, le <?=$commentsData['comment_date']?></h4>
+        <p><?=htmlspecialchars($commentsData['comment'])?></p>
         <?php
         }
         ?>
+
 </section>

@@ -26,5 +26,6 @@ class View
 
         $content = ob_get_clean();
         require_once('../Templates/Frontoffice/layout.html.php');
+
     }
 }
