@@ -1,1 +1,1 @@
-<p>Un problème est survenu, merci de vous reconnecter ultérieurement</p>
+<p>Ceci est une erreur, merci de réessayer ultérieurement</p>

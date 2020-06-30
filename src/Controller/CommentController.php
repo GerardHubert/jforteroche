@@ -22,8 +22,11 @@ class CommentController
     
     public function displayComments(int $id, string $pseudo, string $comment) : void
     {
-        $this->commentManager->postComment($id, $pseudo, $comment);
-        header("Location: index.php?action=post&id=$id");
-        exit;
+        if (isset($pseudo, $comment)){
+            $this->commentManager->postComment($id, $pseudo, $comment);
+            header("Location: index.php?action=post&id=$id");
+            exit;
+        }
+        echo 'renseignez les champs svp';
     }
 }

@@ -16,6 +16,8 @@ class Router
     private $commentController;
     private $errorController;
     private $view;
+    private $get;
+    private $post;
 
     public function __construct()
     {
@@ -25,7 +27,7 @@ class Router
         $this->postManager = new PostManager($this->database);
         $this->commentManager = new CommentManager($this->database);
         $this->view = new View();
-        $this->postController = new PostController($this->postManager, $this->view);
+        $this->postController = new PostController($this->postManager, $this->view, $this->commentManager);
         $this->commentController = new CommentController($this->commentManager, $this->view);
         $this->errorController = new ErrorController($this->view);
 
@@ -35,24 +37,35 @@ class Router
 
     public function run(): void
     {
-        $testComment = isset($this->post['pseudo'], $this->post['comment']);
-        $testPost = isset($this->get['action'], $this->get['id']);
-        $testError = isset($this->get['action']);
+        $getAllAction = isset($this->get['action']) && $this->get['action'] === 'get_all';
+        $getPostAction = isset($this->get['action'], $this->get['id']) && $this->get['action'] === 'post';
+        $getHomeAction = empty($this->get);
+        $getErrorAction = isset($this->get['action']) && $this->get['action'] === 'error';
 
-        if ($testError && $this->get['action'] === 'error') {
+        if ($getErrorAction) {
+            //Route: http://localhost/projets/jforteroche/public/index.php?action=error
+            //On affiche une page d'erreur
+
             $this->errorController->displayError();
         }
-        //si le router reçoit pseudo et commentaire
-        //on appelle le commentController en lui passant les input pour enregistement dans la table
-        elseif ($testComment && $this->get['action'] === 'post') {
-            $this->commentController->displayComments((int) $this->get['id'], $this->post['pseudo'], $this->post['comment']);
-        }
 
-        elseif ($testPost && $this->get['action'] === 'post') {
+        elseif ($getPostAction) {
+            //Route: http://localhost/projets/jforteroche/public/index.php?action=post&id=[id de l'épisode choisi]
+            //affiche 1 post + commentaires associés
+
             $this->postController->displayOneEpisode((int) $this->get['id']);
         }
-        
-        $this->postController->displayHome();
-        
+
+        elseif ($getAllAction) {
+            //Route: http://localhost/projets/jforteroche/public/index.php?action=get_all
+            //affiche la liste de tous les épisodes
+
+            $this->postController->displayAllPosts();
+        }
+        elseif ($getHomeAction) {
+            //Route: http://localhost/projets/jforteroche/public/index.php
+            //affiche la page d'accueil avec les 3 derniers posts
+            $this->postController->displayHome();
+        }
     }
 }

@@ -14,15 +14,13 @@
 		<header>
 
 			<div class="headband">
-				<a class="logo">Billet simple pour l'Alaska</a>
+				<a class="logo" href="index.php">Billet simple pour l'Alaska</a>
 				<nav>
 					<div class="menu_container">
 						<ul class="menu">
 							<li><a href="index.php"><i class="fas fa-home"></i>Accueil</a></li>
-							<li><a href="episodes.html"><i class="fas fa-pen-fancy"></i></i>Episodes</a></li>
-							<li><a href="bibliographie.html"><i class="fas fa-book"></i>Bibliographie</a></li>
-							<li><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
-							<li><a href="admin.html"><i class="fas fa-user-lock"></i>Administrateur</a></li>
+							<li><a href="index.php?action=get_all"><i class="fas fa-pen-fancy"></i></i>Episodes</a></li>
+							<li><a href="admin.php"><i class="fas fa-user-lock"></i>Administrateur</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -69,7 +67,6 @@
 			<div class="footer_links">
 				<a href="mentions.html">Mentions Légales</a>
 				<a href="site_plan.html">Plan du site</a>
-				<a href="contact.html">Contact</a>
 			</div>
 		</footer>
 

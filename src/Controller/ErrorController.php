@@ -17,6 +17,7 @@ class ErrorController
     public function displayError() : void
     {
         $data = [];
-        $this->view->display($data);
+        $template = '/wamp64/www/projets/jforteroche/templates/frontOffice/error.html.php';
+        $this->view->display($data, $template);
     }
 }

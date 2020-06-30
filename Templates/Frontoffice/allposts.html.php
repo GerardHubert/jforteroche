@@ -1,4 +1,4 @@
-<h2>Les derniers épisodes publiés</h2>
+<h2>Tous les épisodes</h2>
 <?php foreach ($data as $entry) {?>
     <article>
         <a href='index.php?action=post&id=<?=$entry['episode_id']?>'>

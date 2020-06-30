@@ -5,27 +5,17 @@ namespace App\View;
 
 class View
 {
+    private $layout;
 
-    public function display(array $data) : void
+    public function __construct()
     {
-        $dataLength = count($data);
-        ob_start();
+        $this->layout = '/wamp64/www/projets/jforteroche/templates/frontOffice/layout.html.php';
+    }
 
-        if (empty($data)) {
-            require_once('../Templates/Frontoffice/error.html.php');
-        }
-        
-        elseif (!empty($data) && isset($_GET['action']) && $dataLength >= (int) 1) {
-            //on affiche le post et les commentaires du post affiché  
-            require_once('../Templates/Frontoffice/onepost.html.php');
-        }
-
-        else {
-            require_once('../Templates/Frontoffice/home.html.php');
-        }
-
+    public function display(array $data, string $template) : void
+    {
+        require_once($template);
         $content = ob_get_clean();
-        require_once('../Templates/Frontoffice/layout.html.php');
-
+        require_once($this->layout);
     }
 }
