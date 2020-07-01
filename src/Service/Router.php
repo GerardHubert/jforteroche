@@ -41,6 +41,8 @@ class Router
         $getPostAction = isset($this->get['action'], $this->get['id']) && $this->get['action'] === 'post';
         $getHomeAction = empty($this->get);
         $getErrorAction = isset($this->get['action']) && $this->get['action'] === 'error';
+        $saveComment = isset($this->get['action'], $this->get['id'], $this->post['pseudo'], $this->post['comment'])
+                        && $this->get['action'] === 'save_com';
 
         if ($getErrorAction) {
             //Route: http://localhost/projets/jforteroche/public/index.php?action=error
@@ -62,10 +64,17 @@ class Router
 
             $this->postController->displayAllPosts();
         }
+
         elseif ($getHomeAction) {
             //Route: http://localhost/projets/jforteroche/public/index.php
             //affiche la page d'accueil avec les 3 derniers posts
             $this->postController->displayHome();
+        }
+
+        elseif ($saveComment) {
+            //Route: http://localhost/projets/jforteroche/public/index.php
+            //sauvegarde du commentaire en passant au commentController les éléments du formulaires
+            $this->commentController->saveComment((int)$this->get['id'], $this->post['pseudo'], $this->post['comment']);
         }
     }
 }

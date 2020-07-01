@@ -7,11 +7,11 @@
 
     <h3>COMMENTAIRES</h3>
 
-    <form class="comment_form" method="post" action="index.php?action=post&id=<?=$data['episode']['episode_id']?>">
+    <form class="comment_form" method="post" action="index.php?action=save_com&id=<?=$data['episode']['episode_id']?>">
         <label for="pseudo">Pseudonyme</label>
         <input class="input_name" type="text" name="pseudo"/>
         <label for="comment">Commentaire</label>
-        <textarea class="comment_area" name="comment" rows="10" cols="40">Votre commentaire ici</textarea>
+        <textarea class="comment_area" name="comment" rows="10" cols="40"></textarea>
         <input class="submit" type="submit" value="Poster"/>
     </form>
 

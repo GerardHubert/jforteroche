@@ -4,29 +4,24 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\CommentManager;
-use App\View\View;
 
 class CommentController
 {
     private $commentManager;
-    private $view;
     
-    public function __construct(CommentManager $commentManager, View $view)
+    public function __construct(CommentManager $commentManager)
     {
         $this->commentManager = $commentManager;
-        $this->view = $view;
     }
 
-    //méthode pour demander à enregistrer le commentaire
-    //puis redirection vers le router pour ré-afficher le post avec les commentaires à jour.
-    
-    public function displayComments(int $id, string $pseudo, string $comment) : void
+    public function saveComment(int $id, string $pseudo, string $comment) : void
     {
-        if (isset($pseudo, $comment)){
-            $this->commentManager->postComment($id, $pseudo, $comment);
-            header("Location: index.php?action=post&id=$id");
+        if (empty($pseudo) || empty($comment)) {
+            header('Location: index.php?action=error');
             exit;
         }
-        echo 'renseignez les champs svp';
+        $this->commentManager->postComment($id, $pseudo, $comment);
+        header("Location: index.php?action=post&id=$id");
+        exit;
     }
 }
