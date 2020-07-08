@@ -3,9 +3,9 @@
 
 	<head>
         <meta charset="utf-8" />
-		<link rel="icon" type="image.png" href="../public/images/encrier.ico" />
-		<link rel="stylesheet" href="../public/css/style.css" />
-		<link rel="stylesheet" href="../public/fontawesome/css/all.css" />
+		<link rel="icon" type="image.png" href="images/encrier.ico" />
+		<link rel="stylesheet" href="css/style.css" />
+
 		<title>Billet simple pour l'Alaska</title>
 	</head>
 	
@@ -20,7 +20,7 @@
 						<ul class="menu">
 							<li><a href="index.php"><i class="fas fa-home"></i>Accueil</a></li>
 							<li><a href="index.php?action=get_all"><i class="fas fa-pen-fancy"></i></i>Episodes</a></li>
-							<li><a href="admin.php"><i class="fas fa-user-lock"></i>Administrateur</a></li>
+							<li><a href="index.php?action=login"><i class="fas fa-user-lock"></i>Administrateur</a></li>
 						</ul>
 					</div>
 				</nav>

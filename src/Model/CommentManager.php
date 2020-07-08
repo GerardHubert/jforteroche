@@ -14,7 +14,7 @@ class CommentManager
         $this->database = $database->databaseConnect();
     }
 
-    public function getComments(int $id)
+    public function getComments(int $id) : array
     {
         $comments = $this->database->prepare('SELECT * FROM commentaires WHERE episode = :id ORDER BY comment_date DESC LIMIT 0, 10');
         $comments->bindParam(':id', $id);
@@ -30,5 +30,12 @@ class CommentManager
         $postComment->bindParam(':comment', $comment);
 
         $postComment->execute();
+    }
+
+    public function saveCommentReport(int $commentId) : void
+    {
+        $reportComment = $this->database->prepare('UPDATE commentaires SET reported_comment = 1 WHERE comment_id = :comment_id');
+        $reportComment->bindParam(':comment_id', $commentId);
+        $reportComment->execute();
     }
 }

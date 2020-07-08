@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Model\CommentManager;
 
@@ -21,7 +21,14 @@ class CommentController
             exit;
         }
         $this->commentManager->postComment($id, $pseudo, $comment);
-        header("Location: index.php?action=post&id=$id");
+        header("Location: index.php?action=post&id=$id/#comment_header");
+        exit;
+    }
+
+    public function reportComment(int $commentId, int $id) : void
+    {
+        $this->commentManager->saveCommentReport($commentId);
+        header("Location: index.php?action=post&id=$id/#comment_header");
         exit;
     }
 }

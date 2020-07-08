@@ -5,17 +5,10 @@ namespace App\View;
 
 class View
 {
-    private $layout;
-
-    public function __construct()
-    {
-        $this->layout = '/wamp64/www/projets/jforteroche/templates/frontOffice/layout.html.php';
-    }
-
-    public function display(array $data, string $template) : void
+    public function display(array $data, string $template, string $layout) : void
     {
         require_once($template);
         $content = ob_get_clean();
-        require_once($this->layout);
+        require_once($layout);
     }
 }

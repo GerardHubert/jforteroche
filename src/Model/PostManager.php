@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Controller\PostController;
+use App\Controller\FrontOffice\PostController;
 use App\Service\Database;
 
 class PostManager 
@@ -16,7 +16,7 @@ class PostManager
         $this->database = $database->databaseConnect();
     }
 
-    public function getOneEpisode(int $id)
+    public function getOneEpisode(int $id) : array
     {
         //selon l'id transmis par postController, on requete la database
         //pour obtenir les infos concernat 1 épisode
@@ -28,7 +28,7 @@ class PostManager
         return $episodes->fetchAll();
     }
 
-    public function getThreeEpisodes()
+    public function getThreeEpisodes() : array
     {
         $request = $this->database->prepare("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
         $request->execute();
@@ -36,7 +36,7 @@ class PostManager
         return $request->fetchAll();
     }
 
-    public function getAllEpisodes()
+    public function getAllEpisodes() : array
     {
         $request = $this->database->prepare("SELECT * FROM episodes ORDER BY episode_id DESC");
         $request->execute();

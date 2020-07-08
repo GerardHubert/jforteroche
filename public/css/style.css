@@ -190,3 +190,26 @@ footer{
     background-color:#c9e8e8;
     border: 3px solid #95a9a9;
 }
+
+#username, #password, #connect_button, #new_password, #save_button, #confirm_pass{
+    display: flex;
+    flex-direction: column;
+}
+
+.log_in_form, .new_password{
+    width: 30%;
+    height: 200px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.log_in_form input, .new_password input{
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    width: 70%;
+}

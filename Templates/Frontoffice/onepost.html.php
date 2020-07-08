@@ -18,7 +18,10 @@
     <?php
         foreach($data['comments'] as $commentsData) {
     ?>
-        <h4>De <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
+        <h4 id="comment_header">De <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
+        <a href="index.php?action=signal&id=<?=$data['episode']['episode_id']?>&comment_id=<?=$commentsData['comment_id']?>">
+            Signaler ce commentaire
+        </a>
         <p><?=$commentsData['comment']?></p>
         <?php
         }

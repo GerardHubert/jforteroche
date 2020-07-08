@@ -8,7 +8,7 @@ class Database
     private $user = 'root';
     private $password = '';
 
-    public function databaseConnect()
+    public function databaseConnect() : object 
     {
         return new \PDO($this->servor, $this->user, $this->password);
     }
