@@ -38,9 +38,25 @@ class PostManager
 
     public function getAllEpisodes() : array
     {
-        $request = $this->database->prepare("SELECT * FROM episodes ORDER BY episode_id DESC");
+        $request = $this->database->prepare('SELECT * FROM episodes ORDER BY episode_id DESC');
         $request->execute();
 
         return $request->fetchAll();
+    }
+
+    public function saveDraft(string $title, string $content) : void
+    {
+        //créer une table drafts pour l'enregistrement des brouillons
+        //ou enregistrer dans une seule table en les distigant?
+        $saveDraft = $this->database->prepare('INSERT INTO drafts (draft_title, draft_content) VALUES (:title, :content)');
+        $saveDraft->bindParam(':title', $title);
+        $saveDraft->bindParam(':content', $content);
+
+        $saveDraft->execute();
+    }
+
+    public function saveEpisode() : void
+    {
+        //on insère le nouveau post dans la table
     }
 }

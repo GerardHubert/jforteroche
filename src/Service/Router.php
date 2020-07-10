@@ -7,6 +7,7 @@ use App\Model\{PostManager, CommentManager, LogManager};
 use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
 use App\Service\Security\AccessControl;
+use App\Controller\BackOffice\BackPostController;
 
 class Router
 {
@@ -18,6 +19,7 @@ class Router
     private $errorController;
     private $logManager;
     private $accessControl;
+    private $backpostController;
     private $view;
     private $get;
     private $post;
@@ -35,6 +37,7 @@ class Router
         $this->errorController = new ErrorController($this->view);
         $this->logManager = new LogManager($this->database);
         $this->accessControl = new AccessControl($this->logManager, $this->view);
+        $this->backPostController = new BackPostController($this->view, $this->postManager);
         $this->get = $_GET;
         $this->post = $_POST;
     }
@@ -81,6 +84,31 @@ class Router
                 case 'login':
                     //Route: index.php?action=login
                     $this->accessControl->login();
+                break;
+
+                case 'backoffice':
+                    //Route: index.php?action=back_home
+                    //accueil du backoffice, après login
+                    $this->backPostController->backofficeHome();
+                break;
+
+                case 'new_post':
+                    //Route: index.php?action=new_post
+                    //vers l'éditeur de texte
+                    $this->backPostController->addPost();
+                break;
+
+                case 'save_draft':
+                    //Route: index.php?action=save_draft
+                    //Sauvegarder le brouillon
+                    $this->backPostController->saveDraft((string) $this->post['title'], (string) $this->post['episode_text']);
+                    echo 'Brouillon enregistré';
+                break;
+
+                case 'save_and_publish':
+                    //Route: index.php?action=save_and_publish
+                    //Enregistrement du post dans la BDD
+                    $this->backPostController->savePost();
                 break;
             }
         }

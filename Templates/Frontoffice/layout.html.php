@@ -15,12 +15,12 @@
 
 			<div class="headband">
 				<a class="logo" href="index.php">Billet simple pour l'Alaska</a>
-				<nav>
+				<nav class='front_nav'>
 					<div class="menu_container">
 						<ul class="menu">
 							<li><a href="index.php"><i class="fas fa-home"></i>Accueil</a></li>
 							<li><a href="index.php?action=get_all"><i class="fas fa-pen-fancy"></i></i>Episodes</a></li>
-							<li><a href="index.php?action=login"><i class="fas fa-user-lock"></i>Administrateur</a></li>
+							<li><a href="index.php?action=backoffice"><i class="fas fa-user-lock"></i>Administrateur</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -42,7 +42,7 @@
         
 		</section>
 
-		<main>
+		<main class='front_content'>
 
 			<section class="last_episodes">
 				<?=$content?>
