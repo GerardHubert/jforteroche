@@ -44,19 +44,13 @@ class PostManager
         return $request->fetchAll();
     }
 
-    public function saveDraft(string $title, string $content) : void
+    public function saveEpisode(string $title, string $content) : void
     {
-        //créer une table drafts pour l'enregistrement des brouillons
-        //ou enregistrer dans une seule table en les distigant?
-        $saveDraft = $this->database->prepare('INSERT INTO drafts (draft_title, draft_content) VALUES (:title, :content)');
-        $saveDraft->bindParam(':title', $title);
-        $saveDraft->bindParam(':content', $content);
+        //on insère le nouveau post dans la table et on le publie
+        $saveEpisode = $this->database->prepare('INSERT INTO episodes (episode_title, episode_content) VALUES (:title, :content)');
+        $saveEpisode->bindParam(':title', $title);
+        $saveEpisode->bindParam(':content', $content);
 
-        $saveDraft->execute();
-    }
-
-    public function saveEpisode() : void
-    {
-        //on insère le nouveau post dans la table
+        $saveEpisode->execute();
     }
 }

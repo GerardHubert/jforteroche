@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Model\{PostManager, CommentManager, LogManager};
+use App\Model\{PostManager, CommentManager, LogManager, DraftManager};
 use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
 use App\Service\Security\AccessControl;
-use App\Controller\BackOffice\BackPostController;
+use App\Controller\BackOffice\{BackPostController, DraftController};
 
 class Router
 {
@@ -18,8 +18,10 @@ class Router
     private $commentController;
     private $errorController;
     private $logManager;
+    private $draftManager;
     private $accessControl;
     private $backpostController;
+    private $draftController;
     private $view;
     private $get;
     private $post;
@@ -36,8 +38,10 @@ class Router
         $this->commentController = new CommentController($this->commentManager);
         $this->errorController = new ErrorController($this->view);
         $this->logManager = new LogManager($this->database);
+        $this->draftManager = new DraftManager($this->database);
         $this->accessControl = new AccessControl($this->logManager, $this->view);
         $this->backPostController = new BackPostController($this->view, $this->postManager);
+        $this->draftController = new DraftController($this->draftManager, $this->view);
         $this->get = $_GET;
         $this->post = $_POST;
     }
@@ -101,14 +105,34 @@ class Router
                 case 'save_draft':
                     //Route: index.php?action=save_draft
                     //Sauvegarder le brouillon
-                    $this->backPostController->saveDraft((string) $this->post['title'], (string) $this->post['episode_text']);
-                    echo 'Brouillon enregistré';
+                    $this->draftController->saveDraft((string) $this->post['title'], (string) $this->post['episode_text']);                
                 break;
 
-                case 'save_and_publish':
-                    //Route: index.php?action=save_and_publish
+                case 'publish':
+                    //Route: index.php?action=publish
                     //Enregistrement du post dans la BDD
-                    $this->backPostController->savePost();
+                    $this->backPostController->savePost((string) $this->post['title'], (string) $this->post['episode_text']);
+                break;
+
+                case 'drafts' :
+                    //Route: index.php?action=drafts
+                    $this->draftController->displayDrafts();
+                break;
+
+                case 'update_draft' :
+                    //Route: index.php?action=update_draft&draft_id
+                    $this->draftController->updateDraft((int) $this->get['draft_id']);
+                break;
+
+                case 'save_updated_draft' :
+                    //route: index.php?action=save_updated_draft&draft_id
+                    //on écrase l'ancien brouillon et enregistre le nouveau
+                    $this->draftController->saveAndOverwrite((int) $this->get['draft_id'], (int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
+                break;
+
+                case 'delete_draft' :
+                    //Route: index.php?action=delete_draft&draft_id
+                    $this->draftController->deleteDraft((int) $this->get['draft_id']);
                 break;
             }
         }

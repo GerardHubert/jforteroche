@@ -27,9 +27,12 @@ class BackPostController
         $this->view->display($data, $template, $this->layout);
     }
 
-    public function saveDraft(string $title, string $content) : void
+    public function savePost(string $title, string $content) : void
     {
-        $this->postManager->saveDraft($title, $content);
+        $this->postManager->saveEpisode($title, $content);
+        header('Location: index.php?action=backoffice');
+        exit;
+
     }
 
     public function addPost() : void

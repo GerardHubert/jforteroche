@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  ven. 10 juil. 2020 à 11:35
+-- Généré le :  sam. 11 juil. 2020 à 22:13
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -92,19 +92,19 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `pseudo`, `comment`, `comme
 DROP TABLE IF EXISTS `drafts`;
 CREATE TABLE IF NOT EXISTS `drafts` (
   `draft_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `episode` tinyint(4) DEFAULT NULL,
   `draft_title` varchar(255) NOT NULL,
   `draft_content` text NOT NULL,
   PRIMARY KEY (`draft_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `drafts`
 --
 
-INSERT INTO `drafts` (`draft_id`, `draft_title`, `draft_content`) VALUES
-(1, 'test titre', '<p>test content</p>'),
-(2, 'Le Hobbit: un voyage inattendu', '<p>L\'histoire de Bilbon Sacquet, de la Comt&eacute;!</p>'),
-(3, 'test ajout', '<p>episode x</p>');
+INSERT INTO `drafts` (`draft_id`, `episode`, `draft_title`, `draft_content`) VALUES
+(1, 7, 'test titre', '<p>on r&eacute;essaie de changer le num&eacute;ro de l\'&eacute;pisode de ce brouillon...</p>'),
+(4, 4, 'ceci est un brouillon', '<p>mis &agrave; jour?</p>');
 
 -- --------------------------------------------------------
 
@@ -117,9 +117,9 @@ CREATE TABLE IF NOT EXISTS `episodes` (
   `episode_id` tinyint(11) NOT NULL AUTO_INCREMENT,
   `episode_title` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `episode_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `episode_date` datetime NOT NULL,
+  `episode_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`episode_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
