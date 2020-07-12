@@ -111,7 +111,7 @@ class Router
                 case 'publish':
                     //Route: index.php?action=publish
                     //Enregistrement du post dans la BDD
-                    $this->backPostController->savePost((string) $this->post['title'], (string) $this->post['episode_text']);
+                    $this->backPostController->savePost((int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
                 break;
 
                 case 'drafts' :

@@ -27,10 +27,10 @@ class BackPostController
         $this->view->display($data, $template, $this->layout);
     }
 
-    public function savePost(string $title, string $content) : void
+    public function savePost(int $numeroEpisode, string $title, string $content) : void
     {
-        $this->postManager->saveEpisode($title, $content);
-        header('Location: index.php?action=backoffice');
+        $this->postManager->saveEpisode($numeroEpisode, $title, $content);
+        header('Location: index.php?action=episodes_list');
         exit;
 
     }

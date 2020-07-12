@@ -44,10 +44,12 @@ class PostManager
         return $request->fetchAll();
     }
 
-    public function saveEpisode(string $title, string $content) : void
+    public function saveEpisode(int $numeroEpisode, string $title, string $content) : void
     {
         //on insère le nouveau post dans la table et on le publie
-        $saveEpisode = $this->database->prepare('INSERT INTO episodes (episode_title, episode_content) VALUES (:title, :content)');
+        $saveEpisode = $this->database->prepare('INSERT INTO episodes (numero_episode, episode_title, episode_content) 
+            VALUES (:numeroEpisode, :title, :content)');
+        $saveEpisode->bindParam(':numeroEpisode', $numeroEpisode);
         $saveEpisode->bindParam(':title', $title);
         $saveEpisode->bindParam(':content', $content);
 
@@ -57,7 +59,9 @@ class PostManager
     public function overwriteEpisode(int $id, int $episode, string $title, string $content) : void
     {
         //on ecrase l'ancien épisode avec le nouveau
-        $overwrite = $this->database->prepare('UPDATE episodes SET numero_episode = :newEpisodeNumber, episode_title = :newTitle, episode_content = :newContent WHERE episode_id = :id');
+        $overwrite = $this->database->prepare('UPDATE episodes 
+            SET numero_episode = :newEpisodeNumber, episode_title = :newTitle, episode_content = :newContent 
+            WHERE episode_id = :id');
         $overwrite->bindparam(':newEpisodeNumber', $episode);
         $overwrite->bindparam(':newTitle', $title);
         $overwrite->bindparam(':newContent', $content);
