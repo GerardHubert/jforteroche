@@ -21,9 +21,9 @@ class DraftController
         $this->backTemplate = '../templates/backoffice/';
 
     }
-    public function saveDraft(string $title, string $content) : void
+    public function saveDraft(int $episode, string $title, string $content) : void
     {
-        $this->draftManager->saveDraft($title, $content);
+        $this->draftManager->saveDraft($episode, $title, $content);
         header('Location: index.php?action=backoffice');
         exit;
     }

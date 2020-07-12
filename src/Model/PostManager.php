@@ -30,7 +30,7 @@ class PostManager
 
     public function getThreeEpisodes() : array
     {
-        $request = $this->database->prepare("SELECT * FROM episodes ORDER BY episode_id DESC LIMIT 0, 3 ");
+        $request = $this->database->prepare("SELECT * FROM episodes ORDER BY numero_episode DESC LIMIT 0, 3 ");
         $request->execute();
       
         return $request->fetchAll();
@@ -38,7 +38,7 @@ class PostManager
 
     public function getAllEpisodes() : array
     {
-        $request = $this->database->prepare('SELECT * FROM episodes ORDER BY episode_id DESC');
+        $request = $this->database->prepare('SELECT * FROM episodes ORDER BY numero_episode DESC');
         $request->execute();
 
         return $request->fetchAll();
@@ -52,5 +52,25 @@ class PostManager
         $saveEpisode->bindParam(':content', $content);
 
         $saveEpisode->execute();
+    }
+
+    public function overwriteEpisode(int $id, int $episode, string $title, string $content) : void
+    {
+        //on ecrase l'ancien épisode avec le nouveau
+        $overwrite = $this->database->prepare('UPDATE episodes SET numero_episode = :newEpisodeNumber, episode_title = :newTitle, episode_content = :newContent WHERE episode_id = :id');
+        $overwrite->bindparam(':newEpisodeNumber', $episode);
+        $overwrite->bindparam(':newTitle', $title);
+        $overwrite->bindparam(':newContent', $content);
+        $overwrite->bindparam(':id', $id);
+
+        $overwrite->execute();
+    }
+
+    public function deleteEpisode(int $id) : void
+    {
+        $delete = $this->database->prepare('DELETE FROM episodes WHERE episode_id = :id');
+        $delete->bindParam(':id', $id);
+
+        $delete->execute();
     }
 }

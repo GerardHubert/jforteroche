@@ -105,7 +105,7 @@ class Router
                 case 'save_draft':
                     //Route: index.php?action=save_draft
                     //Sauvegarder le brouillon
-                    $this->draftController->saveDraft((string) $this->post['title'], (string) $this->post['episode_text']);                
+                    $this->draftController->saveDraft((int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);                
                 break;
 
                 case 'publish':
@@ -133,6 +133,26 @@ class Router
                 case 'delete_draft' :
                     //Route: index.php?action=delete_draft&draft_id
                     $this->draftController->deleteDraft((int) $this->get['draft_id']);
+                break;
+
+                case 'episodes_list' :
+                    //Route: index.php?action=episodes_list
+                    $this->backPostController->getEpisodes();
+                break;
+
+                case 'update_post' :
+                    //Route: index.php?action=update_episode&episode_id
+                    $this->backPostController->updateEpisode((int) $this->get['post_id']);
+                break;
+
+                case 'save_updated_post' :
+                    //Route: index.php/action=save_updated_post&episode_id
+                    $this->backPostController->overwritePost((int) $this->get['episode_id'], (int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
+                break;
+
+                case 'delete_post' :
+                    //Route: index.php?action=delete_episode
+                    $this->backPostController->deletePost((int) $this->get['post_id']);
                 break;
             }
         }

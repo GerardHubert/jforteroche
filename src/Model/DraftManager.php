@@ -14,10 +14,11 @@ class DraftManager
         $this->database = $database->databaseConnect();
     }
 
-    public function saveDraft(string $title, string $content) : void
+    public function saveDraft(int $episode, string $title, string $content) : void
     {
         //sauvegarde du brouillon dans la table drafts
-        $saveDraft = $this->database->prepare('INSERT INTO drafts (draft_title, draft_content) VALUES (:title, :content)');
+        $saveDraft = $this->database->prepare('INSERT INTO drafts (episode, draft_title, draft_content) VALUES (:episode, :title, :content)');
+        $saveDraft->bindParam(':episode', $episode);
         $saveDraft->bindParam(':title', $title);
         $saveDraft->bindParam(':content', $content);
 

@@ -41,4 +41,33 @@ class BackPostController
         $template = $this->backTemplate.'newPost.html.php';
         $this->view->display($data, $template, $this->layout);
     }
+
+    public function getEpisodes() : void
+    {
+        $template = $this->backTemplate.'episodesList.html.php';
+        $data = $this->postManager->getAllEpisodes();
+        $this->view->display($data, $template, $this->layout);
+    }
+
+    public function updateEpisode(int $episodeId) : void
+    {
+        $data = $this->postManager->getOneEpisode($episodeId);
+        $template = $this->backTemplate.'updatePost.html.php';
+        $this->view->display($data, $template, $this->layout);
+        var_dump($data);
+    }
+
+    public function overwritePost(int $id, int $episode, string $title, string $content) : void
+    {
+        $this->postManager->overwriteEpisode($id, $episode, $title, $content);
+        header('Location: index.php?action=episodes_list');
+        exit;
+    }
+
+    public function deletePost(int $id) : void
+    {
+        $this->postManager->deleteEpisode($id);
+        header('Location: index.php?action=episodes_list');
+        exit;
+    }
 }

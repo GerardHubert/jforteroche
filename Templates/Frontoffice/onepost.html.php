@@ -1,5 +1,5 @@
 <article>
-    <h3>Episode <?=$data['episode']['episode_id']?> : <?=$data['episode']['episode_title']?></h3>
+    <h3>Episode <?=$data['episode']['numero_episode']?> : <?=$data['episode']['episode_title']?></h3>
     <p><?=$data['episode']['episode_content']?></p>
 </article>
 

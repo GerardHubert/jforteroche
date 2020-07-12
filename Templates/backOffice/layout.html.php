@@ -28,7 +28,6 @@
                 <ul>
                     <li><a href='index.php?action=episodes_list'>Episodes</a></li>
                     <li><a href='index.php?action=new_post'>Ajouter un épisode</a></li>
-                    <li><a href='index.php?action=edit_post'>Modifier un épisode</a></li>
                     <li><a href='index.php?action=drafts'>Brouillons</a></li>
                     <li><a href='index.php?action=moderate_comments'>Modérer les Commentaires</a></li>
                 </ul>
