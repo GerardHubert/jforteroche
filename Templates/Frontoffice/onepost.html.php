@@ -15,16 +15,46 @@
         <input class="submit" type="submit" value="Poster"/>
     </form>
 
-    <?php
-        foreach($data['comments'] as $commentsData) {
-    ?>
-        <h4 id="comment_header">De <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
-        <a href="index.php?action=signal&id=<?=$data['episode']['episode_id']?>&comment_id=<?=$commentsData['comment_id']?>">
-            Signaler ce commentaire
-        </a>
-        <p><?=$commentsData['comment']?></p>
+    <div id='comments_container'>
+        <?php
+            foreach($data['comments'] as $commentsData) {
+        ?>
+        <div id='comments'>
+            <div id='comment_header'>
+                <h4>De <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
+                <?php
+                switch ($commentsData['reported_comment']) {
+                    case '0' :
+                    ?>
+                        <span id='report_comment'>
+                            <a href="index.php?action=signal&id=<?=$data['episode']['episode_id']?>&comment_id=<?=$commentsData['comment_id']?>">
+                            <i class="fas fa-flag"></i>Signaler ce commentaire</a>
+                    </span>
+                <?php
+                    break;
+                    case '1' :
+                    ?>
+                    <span id='waiting_moderation'>
+                        <i class="fas fa-clock"></i>Commentaire signalé, modération en cours
+                    </span>
+                <?php
+                    break;
+                    case '2' :
+                    ?>
+                    <span id='validated_comment'>
+                        <i class="fas fa-check"></i>Commentaire validé par le modérateur
+                    </span>
+                <?php
+                    break;
+                }
+                ?>
+            </div>
+            <p id='comment_text'><?=$commentsData['comment']?></p>
+            </div>
+
         <?php
         }
         ?>
+    </div>
 
 </section>

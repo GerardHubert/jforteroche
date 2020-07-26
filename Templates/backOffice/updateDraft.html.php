@@ -2,7 +2,7 @@
         
     <form class="comment_post" method='post'>
         <label for="episode">Episode</label>
-        <input type='text' name='episode' value="Episode <?=$data[0]['episode']?>" />
+        <input type='text' name='episode' value="<?=$data[0]['episode']?>" />
         <label for='title'>Titre</label>
         <input type='text' name='title' value="<?=$data[0]['draft_title']?>" />
         <label for='episode_text'>Texte</label>

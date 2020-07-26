@@ -1,16 +1,18 @@
-<table>
+<table id='episodes_table'>
     <thead>
         <tr>
-            <th>Liste des épisodes en ligne</th>
+            <th>Episode</th>
+            <th>Titre</th>
+            <th colspan='2'>Action</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($data as $entry) {?>
         <tr>
-            <td>Episode <?=$entry['numero_episode']?></td>
-            <td><?=$entry['episode_title']?></td>
-            <td><a href='index.php?action=update_post&post_id=<?=$entry['episode_id']?>'><button>Modifier</button></td>
-            <td><a href='index.php?action=delete_post&post_id=<?=$entry['episode_id']?>'><button>Supprimer</button></td>
+            <td><?=$entry['numero_episode']?></td>
+            <td id='episodes_col'><?=$entry['episode_title']?></td>
+            <td><a href='index.php?action=update_post&post_id=<?=$entry['episode_id']?>'><button>Modifier</button></a></td>
+            <td><a href='index.php?action=delete_post&post_id=<?=$entry['episode_id']?>'><button>Supprimer</button></a></td>
         </tr>
         <?php
         }

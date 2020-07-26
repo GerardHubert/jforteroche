@@ -33,19 +33,19 @@ class DraftManager
         return $getDrafts->fetchAll();
     }
 
-    public function getOneDraft(int $draftId) : array
+    public function getOneDraft(int $episode) : array
     {
         //on récupère les données d'un brouillon
-        $getOneDraft = $this->database->prepare('SELECT * FROM drafts WHERE draft_id = :id');
-        $getOneDraft->bindParam(':id', $draftId);
+        $getOneDraft = $this->database->prepare('SELECT * FROM drafts WHERE episode = :episode');
+        $getOneDraft->bindParam(':episode', $episode);
         $getOneDraft->execute();
         return $getOneDraft->fetchAll();
     }
 
     public function overwriteDraft(int $id, int $episode, string $title, string $content) : void
     {
-        $overwriteDraft = $this->database->prepare('UPDATE drafts SET episode = :nouvelId, draft_title = :newTitle, draft_content = :newContent WHERE draft_id = :id');
-        $overwriteDraft->bindParam(':nouvelId', $episode);
+        $overwriteDraft = $this->database->prepare('UPDATE drafts SET episode = :newEpisode, draft_title = :newTitle, draft_content = :newContent WHERE draft_id = :id');
+        $overwriteDraft->bindParam(':newEpisode', $episode);
         $overwriteDraft->bindParam(':newTitle', $title);
         $overwriteDraft->bindParam(':newContent', $content);
         $overwriteDraft->bindParam(':id', $id);
@@ -53,10 +53,10 @@ class DraftManager
         $overwriteDraft->execute();
     }
 
-    public function delete(int $id) : void
+    public function delete(int $episode) : void
     {
-        $deleteDraft = $this->database->prepare('DELETE FROM drafts WHERE draft_id = :id');
-        $deleteDraft->bindParam(':id', $id);
+        $deleteDraft = $this->database->prepare('DELETE FROM drafts WHERE episode = :episode');
+        $deleteDraft->bindParam(':episode', $episode);
         $deleteDraft->execute();
     }
 }

@@ -7,7 +7,7 @@ use App\Model\{PostManager, CommentManager, LogManager, DraftManager};
 use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
 use App\Service\Security\AccessControl;
-use App\Controller\BackOffice\{BackPostController, DraftController};
+use App\Controller\BackOffice\{BackPostController, DraftController, BackCommentController};
 
 class Router
 {
@@ -20,7 +20,8 @@ class Router
     private $logManager;
     private $draftManager;
     private $accessControl;
-    private $backpostController;
+    private $backPostController;
+    private $backCommentController;
     private $draftController;
     private $view;
     private $get;
@@ -42,6 +43,7 @@ class Router
         $this->accessControl = new AccessControl($this->logManager, $this->view);
         $this->backPostController = new BackPostController($this->view, $this->postManager);
         $this->draftController = new DraftController($this->draftManager, $this->view);
+        $this->backCommentController = new BackCommentController($this->commentManager, $this->view);
         $this->get = $_GET;
         $this->post = $_POST;
     }
@@ -121,7 +123,7 @@ class Router
 
                 case 'update_draft' :
                     //Route: index.php?action=update_draft&draft_id
-                    $this->draftController->updateDraft((int) $this->get['draft_id']);
+                    $this->draftController->updateDraft((int) $this->get['episode']);
                 break;
 
                 case 'save_updated_draft' :
@@ -132,7 +134,7 @@ class Router
 
                 case 'delete_draft' :
                     //Route: index.php?action=delete_draft&draft_id
-                    $this->draftController->deleteDraft((int) $this->get['draft_id']);
+                    $this->draftController->deleteDraft((int) $this->get['episode']);
                 break;
 
                 case 'episodes_list' :
@@ -153,6 +155,26 @@ class Router
                 case 'delete_post' :
                     //Route: index.php?action=delete_episode
                     $this->backPostController->deletePost((int) $this->get['post_id']);
+                break;
+
+                case 'reported_comments' :
+                    //Route: index.php?action=reported_comments
+                    $this->backCommentController->getReportedComments();
+                break;
+
+                case 'comments_list' :
+                    //Route: index.php?action=comments_list
+                    $this->backCommentController->getCommentsList();
+                break;
+
+                case 'validate_comment' :
+                    //Route: index.php?action=validate_comment&id
+                    $this->backCommentController->validateComment((int) $this->get['id']);
+                break;
+
+                case 'delete_comment' :
+                    //Route: index.php?action=delete_comment&id
+                    $this->backCommentController->deleteComment((int) $this->get['id']);
                 break;
             }
         }

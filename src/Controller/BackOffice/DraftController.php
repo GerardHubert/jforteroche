@@ -19,13 +19,14 @@ class DraftController
         $this->view = $view;
         $this->layout = '../templates/backoffice/layout.html.php';
         $this->backTemplate = '../templates/backoffice/';
-
     }
+
     public function saveDraft(int $episode, string $title, string $content) : void
     {
-        $this->draftManager->saveDraft($episode, $title, $content);
+        $data = $this->draftManager->saveDraft($episode, $title, $content);
         header('Location: index.php?action=backoffice');
         exit;
+
     }
 
     public function displayDrafts() : void
@@ -35,10 +36,10 @@ class DraftController
         $this->view->display($data, $template, $this->layout);
     }
 
-    public function updateDraft(int $draftId) : void
+    public function updateDraft(int $episode) : void
     {
         $template =$this->backTemplate.'updateDraft.html.php';
-        $data = $this->draftManager->getOneDraft($draftId);
+        $data = $this->draftManager->getOneDraft($episode);
         $this->view->display($data, $template, $this->layout);
     }
 
@@ -49,9 +50,9 @@ class DraftController
         exit;
     }
 
-    public function deleteDraft(int $id) : void
+    public function deleteDraft(int $episode) : void
     {
-        $this->draftManager->delete($id);
+        $this->draftManager->delete($episode);
         header('Location: index.php?action=drafts');
         exit;
     }

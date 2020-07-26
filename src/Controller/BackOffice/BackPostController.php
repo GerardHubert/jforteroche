@@ -29,7 +29,7 @@ class BackPostController
 
     public function savePost(int $numeroEpisode, string $title, string $content) : void
     {
-        $this->postManager->saveEpisode($numeroEpisode, $title, $content);
+        $data = $this->postManager->saveEpisode($numeroEpisode, $title, $content);
         header('Location: index.php?action=episodes_list');
         exit;
 
@@ -45,7 +45,7 @@ class BackPostController
     public function getEpisodes() : void
     {
         $template = $this->backTemplate.'episodesList.html.php';
-        $data = $this->postManager->getAllEpisodes();
+        $data = $this->postManager->backPostList();
         $this->view->display($data, $template, $this->layout);
     }
 
@@ -54,7 +54,6 @@ class BackPostController
         $data = $this->postManager->getOneEpisode($episodeId);
         $template = $this->backTemplate.'updatePost.html.php';
         $this->view->display($data, $template, $this->layout);
-        var_dump($data);
     }
 
     public function overwritePost(int $id, int $episode, string $title, string $content) : void

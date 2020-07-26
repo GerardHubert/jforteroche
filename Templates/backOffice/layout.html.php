@@ -12,6 +12,12 @@
     </head>
 
     <header class='backoffice_header'>
+        <span id='login_welcome'>Bienvenue Jean Forteroche</span>
+        <div id='front_link'>
+            <a href='index.php'>
+                <span>Retour au blog</span>
+            </a>
+        </div>
         <div id='logout_link'>
             <a href='index.php?action=logout'>
                 <i class='fas fa-sign-out-alt'></i>
@@ -29,7 +35,8 @@
                     <li><a href='index.php?action=episodes_list'>Episodes</a></li>
                     <li><a href='index.php?action=new_post'>Ajouter un épisode</a></li>
                     <li><a href='index.php?action=drafts'>Brouillons</a></li>
-                    <li><a href='index.php?action=moderate_comments'>Modérer les Commentaires</a></li>
+                    <li><a href='index.php?action=reported_comments'>Modérer les Commentaires</a></li>
+                    <li><a href='index.php?action=comments_list'>Tous les commentaires</a></li>
                 </ul>
             </nav>
 

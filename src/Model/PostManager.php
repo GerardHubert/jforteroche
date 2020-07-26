@@ -21,7 +21,9 @@ class PostManager
         //selon l'id transmis par postController, on requete la database
         //pour obtenir les infos concernat 1 épisode
         //retourner les data au postController
-        $episodes = $this->database->prepare("SELECT * FROM episodes WHERE episode_id = :episode_id");
+        $episodes = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date 
+            FROM episodes 
+            WHERE episode_id = :episode_id");
         $episodes->bindParam(':episode_id', $id);
 
         $episodes->execute();
@@ -30,7 +32,10 @@ class PostManager
 
     public function getThreeEpisodes() : array
     {
-        $request = $this->database->prepare("SELECT * FROM episodes ORDER BY numero_episode DESC LIMIT 0, 3 ");
+        $request = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+            FROM episodes
+            ORDER BY numero_episode
+            DESC LIMIT 0, 3 ");
         $request->execute();
       
         return $request->fetchAll();
@@ -38,7 +43,17 @@ class PostManager
 
     public function getAllEpisodes() : array
     {
-        $request = $this->database->prepare('SELECT * FROM episodes ORDER BY numero_episode DESC');
+        $request = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+        FROM episodes
+        ORDER BY numero_episode LIMIT 0, 3");
+        $request->execute();
+
+        return $request->fetchAll();
+    }
+
+    public function backPostList() : array
+    {
+        $request = $this->database->prepare('SELECT * FROM episodes ORDER BY numero_episode');
         $request->execute();
 
         return $request->fetchAll();

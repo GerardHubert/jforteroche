@@ -161,7 +161,7 @@ footer{
 .comment_form{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
     margin: auto;
 }
 
@@ -235,12 +235,16 @@ footer{
     align-items: center;
 }
 
-#logout_link{
+#logout_link, #front_link{
     margin-right: 10px;
 }
 
-#logout_link i, #logout_link span{
+#logout_link i, .backoffice_header span{
     color: white;
+}
+
+#login_welcome{
+    margin-right: 10px;
 }
 
 .comment_post{
@@ -271,4 +275,77 @@ footer{
 
 .editor{
     width:100%;
+}
+
+#comments_table, #episodes_table, #drafts_table, #comments_list{
+    border: 1px solid black;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+#comments_table td, #episodes_table td, #drafts_table td, #comments_list td{
+    border: 1px solid black;
+}
+
+#comment_col, #episodes_col, #draft_col{
+    width: 50%;
+}
+
+#episode_col{
+    width: 5%;
+}
+
+#pseudo_col{
+    width: 10%;
+}
+
+#report_comment, #waiting_moderation, #validated_comment{
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.fa-flag, .fa-check, .fa-clock{
+    margin-right: 10px;
+}
+
+.fa-flag, #report_comment a{
+    color: red;
+}
+
+.fa-check, #validated_comment{
+    color: green;
+}
+
+.fa-clock, #waiting_moderation{
+    color: blue;
+}
+
+#comment_header{
+    display: flex;
+    justify-content: space-between;
+}
+
+#comment_header h4{
+    margin: 0;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+#comments_container{
+    width: 80%;
+    margin: auto;
+}
+
+#comments{
+    background-color: white;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+#comment_text{
+    padding-left: 40px;
+    margin-top: 0;
 }
