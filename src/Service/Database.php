@@ -4,7 +4,7 @@ namespace App\Service;
 
 class Database
 {
-    private $servor = 'mysql:dbname=jean_forteroche;host=localhost;port=3308;chartset=utf-8';
+    private $servor = 'mysql:dbname=jean_forteroche;host=localhost;port=3308;chartset=utf8mb4';
     private $user = 'root';
     private $password = '';
 

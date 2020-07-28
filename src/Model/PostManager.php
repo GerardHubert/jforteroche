@@ -45,7 +45,7 @@ class PostManager
     {
         $request = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
         FROM episodes
-        ORDER BY numero_episode LIMIT 0, 3");
+        ORDER BY numero_episode");
         $request->execute();
 
         return $request->fetchAll();

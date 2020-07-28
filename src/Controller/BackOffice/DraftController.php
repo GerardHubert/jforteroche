@@ -23,10 +23,23 @@ class DraftController
 
     public function saveDraft(int $episode, string $title, string $content) : void
     {
-        $data = $this->draftManager->saveDraft($episode, $title, $content);
-        header('Location: index.php?action=backoffice');
-        exit;
+        $existingDrafts = $this->draftManager->getDrafts();
+               
+        foreach ($existingDrafts as $test) {
+            settype($test['episode'], 'int');
 
+            if ($test['episode'] === $episode) {
+                echo 'Non enregistré: un brouillon du même épisode existe déjà';
+            }
+
+            elseif($test['episode'] !== $episode) {
+                $this->draftManager->saveDraft($episode, $title, $content);
+                //header('Location: index.php?action=backoffice');
+                //exit;
+            }
+        }
+
+        
     }
 
     public function displayDrafts() : void

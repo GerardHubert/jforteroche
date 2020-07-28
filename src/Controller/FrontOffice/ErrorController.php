@@ -13,13 +13,13 @@ class ErrorController
     public function __construct(View $view)
     {
         $this->view = $view;
-        $this->layout = '/wamp64/www/projets/jforteroche/templates/frontOffice/layout.html.php';
+        $this->layout = '../templates/frontOffice/layout.html.php';
     }
 
     public function displayError() : void
     {
         $data = [];
-        $template = '/wamp64/www/projets/jforteroche/templates/frontOffice/error.html.php';
+        $template = '../templates/frontOffice/error.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 }
