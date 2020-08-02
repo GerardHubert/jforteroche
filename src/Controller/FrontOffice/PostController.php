@@ -19,7 +19,7 @@ class PostController
         $this->postManager = $postManager;
         $this->view = $view;
         $this->commentManager = $commentManager;
-        $this->frontTemplate = '../templates/frontoffice/';
+        $this->frontTemplate = '../templates/frontOffice/';
         $this->layout = '../templates/frontOffice/layout.html.php';
     }
 
@@ -36,7 +36,7 @@ class PostController
             header('Location: index.php?action=error');
             exit;
         }
-        $template = $this->frontTemplate.'onepost.html.php';
+        $template = $this->frontTemplate.'onePost.html.php';
         $this->view->display(['episode' => $data[0][0], 'comments' => $data[1]], $template, $this->layout);
     }
 
@@ -51,7 +51,7 @@ class PostController
     public function displayAllPosts() : void
     {
         $data = $this->postManager->getAllEpisodes();
-        $template = $this->frontTemplate.'allposts.html.php';
+        $template = $this->frontTemplate.'allPosts.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 }

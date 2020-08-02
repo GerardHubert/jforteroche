@@ -25,6 +25,21 @@ class DraftManager
         $saveDraft->execute();
     }
 
+    public function testBeforeSave($episode) : bool
+    {
+        $test = $this->database->prepare('SELECT episode FROM drafts WHERE episode = :draftToInsert');
+        $test->bindParam(':draftToInsert', $episode);
+        $test->execute();
+        $array = $test->fetchAll();
+        
+        if (isset($array[0]['episode'])) {
+            return true;
+        }
+        elseif (empty($array)) {
+            return false;
+        }
+    }
+
     public function getDrafts() : array
     {
         //récupérer les brouillons de la table drafts

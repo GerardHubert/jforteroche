@@ -29,10 +29,20 @@ class BackPostController
 
     public function savePost(int $numeroEpisode, string $title, string $content) : void
     {
-        $data = $this->postManager->saveEpisode($numeroEpisode, $title, $content);
-        header('Location: index.php?action=episodes_list');
-        exit;
+        $test = $this->postManager->testBeforeSave($numeroEpisode);
+        
+        switch($test) {
+            case true :
+                header("Location: index.php?action=get_form_data&episode=$numeroEpisode&title=$title&episode_text=$content");
+                exit;
+            break;
 
+            case false :
+                $data = $this->postManager->saveEpisode($numeroEpisode, $title, $content);
+                header('Location: index.php?action=episodes_list');
+                exit;
+            break;
+        }
     }
 
     public function addPost() : void
@@ -68,5 +78,15 @@ class BackPostController
         $this->postManager->deleteEpisode($id);
         header('Location: index.php?action=episodes_list');
         exit;
+    }
+
+    public function getPostData(int $episode, string $title, string $content)
+    {
+        $data = ['numero_episode' => $episode,
+                'episode_title' => $title,
+                'episode_content' => $content];
+
+        $template = $this->backTemplate.'getFormData.html.php';
+        $this->view->display($data, $template, $this->layout);
     }
 }

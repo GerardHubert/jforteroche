@@ -4,8 +4,8 @@
 	<head>
         <meta charset="utf-8" />
 		<link rel="icon" type="image.png" href="/images/encrier.ico" />
-		<link rel="stylesheet" href="/css/style.css" />
-		<link rel="stylesheet" href="fontawesome/css/all.css" />
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" href="/fontawesome/css/all.css" />
 
 		<title>Billet simple pour l'Alaska</title>
 	</head>
@@ -43,11 +43,12 @@
         
 		</section>
 
-		<main class='front_content'>
+		<div class='front_content'>
 
-			<section class="last_episodes">
+			<section class="episodes_and_comments">
 				<?=$content?>
 			</section>
+			
 
 			<aside class="about_me">
 				<h3>A propos de l'auteur</h3>
@@ -62,7 +63,7 @@
 				<p>Aujourd'hui, après 30 ans de carrière et une vingtaine d'ouvrage, il joue également le personnage principal de l'adaptation de son premier livre. Une consécration.</p>
 			</aside>
 
-		</main>
+</div>
 
 		<footer>
 			<div class="footer_links">

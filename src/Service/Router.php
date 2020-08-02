@@ -50,6 +50,7 @@ class Router
 
     public function run(): void
     {
+        $route = isset($this->get['action']);
         if (empty($this->get)) {
             //Route: index.php?action=get_home
             //affiche la page d'accueil avec les 3 derniers posts
@@ -175,6 +176,16 @@ class Router
                 case 'delete_comment' :
                     //Route: index.php?action=delete_comment&id
                     $this->backCommentController->deleteComment((int) $this->get['id']);
+                break;
+                
+                case 'get_form_data' :
+                    //Route: index.php?action=get_form_data
+                    $this->backPostController->getPostData((int) $this->get["episode"], $this->get["title"], $this->get["episode_text"]);
+                break;
+
+                case 'get_draft_data' :
+                    //Route: index.php?action=get_draft_data
+                    $this->draftController->getDraftData((int) $this->get['episode'], $this->get['title'], $this->get['content']);
                 break;
             }
         }

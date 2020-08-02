@@ -81,6 +81,10 @@ header h1{
 
 .front_content{
     width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .about_me{
@@ -108,10 +112,10 @@ figcaption{
     font-size: 0.8rem;
 }
 
-.last_episodes{
-    width: 77%;
+.episodes_and_comments{
+    height: 100%;
+    width: 80%;
     padding: 10px;
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
 }
@@ -127,12 +131,6 @@ article{
 
 article  p{
     text-align: justify;
-}
-
-.front_content{
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
 }
 
 footer{
@@ -191,12 +189,12 @@ footer{
     border: 3px solid #95a9a9;
 }
 
-#username, #password, #connect_button, #new_password, #save_button, #confirm_pass{
+#username, #password, #connect_button, #save_button{
     display: flex;
     flex-direction: column;
 }
 
-.log_in_form, .new_password{
+.log_in_form{
     width: 30%;
     height: 200px;
     font-size: 0.9rem;
@@ -207,7 +205,7 @@ footer{
     justify-content: space-around;
 }
 
-.log_in_form input, .new_password input{
+.log_in_form input{
     height: 30px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -348,4 +346,11 @@ footer{
 #comment_text{
     padding-left: 40px;
     margin-top: 0;
+}
+
+#read_next > a{
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: bold;
+    color: blue;
 }

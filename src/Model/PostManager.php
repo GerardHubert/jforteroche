@@ -32,10 +32,10 @@ class PostManager
 
     public function getThreeEpisodes() : array
     {
-        $request = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+        $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 600) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
             ORDER BY numero_episode
-            DESC LIMIT 0, 3 ");
+            DESC LIMIT 0, 3");
         $request->execute();
       
         return $request->fetchAll();
@@ -43,9 +43,10 @@ class PostManager
 
     public function getAllEpisodes() : array
     {
-        $request = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+        $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 600) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
         FROM episodes
-        ORDER BY numero_episode");
+        ORDER BY numero_episode
+        LIMIT 0, 3");
         $request->execute();
 
         return $request->fetchAll();
@@ -57,6 +58,24 @@ class PostManager
         $request->execute();
 
         return $request->fetchAll();
+    }
+
+    public function testBeforeSave($episode) : bool
+    {
+        $test = $this->database->prepare("SELECT numero_episode 
+            FROM episodes
+            WHERE numero_episode = :episode_to_publish");
+
+        $test->bindParam(':episode_to_publish', $episode);
+        $test->execute();
+        $results = $test->fetchAll();
+
+        if (isset($results[0]['numero_episode'])) {
+            return true;
+        }
+        elseif (empty($results)) {
+            return false;
+        }
     }
 
     public function saveEpisode(int $numeroEpisode, string $title, string $content) : void
