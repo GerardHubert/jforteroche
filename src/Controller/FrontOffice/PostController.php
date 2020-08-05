@@ -40,6 +40,28 @@ class PostController
         $this->view->display(['episode' => $data[0][0], 'comments' => $data[1]], $template, $this->layout);
     }
 
+    public function previousPost(int $numeroEpisode, int $episodeId): void
+    {
+        $episode = $numeroEpisode - 1;
+        $episodeData = $this->postManager->getPreviousPost($episode);
+        $commentsData = $this->commentManager->getComments($episode);
+        $data = [$episodeData, $commentsData];
+
+        $template = $this->frontTemplate.'onePost.html.php';
+        $this->view->display(['episode' => $data[0][0], 'comments' => $data[1]], $template, $this->layout);
+    }
+
+    public function nextPost(int $numeroEpisode, int $episodeId): void
+    {
+        $episode = $numeroEpisode + 1;
+        $episodeData = $this->postManager->getnextPost($episode);
+        $commentsData = $this->commentManager->getComments($episode);
+        $data = [$episodeData, $commentsData];
+
+        $template = $this->frontTemplate.'onePost.html.php';
+        $this->view->display(['episode' => $data[0][0], 'comments' => $data[1]], $template, $this->layout);
+    }
+
     public function displayHome() : void
     {
         //pour afficher les 3 derniers posts

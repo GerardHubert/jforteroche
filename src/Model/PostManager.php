@@ -23,11 +23,30 @@ class PostManager
         //retourner les data au postController
         $episodes = $this->database->prepare("SELECT *, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date 
             FROM episodes 
-            WHERE episode_id = :episode_id");
-        $episodes->bindParam(':episode_id', $id);
-
+            WHERE episode_id = :id");
+        $episodes->bindParam(':id', $id);
         $episodes->execute();
         return $episodes->fetchAll();
+    }
+
+    public function getPreviousPost(int $numeroEpisode) : array
+    {
+        $previousEpisode = $this->database->prepare("SELECT *,  DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+            FROM episodes
+            WHERE numero_episode = :episode");
+        $previousEpisode->bindParam(':episode', $numeroEpisode);
+        $previousEpisode->execute();
+        return $previousEpisode->fetchAll();
+    }
+
+    public function getNextPost(int $numeroEpisode) : array
+    {
+        $nextEpisode = $this->database->prepare("SELECT *,  DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+            FROM episodes
+            WHERE numero_episode = :episode");
+        $nextEpisode->bindParam(':episode', $numeroEpisode);
+        $nextEpisode->execute();
+        return $nextEpisode->fetchAll();
     }
 
     public function getThreeEpisodes() : array

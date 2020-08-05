@@ -114,7 +114,7 @@ figcaption{
 
 .episodes_and_comments{
     height: 100%;
-    width: 80%;
+    width: 70%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -353,4 +353,14 @@ footer{
     font-style: italic;
     font-weight: bold;
     color: blue;
+}
+
+#prev_next{
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+}
+
+#previous, #next{
+    margin: 20px;
 }

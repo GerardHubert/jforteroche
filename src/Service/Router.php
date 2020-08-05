@@ -76,6 +76,16 @@ class Router
                     $this->postController->displayOneEpisode((int) $this->get['id']);
                 break;
 
+                case 'previous_episode' :
+                    //Route: index.php?action=previous_episode&numero_episode
+                    $this->postController->previousPost((int) $this->get['numero'], (int) $this->get['id']);
+                break;
+
+                case 'next_episode' :
+                    //Route: index.php?action=next_episode&numero_episode
+                    $this->postController->nextPost((int) $this->get['numero'], (int) $this->get['id']);
+                break;
+
                 case 'save_com':
                     //Route: index.php?action=save_com
                     //sauvegarde du commentaire en passant au commentController les éléments du formulaires

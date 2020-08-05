@@ -14,21 +14,22 @@ class CommentController
         $this->commentManager = $commentManager;
     }
 
-    public function saveComment(int $id, string $pseudo, string $comment) : void
+    public function saveComment(int $episodeId, string $pseudo, string $comment) : void
     {
         if (empty($pseudo) || empty($comment)) {
             header('Location: index.php?action=error');
             exit;
         }
-        $this->commentManager->postComment($id, $pseudo, $comment);
-        header("Location: index.php?action=post&id=$id/#comment_header");
+
+        ($this->commentManager->postComment($episodeId, $pseudo, $comment));
+        header("Location: index.php?action=post&id=$episodeId/#comment_header");
         exit;
     }
 
-    public function reportComment(int $commentId, int $id) : void
+    public function reportComment(int $commentId, int $episodeId) : void
     {
         $this->commentManager->saveCommentReport($commentId);
-        header("Location: index.php?action=post&id=$id/#comment_header");
+        header("Location: index.php?action=post&id=$episodeId/#comment_header");
         exit;
     }
 }

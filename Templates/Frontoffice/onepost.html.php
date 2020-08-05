@@ -3,6 +3,17 @@
     <p><?=$data['episode']['episode_content']?></p>
 </article>
 
+<div id="prev_next">
+    
+        <span id="previous">
+            <a href="index.php?action=previous_episode&numero=<?=$data['episode']['numero_episode']?>&id=<?=$data['episode']['episode_id']?>"><button>Episode précédent</button></a>
+        </span>
+        <span id="next">
+            <a href="index.php?action=next_episode&numero=<?=$data['episode']['numero_episode']?>&id=<?=$data['episode']['episode_id']?>"><button>Episode suivant</button></a>
+        </span>
+
+</div>
+
 <section class="commentaires">
 
     <h3>COMMENTAIRES</h3>
