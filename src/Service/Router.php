@@ -65,9 +65,9 @@ class Router
                 break;
 
                 case 'get_all':
-                    //Route: index.php?action=get_all
+                    //Route: index.php?action=get_all&page
                     //affiche la liste de tous les épisodes
-                    $this->postController->displayAllPosts();
+                    $this->postController->displayAllPosts((int) $this->get['page']);
                 break;
 
                 case 'post':

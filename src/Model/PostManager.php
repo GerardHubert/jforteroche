@@ -51,7 +51,7 @@ class PostManager
 
     public function getThreeEpisodes() : array
     {
-        $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 600) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+        $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 500) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
             ORDER BY numero_episode
             DESC LIMIT 0, 3");
@@ -60,12 +60,22 @@ class PostManager
         return $request->fetchAll();
     }
 
-    public function getAllEpisodes() : array
+    public function getNumberOfEpisodes() : int
     {
-        $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 600) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
-        FROM episodes
-        ORDER BY numero_episode
-        LIMIT 0, 3");
+        $request = $this->database->prepare("SELECT numero_episode FROM episodes");
+        $request->execute();
+        return count($request->fetchALl());
+    }
+
+    public function getAllEpisodes(int $offset) : array
+    {
+        $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 500) AS episode_content, 
+            DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+            FROM episodes
+            ORDER BY numero_episode
+            LIMIT 3 OFFSET :beginning");
+
+        $request->bindParam(':beginning', $offset, \PDO::PARAM_INT);
         $request->execute();
 
         return $request->fetchAll();

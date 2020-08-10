@@ -28,6 +28,7 @@ class PostController
         //fonction pour afficher un épisode selon l'id transmis par le router
         //on passe l'id au model pour récupérer les infos
         //on appelle la bonne vue
+    
         $episodeData = $this->postManager->getOneEpisode($id);
         $commentsData = $this->commentManager->getComments($id);
         $data = [$episodeData, $commentsData];
@@ -36,7 +37,7 @@ class PostController
             header('Location: index.php?action=error');
             exit;
         }
-        $template = $this->frontTemplate.'onePost.html.php';
+        $template = '../templates/frontOffice/onePost.html.php';
         $this->view->display(['episode' => $data[0][0], 'comments' => $data[1]], $template, $this->layout);
     }
 
@@ -70,10 +71,15 @@ class PostController
         $this->view->display($data, $template, $this->layout);
     }
 
-    public function displayAllPosts() : void
+    public function displayAllPosts(int $page): void
     {
-        $data = $this->postManager->getAllEpisodes();
+        $totalEpisodes = $this->postManager->getNumberOfEpisodes();
+        $pageToDisplay = $page - 1;
+        $episodesToDisplay = 3;
+        $numberOfPages = ceil($totalEpisodes / $episodesToDisplay);
+        $offset = $pageToDisplay * $episodesToDisplay;
+        $data = [$this->postManager->getAllEpisodes($offset), $page, $numberOfPages];
         $template = $this->frontTemplate.'allPosts.html.php';
-        $this->view->display($data, $template, $this->layout);
+        $this->view->display(['episode' => $data[0], 'currentPage' => $data[1], 'maxPages' => $data[2]], $template, $this->layout);
     }
 }
