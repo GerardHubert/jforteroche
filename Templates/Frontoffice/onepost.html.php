@@ -4,16 +4,26 @@
 </article>
 
 <div id="prev_next">
+    <?php
+        if ($data['episode']['numero_episode'] > 1 && $data['episode']['numero_episode'] <= $data['totalEpisodes']) {
+        ?>
         <span id="previous">
             <a href="index.php?action=previous_episode&numero=<?=$data['episode']['numero_episode']?>&id=<?=$data['episode']['episode_id']?>">
                 <button>Episode précédent</button>
             </a>
         </span>
+        <?php
+        }
+        if ($data['episode']['numero_episode'] < $data['totalEpisodes'] && $data['episode']['numero_episode'] >= 1) {
+        ?>
         <span id="next">
             <a href="index.php?action=next_episode&numero=<?=$data['episode']['numero_episode']?>&id=<?=$data['episode']['episode_id']?>">
                 <button>Episode suivant</button>
             </a>
         </span>
+        <?php
+        }
+        ?>
 </div>
 
 <section class="commentaires">
