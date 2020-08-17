@@ -80,7 +80,7 @@ class BackPostController
         exit;
     }
 
-    public function getPostData(int $episode, string $title, string $content)
+    public function getPostData(int $episode, string $title, string $content) : void
     {
         $data = ['numero_episode' => $episode,
                 'episode_title' => $title,

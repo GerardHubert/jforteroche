@@ -23,24 +23,46 @@ class PostController
         $this->layout = '../templates/frontOffice/layout.html.php';
     }
 
-    public function displayOneEpisode(int $id) : void 
+    public function displayOneEpisode(int $id) : void
+    {   
+        $totalEpisodes = $this->postManager->getNumberOfEpisodes();
+        $episodeData = $this->postManager->getOneEpisode($id);
+        $nextEpisode = $this->postManager->getNextPost($episodeData[0]['numero_episode'] + 1);
+        $previousEpisode = $this->postManager->getPreviousPost($episodeData[0]['numero_episode'] - 1);
+        $commentsData = $this->commentManager->getComments($id);
+        $data = [$episodeData, $commentsData, $totalEpisodes, $previousEpisode, $nextEpisode];
+        
+        if (empty($data)) {
+            header("Location: index.php?action=post&id=$id");
+            exit;
+        }
+
+        $template = '../templates/frontOffice/onePost.html.php';
+        $this->view->display(['episode' => $data[0][0],
+            'comments' => $data[1],
+            'totalEpisodes' => $data[2],
+            'previous' => $data[3],
+            'next' => $data[4]],
+            $template, $this->layout);
+
+    }
+
+    public function commentError(int $id, string $pseudo, string $comment) : void
     {
-        //fonction pour afficher un épisode selon l'id transmis par le router
-        //on passe l'id au model pour récupérer les infos
-        //on appelle la bonne vue
-    
         $totalEpisodes = $this->postManager->getNumberOfEpisodes();
         $episodeData = $this->postManager->getOneEpisode($id);
         $commentsData = $this->commentManager->getComments($id);
-        $data = [$episodeData, $commentsData, $totalEpisodes];
-        
-        if (empty($data)) {
-            header('Location: index.php?action=error');
-            exit;
-        }
-        $template = '../templates/frontOffice/onePost.html.php';
-        $this->view->display(['episode' => $data[0][0], 'comments' => $data[1], 'totalEpisodes' => $data[2]], $template, $this->layout);
-        var_dump(['episode' => $data[0][0], 'comments' => $data[1], 'totalEpisodes' => $data[2]]);
+        $errorMessage = 'merci de renseigner tous les champs';
+        $data = [$episodeData, $commentsData, $totalEpisodes, $errorMessage, $pseudo, $comment];
+
+        $template = '../templates/frontOffice/commentError.html.php';
+        $this->view->display(['episode' => $data[0][0],
+            'comments' => $data[1],
+            'totalEpisodes' => $data[2],
+            'errorMessage' => $data[3],
+            'pseudo' => $data[4],
+            'comment' => $data[5]],
+            $template, $this->layout);
     }
 
     public function previousPost(int $numeroEpisode, int $episodeId): void
@@ -82,7 +104,9 @@ class PostController
         $episodesToDisplay = 3;
         $numberOfPages = ceil($totalEpisodes / $episodesToDisplay);
         $offset = $pageToDisplay * $episodesToDisplay;
+
         $data = [$this->postManager->getAllEpisodes($offset), $page, $numberOfPages];
+
         $template = $this->frontTemplate.'allPosts.html.php';
         $this->view->display(['episode' => $data[0], 'currentPage' => $data[1], 'maxPages' => $data[2]], $template, $this->layout);
     }

@@ -10,10 +10,10 @@ class PostManager
 {
     private $database;
 
-    public function __construct(Database $database)
+    public function __construct(\PDO $database)
     {
         //objet Database en paramètre pour récupérer la connection
-        $this->database = $database->databaseConnect();
+        $this->database = $database;
     }
 
     public function getOneEpisode(int $id) : array
@@ -29,28 +29,28 @@ class PostManager
         return $episodes->fetchAll();
     }
 
-    public function getPreviousPost(int $numeroEpisode) : array
+    public function getPreviousPost(int $numeroEpisode) : int
     {
-        $previousEpisode = $this->database->prepare("SELECT *,  DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+        $previousEpisode = $this->database->prepare("SELECT episode_id,  DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
             WHERE numero_episode = :episode");
         $previousEpisode->bindParam(':episode', $numeroEpisode);
         $previousEpisode->execute();
-        return $previousEpisode->fetchAll();
+        return (int) $previousEpisode->fetchColumn();
     }
 
-    public function getNextPost(int $numeroEpisode) : array
+    public function getNextPost(int $numeroEpisode) : int
     {
-        $nextEpisode = $this->database->prepare("SELECT *,  DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
+        $nextEpisode = $this->database->prepare("SELECT episode_id,  DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
             WHERE numero_episode = :episode");
         $nextEpisode->bindParam(':episode', $numeroEpisode);
         $nextEpisode->execute();
-        return $nextEpisode->fetchAll();
+        return (int) $nextEpisode->fetchColumn();
     }
 
     public function getThreeEpisodes() : array
-    {
+    { 
         $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 500) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
             ORDER BY numero_episode
@@ -102,9 +102,9 @@ class PostManager
         if (isset($results[0]['numero_episode'])) {
             return true;
         }
-        elseif (empty($results)) {
-            return false;
-        }
+        
+        return false;
+        
     }
 
     public function saveEpisode(int $numeroEpisode, string $title, string $content) : void

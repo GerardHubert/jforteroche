@@ -8,22 +8,32 @@ use App\Model\CommentManager;
 class CommentController
 {
     private $commentManager;
+    private $message;
     
     public function __construct(CommentManager $commentManager)
     {
         $this->commentManager = $commentManager;
+        $this->message = 'Merci de renseigner tous les champs';
     }
 
-    public function saveComment(int $episodeId, string $pseudo, string $comment) : void
+    public function saveComment(int $episodeId, array $commentForm) : void
     {
-        if (empty($pseudo) || empty($comment)) {
-            header('Location: index.php?action=error');
-            exit;
-        }
+        $pseudo = $commentForm['pseudo'];
+        $comment = $commentForm['comment'];
+        $test = empty($pseudo) || empty($comment);
+        
+        switch ($test) {
+            case true :
+                header("Location: index.php?action=comment_error&id=$episodeId&pseudo=$pseudo&comment=$comment");
+                exit;
+            break;
 
-        ($this->commentManager->postComment($episodeId, $pseudo, $comment));
-        header("Location: index.php?action=post&id=$episodeId/#comment_header");
-        exit;
+            case false :
+                $this->commentManager->postComment($episodeId, $pseudo, $comment);
+                header("Location: index.php?action=post&id=$episodeId/#comment_header");
+                exit;
+            break;
+        }
     }
 
     public function reportComment(int $commentId, int $episodeId) : void

@@ -9,9 +9,9 @@ class CommentManager
 {
     private $database;
 
-    public function __construct(Database $database)
+    public function __construct(\PDO $database)
     {
-        $this->database = $database->databaseConnect();
+        $this->database = $database;
     }
 
     public function getComments(int $numero) : array

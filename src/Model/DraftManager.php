@@ -9,9 +9,9 @@ class DraftManager
 {
     private $database;
 
-    public function __construct(Database $database)
+    public function __construct(\PDO $database)
     {
-        $this->database = $database->databaseConnect();
+        $this->database = $database;
     }
 
     public function saveDraft(int $episode, string $title, string $content) : void
@@ -35,9 +35,9 @@ class DraftManager
         if (isset($array[0]['episode'])) {
             return true;
         }
-        elseif (empty($array)) {
-            return false;
-        }
+
+        return false;
+       
     }
 
     public function getDrafts() : array

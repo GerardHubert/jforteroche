@@ -2,14 +2,17 @@
 declare(strict_types=1);
 namespace App\Service;
 
-class Database
+use \PDO;
+
+class Database extends PDO
 {
-    private $servor = 'mysql:dbname=jean_forteroche;host=localhost;port=3308;chartset=utf8mb4';
+    private $dsn = 'mysql:dbname=jean_forteroche;host=localhost;port=3308;chartset=utf8mb4';
     private $user = 'root';
     private $password = '';
 
-    public function databaseConnect() : object 
+    //passer instance de pdo en paramètre?
+    public function __construct()
     {
-        return new \PDO($this->servor, $this->user, $this->password);
+       parent::__construct($this->dsn, $this->user, $this->password);
     }
 }

@@ -32,8 +32,9 @@ class DraftController
             break;
 
             case false :
-                echo $episode .' - '. $title . ' - ' . htmlspecialchars($content);
                 $this->draftManager->saveDraft($episode, $title, $content);
+                header('Location: index.php?action=drafts');
+                exit;
             break;
         }
     }

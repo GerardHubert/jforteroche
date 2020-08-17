@@ -45,7 +45,7 @@
 		<div class='front_content'>
 
 			<section class="episodes_and_comments">
-				<?=$content?>
+			<?=$content?>
 			</section>
 			
 
