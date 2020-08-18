@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace App\Controller\Backoffice;
 
-use App\Model\DraftManager;
+use App\Model\{DraftManager, PostManager};
 use App\View\View;
 
 class DraftController
 {
     private $postManager;
+    private $draftManager;
     private $view;
     private $layout;
     private $backTemplate;
 
-    public function __construct(DraftManager $draftManager, View $view)
+    public function __construct(DraftManager $draftManager, PostManager $postManager, View $view)
     {
         $this->draftManager = $draftManager;
+        $this->postManager = $postManager;
         $this->view = $view;
         $this->layout = '../templates/backoffice/layout.html.php';
         $this->backTemplate = '../templates/backoffice/';
@@ -24,14 +26,17 @@ class DraftController
     public function saveDraft(int $episode, string $title, string $content) : void
     {
         $test = $this->draftManager->testBeforeSave($episode);
+        echo $test;
 
         switch ($test) {
-            case true :
+            case true : 
+                //Le numéro d'épisode  qu'on essaie d'enregistrer existe déjà
                 header("Location: index.php?action=get_draft_data&episode=$episode&title=$title&content=$content");
                 exit;
             break;
 
             case false :
+                //Pas de brouillon avec le numéro d'épisode, on peut sauvegarder
                 $this->draftManager->saveDraft($episode, $title, $content);
                 header('Location: index.php?action=drafts');
                 exit;
@@ -39,11 +44,21 @@ class DraftController
         }
     }
 
+    public function publishDraft(int $id, array $draftData) : void
+    {
+        $this->postManager->publishDraft($id, $draftData);
+        header('Location: index.php?action=episodes_list');
+        exit;
+        var_dump($id);
+        echo '<br/>';
+        var_dump($draftData);
+    }
+
     public function getDraftData(int $episode, string $title, string $content) : void
     {
-        $data = ['episode' => $episode,
-                'draft_title' => $title,
-                'draft_content' => $content];
+        $data = ['numero_episode' => $episode,
+                'episode_title' => $title,
+                'episode_content' => $content];
 
         $template = $this->backTemplate.'getDraftData.html.php';
         $this->view->display($data, $template, $this->layout);

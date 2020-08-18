@@ -9,10 +9,10 @@
     <tbody>
         <?php foreach ($data as $entry) {?>
         <tr>
-            <td><?=$entry['episode']?></td>
-            <td id='draft_col'><?=$entry['draft_title']?></td>
-            <td><a href='index.php?action=update_draft&episode=<?=$entry['episode']?>'><button>Modifier</button></a></td>
-            <td><a href='index.php?action=delete_draft&episode=<?=$entry['episode']?>'><button>Supprimer</button></a></td>
+            <td><?=$entry['numero_episode']?></td>
+            <td id='draft_col'><?=$entry['episode_title']?></td>
+            <td><a href='index.php?action=update_draft&episode=<?=$entry['numero_episode']?>'><button>Modifier</button></a></td>
+            <td><a href='index.php?action=delete_draft&episode=<?=$entry['numero_episode']?>'><button>Supprimer</button></a></td>
         </tr>
         <?php
         }

@@ -53,6 +53,7 @@ class PostManager
     { 
         $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 500) AS episode_content, DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
+            WHERE episode_status = 1
             ORDER BY numero_episode
             DESC LIMIT 0, 3");
         $request->execute();
@@ -62,7 +63,9 @@ class PostManager
 
     public function getNumberOfEpisodes() : int
     {
-        $request = $this->database->prepare("SELECT numero_episode FROM episodes");
+        $request = $this->database->prepare("SELECT numero_episode
+            FROM episodes
+            WHERE episode_status = 1");
         $request->execute();
         return count($request->fetchALl());
     }
@@ -72,6 +75,7 @@ class PostManager
         $request = $this->database->prepare("SELECT *, substring(episode_content, 1, 500) AS episode_content, 
             DATE_FORMAT(episode_date, '%d/%m/%Y - %H:%i:%s') AS episode_date
             FROM episodes
+            WHERE episode_status = 1
             ORDER BY numero_episode
             LIMIT 3 OFFSET :beginning");
 
@@ -83,7 +87,10 @@ class PostManager
 
     public function backPostList() : array
     {
-        $request = $this->database->prepare('SELECT * FROM episodes ORDER BY numero_episode');
+        $request = $this->database->prepare('SELECT * 
+            FROM episodes
+            WHERE episode_status = 1 
+            ORDER BY numero_episode');
         $request->execute();
 
         return $request->fetchAll();
@@ -99,7 +106,7 @@ class PostManager
         $test->execute();
         $results = $test->fetchAll();
 
-        if (isset($results[0]['numero_episode'])) {
+        if (isset($results[0]['numero_episode']) && $results[0]['numero_episode'] === 1) {
             return true;
         }
         
@@ -110,8 +117,8 @@ class PostManager
     public function saveEpisode(int $numeroEpisode, string $title, string $content) : void
     {
         //on insère le nouveau post dans la table et on le publie
-        $saveEpisode = $this->database->prepare('INSERT INTO episodes (numero_episode, episode_title, episode_content) 
-            VALUES (:numeroEpisode, :title, :content)');
+        $saveEpisode = $this->database->prepare('INSERT INTO episodes (numero_episode, episode_title, episode_content, episode_status) 
+            VALUES (:numeroEpisode, :title, :content, 1)');
         $saveEpisode->bindParam(':numeroEpisode', $numeroEpisode);
         $saveEpisode->bindParam(':title', $title);
         $saveEpisode->bindParam(':content', $content);
@@ -139,5 +146,17 @@ class PostManager
         $delete->bindParam(':id', $id);
 
         $delete->execute();
+    }
+
+    public function publishDraft(int $id, array $draftData) : void
+    {
+        $publishDraft = $this->database->prepare('UPDATE episodes
+            SET numero_episode = :newEpisodeNumber, episode_title = :newTitle, episode_content = :newContent, episode_status = 1
+            WHERE episode_id = :id');
+        $publishDraft->bindParam(':newEpisodeNumber', $draftData['episode']);
+        $publishDraft->bindParam(':newTitle', $draftData['title']);
+        $publishDraft->bindParam(':newContent', $draftData['episode_text']);
+        $publishDraft->bindParam(':id', $id);
+        $publishDraft->execute();
     }
 }

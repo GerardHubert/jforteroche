@@ -42,7 +42,7 @@ class Router
         $this->draftManager = new DraftManager($this->database);
         $this->accessControl = new AccessControl($this->logManager, $this->view);
         $this->backPostController = new BackPostController($this->view, $this->postManager);
-        $this->draftController = new DraftController($this->draftManager, $this->view);
+        $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view);
         $this->backCommentController = new BackCommentController($this->commentManager, $this->view);
         $this->get = $_GET;
         $this->post = $_POST;
@@ -123,6 +123,12 @@ class Router
                 $this->backPostController->savePost((int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
             break;
 
+            case 'publish_draft':
+                //Route: index.php?action=publish_draft
+                //Changement de status de l'épisode, qui passe de brouillon à publié
+                $this->draftController->publishDraft((int) $this->get['id'], $this->post);
+            break;
+
             case 'drafts':
                 //Route: index.php?action=drafts
                 $this->draftController->displayDrafts();
@@ -136,7 +142,7 @@ class Router
             case 'save_updated_draft':
                 //route: index.php?action=save_updated_draft&draft_id
                 //on écrase l'ancien brouillon et enregistre le nouveau
-                $this->draftController->saveAndOverwrite((int) $this->get['draft_id'], (int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
+                $this->draftController->saveAndOverwrite((int) $this->get['episode_id'], (int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
             break;
 
             case 'delete_draft' :
