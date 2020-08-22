@@ -20,7 +20,7 @@
 						<ul class="menu">
 							<li><a href="index.php"><i class="fas fa-home"></i>Accueil</a></li>
 							<li><a href="index.php?action=get_all&page=1"><i class="fas fa-pen-fancy"></i>Episodes</a></li>
-							<li><a href="index.php?action=backoffice"><i class="fas fa-user-lock"></i>Administrateur</a></li>
+							<li><a href="index.php?action=authentification"><i class="fas fa-user-lock"></i>Administrateur</a></li>
 						</ul>
 					</div>
 				</nav>

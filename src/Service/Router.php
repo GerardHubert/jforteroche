@@ -204,6 +204,15 @@ class Router
                 $this->draftController->getDraftData((int) $this->get['episode'], $this->get['title'], $this->get['content']);
             break;
 
+            case 'authentification':
+                //Route: index.php?action=authentification
+                $this->accessControl->logIn();
+            break;
+
+            case 'new_user':
+                //Route: index.php/action=new_user
+                $this->accessControl->newUser($this->post);
+
             default:
                 //Route: index.php?action=error
                 //On affiche une page d'erreur

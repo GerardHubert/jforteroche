@@ -364,3 +364,19 @@ footer{
 #previous, #next{
     margin: 20px;
 }
+
+#authentification{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: auto;
+}
+
+#authentification input{
+    margin-bottom: 1rem;
+    height: 2rem;
+}
+
+#authentification #submit{
+    display: flex;
+}

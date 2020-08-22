@@ -17,14 +17,20 @@ class AccessControl
     {
         $this->logManager = $logManager;
         $this->view = $view;
-        $this->layout = '../templates/backOffice/layout.html.php';
-        $this->template = '../templates/backOffice/';
+        $this->layout = '../templates/authentification/layout.html.php';
+        $this->template = '../templates/authentification/';
     }
 
-    public function login() : void
+    public function logIn() : void
     {
         $data = [];
-        $template = $this->template.'home.html.php';
+        $template = $this->template.'logInPage.html.php';
         $this->view->display($data, $template, $this->layout);
+    }
+
+    public function newUser(array $formData) : void
+    {
+        $cryptedPassword = password_hash($formData['password'], PASSWORD_DEFAULT);
+        $this->logManager->saveNewUser($formData['identifiant'], $cryptedPassword);
     }
 }
