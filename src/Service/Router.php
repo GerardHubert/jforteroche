@@ -8,6 +8,7 @@ use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
 use App\Service\Security\AccessControl;
 use App\Controller\BackOffice\{BackPostController, DraftController, BackCommentController};
+use App\Service\Http\Request;
 
 class Router
 {
@@ -26,6 +27,7 @@ class Router
     private $view;
     private $get;
     private $post;
+    private $request;
 
     public function __construct()
     {
@@ -44,19 +46,21 @@ class Router
         $this->backPostController = new BackPostController($this->view, $this->postManager);
         $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view);
         $this->backCommentController = new BackCommentController($this->commentManager, $this->view);
-        $this->get = $_GET;
-        $this->post = $_POST;
+        //$this->get = $_GET;
+        //$this->post = $_POST;
+        $this->request = new Request();
+        $this->get = $this->request->cleanGet();
+        $this->post = $this->request->cleanPost();
     }
 
     public function run(): void
     {   
- 
         $test = isset($this->get['action']);
        
         if (!$test) {
             $this->get['action'] = 'get_home';
         }
-
+        
         switch ($this->get['action']) {
             case 'get_home':
                 //Route: index.php?action=get_home
