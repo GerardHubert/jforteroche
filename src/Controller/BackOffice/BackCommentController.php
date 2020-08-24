@@ -38,7 +38,7 @@ class BackCommentController
     public function deleteComment(int $id) : void
     {
         $this->commentManager->delete($id);
-        header('Location: index.php?action=backoffice');
+        header('Location: index.php?action=comments_list');
         exit;
     }
 

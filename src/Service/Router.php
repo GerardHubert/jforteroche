@@ -98,11 +98,6 @@ class Router
                 $this->commentController->reportComment((int) $this->get['comment_id'], (int) $this->get['id']);
             break;
 
-            case 'login':
-                //Route: index.php?action=login
-                $this->accessControl->login();
-            break;
-
             case 'backoffice':
                 //Route: index.php?action=back_home
                 //accueil du backoffice, après login
@@ -206,12 +201,23 @@ class Router
 
             case 'authentification':
                 //Route: index.php?action=authentification
-                $this->accessControl->logIn();
+                $this->accessControl->authentification();
             break;
 
             case 'new_user':
                 //Route: index.php/action=new_user
                 $this->accessControl->newUser($this->post);
+            break;
+
+            case 'log_in':
+                //Route: index.php?action=log_in
+                $this->accessControl->logIn($this->post);
+            break;
+
+            case 'log_out':
+                //Route: index.php?action=log_out
+                $this->accessControl->logOut();
+            break;
 
             default:
                 //Route: index.php?action=error

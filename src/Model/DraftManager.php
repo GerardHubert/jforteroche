@@ -25,7 +25,7 @@ class DraftManager
         $saveDraft->execute();
     }
 
-    public function testBeforeSave($episode) : bool
+    public function testBeforeSave(int $episode) : bool
     {
         /*$test = $this->database->prepare('SELECT episode FROM drafts WHERE episode = :draftToInsert');
         $test->bindParam(':draftToInsert', $episode);

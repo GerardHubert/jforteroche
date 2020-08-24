@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  mar. 18 août 2020 à 22:37
+-- Généré le :  lun. 24 août 2020 à 13:47
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -25,22 +25,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `admin`
+-- Structure de la table `authentification`
 --
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE IF NOT EXISTS `admin` (
-  `id` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+DROP TABLE IF EXISTS `authentification`;
+CREATE TABLE IF NOT EXISTS `authentification` (
+  `user` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pass` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `admin`
+-- Déchargement des données de la table `authentification`
 --
 
-INSERT INTO `admin` (`id`, `password`) VALUES
-('jforteroche', '');
+INSERT INTO `authentification` (`user`, `pass`) VALUES
+('alfred', '$2y$10$3l66Uhoh8gHKDXLWeP9J2.BxdWZCjwWVSnOyJReXrmDqyRn4VC0py'),
+('batman', '$2y$10$gZn.hZjvIZAiluxWjZf9quI3dLzCpthVA/z16k5grwmRam4YWWpEC'),
+('gerard', '$2y$10$VGO6LngcTHXt1FWbN2guI.4CyPA5NpVwSk7SkyOupOED06Dllkxpy');
 
 -- --------------------------------------------------------
 
@@ -58,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
   `reported_comment` tinyint(1) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `from_episode` (`episode`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaires`
@@ -88,16 +90,13 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `pseudo`, `comment`, `comme
 (82, 15, 'gérard', 'cet épisode ne s\'affiche pas très bien...', '2020-08-10 14:59:59', 0),
 (83, 22, 'lewis hamilton', 'plus rapide que moi, y a pas!', '2020-08-10 15:00:26', 0),
 (84, 34, 'chuck_norris', 'chuck norris fait pleurer les oignons...', '2020-08-10 16:29:31', 0),
-(85, 15, '', 'test', '2020-08-12 14:12:30', 0),
 (86, 28, 'gérard', 'test commentaire', '2020-08-12 15:47:52', 0),
-(87, 28, 'test', 'enregistrement', '2020-08-12 16:15:36', 0),
 (88, 28, 'jean jude', 'zut alors', '2020-08-12 16:29:10', 0),
-(89, 33, 'esteban', '                    ', '2020-08-12 16:40:46', 0),
-(90, 33, 'jean forteroche', '                    ', '2020-08-12 16:41:35', 0),
 (91, 34, 'RealChuckNorris', 'Chuck Norris a déjà compté jusqu\'à l\'infini... 2 fois.', '2020-08-13 14:02:57', 0),
 (92, 22, 'delafuentes', 'test de commentaire !', '2020-08-16 09:05:38', 0),
 (93, 15, 'un internaute mal intentionné', 'test avec des <balise>, et des <script>alert(bonjour)</script>', '2020-08-17 12:25:33', 0),
-(94, 34, 'gerard', 'commentaire avec <balise>', '2020-08-17 14:30:37', 0);
+(94, 34, 'gerard', 'commentaire avec <balise>', '2020-08-17 14:30:37', 0),
+(95, 28, '&#60;h1&#62;monsieur balise&#60;/h1&#62;', 'bonjour, j&#39;essaie de balancer des balises html!', '2020-08-22 20:04:51', 0);
 
 -- --------------------------------------------------------
 
