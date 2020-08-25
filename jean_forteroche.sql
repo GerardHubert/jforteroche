@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  lun. 24 août 2020 à 13:47
+-- Généré le :  mar. 25 août 2020 à 10:56
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -25,28 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `authentification`
---
-
-DROP TABLE IF EXISTS `authentification`;
-CREATE TABLE IF NOT EXISTS `authentification` (
-  `user` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `pass` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `authentification`
---
-
-INSERT INTO `authentification` (`user`, `pass`) VALUES
-('alfred', '$2y$10$3l66Uhoh8gHKDXLWeP9J2.BxdWZCjwWVSnOyJReXrmDqyRn4VC0py'),
-('batman', '$2y$10$gZn.hZjvIZAiluxWjZf9quI3dLzCpthVA/z16k5grwmRam4YWWpEC'),
-('gerard', '$2y$10$VGO6LngcTHXt1FWbN2guI.4CyPA5NpVwSk7SkyOupOED06Dllkxpy');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `commentaires`
 --
 
@@ -60,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
   `reported_comment` tinyint(1) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `from_episode` (`episode`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaires`
@@ -96,7 +74,8 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `pseudo`, `comment`, `comme
 (92, 22, 'delafuentes', 'test de commentaire !', '2020-08-16 09:05:38', 0),
 (93, 15, 'un internaute mal intentionné', 'test avec des <balise>, et des <script>alert(bonjour)</script>', '2020-08-17 12:25:33', 0),
 (94, 34, 'gerard', 'commentaire avec <balise>', '2020-08-17 14:30:37', 0),
-(95, 28, '&#60;h1&#62;monsieur balise&#60;/h1&#62;', 'bonjour, j&#39;essaie de balancer des balises html!', '2020-08-22 20:04:51', 0);
+(95, 28, '&#60;h1&#62;monsieur balise&#60;/h1&#62;', 'bonjour, j&#39;essaie de balancer des balises html!', '2020-08-22 20:04:51', 0),
+(96, 53, 'hubert', '&#60;h1&#62;test&#60;/h1&#62;', '2020-08-24 17:45:07', 0);
 
 -- --------------------------------------------------------
 
@@ -114,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `episodes` (
   `episode_status` int(1) NOT NULL,
   PRIMARY KEY (`episode_id`),
   UNIQUE KEY `unicite` (`numero_episode`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
@@ -128,7 +107,28 @@ INSERT INTO `episodes` (`episode_id`, `numero_episode`, `episode_title`, `episod
 (28, 1, 'Le début de la fin', '<p>Etiam rhoncus vel massa eget eleifend. Aenean pretium ante lobortis turpis dictum faucibus. Quisque vitae velit enim. Cras ac venenatis dolor. Maecenas consectetur augue vel enim egestas hendrerit. Morbi eget enim urna. Sed a enim elit. Duis accumsan faucibus sapien a venenatis. Pellentesque hendrerit lorem eu lorem placerat, sed semper sapien aliquam.</p>\r\n<p>Vestibulum ac nunc nibh. Suspendisse ut risus id purus eleifend placerat. Vestibulum faucibus nisl felis, eget consequat ipsum consequat eu. Donec et lobortis metus, sed finibus nunc. Nam nisl lacus, gravida et mi et, vehicula commodo orci. Maecenas porttitor sem id sapien posuere, porta convallis lorem suscipit. Ut feugiat neque id feugiat congue. Maecenas finibus sapien neque, ultrices rhoncus neque vulputate non. Donec gravida massa in dolor tincidunt bibendum non et lacus. Proin at vehicula massa, non finibus ipsum. Aenean suscipit nunc et mattis sollicitudin. Duis in eros sodales, porttitor tortor non, rhoncus augue.</p>\r\n<p>Donec consequat molestie viverra. In condimentum sit amet diam eu tristique. Vestibulum quis luctus libero, in mattis leo. Integer eu mattis tellus. Donec malesuada laoreet semper. Curabitur tempor est eu ex tempus, eget bibendum nunc rutrum. Praesent eu tristique sem. Nulla scelerisque dui ac velit facilisis pulvinar nec vitae enim. Nulla volutpat tellus enim, sit amet posuere tortor viverra et. Pellentesque et mattis nulla, eu consectetur eros. Pellentesque ut tristique nisl, lacinia luctus lectus. Fusce elementum, lectus eu pellentesque ullamcorper, urna sapien feugiat leo, eget sodales risus ex eget sapien. Nunc interdum quam in leo gravida porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ut blandit nibh.</p>\r\n<p>Praesent eu facilisis tortor. Fusce euismod id leo ac faucibus. Ut ornare dolor tristique mattis euismod. Cras eget risus tincidunt, laoreet purus sed, imperdiet neque. Etiam et lorem mollis, tempus ligula ac, scelerisque eros. Donec hendrerit euismod pretium. Etiam vitae libero scelerisque magna blandit finibus. Ut posuere lorem id justo pharetra, in tincidunt enim rhoncus. Aliquam leo massa, tristique lobortis facilisis eu, ornare eget ante. Nulla facilisi. Nulla elementum sed nisi ac luctus. Donec maximus metus vitae mauris tempus, vel luctus lectus accumsan. Mauris congue quis erat a interdum. Duis viverra ante quis tincidunt volutpat. Vestibulum vestibulum odio dui, nec porta dolor scelerisque et. Cras finibus pharetra aliquam.</p>\r\n<p>Mauris tempor porttitor vestibulum. In hac habitasse platea dictumst. Etiam et pretium nibh, eget venenatis nunc. Sed sit amet elit ac nisl mattis eleifend at vitae elit. Duis ipsum tellus, malesuada ut tincidunt in, semper eget diam. Aenean blandit tempor tellus ut ornare. Pellentesque massa sem, pellentesque id vulputate id, eleifend in orci. Pellentesque egestas volutpat orci, pellentesque consectetur nibh iaculis eu. Sed ac sapien felis. Vivamus ut nulla at felis efficitur imperdiet quis non est. Integer eget enim vitae sem aliquet faucibus nec sed arcu. Morbi iaculis quam enim, ac pretium sem accumsan ac. Etiam sollicitudin lorem urna, vel semper quam aliquam vel.</p>\r\n<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur consequat non purus nec ullamcorper. Etiam nec orci leo. Suspendisse vel fermentum nunc. Quisque id aliquam nunc. Donec tempor lacus id quam auctor, nec rutrum augue dapibus. Praesent lacinia efficitur tellus, ut hendrerit nisi bibendum non. In egestas posuere quam, a blandit ipsum condimentum sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc arcu lacus, tristique id euismod quis, feugiat a lacus. Sed scelerisque, libero vitae varius porta, purus ligula aliquam sem, a euismod diam nunc vitae metus. Curabitur euismod nunc eu felis venenatis, id efficitur tellus aliquet. Pellentesque sollicitudin posuere vulputate. Phasellus vitae ex ipsum.</p>\r\n<p>In hac habitasse platea dictumst. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean orci tellus, tempus sed hendrerit at, porta sit amet mi. Duis pharetra ante a fermentum lacinia. Nullam id nulla convallis, porttitor arcu eget, malesuada magna. Cras pharetra justo in odio consequat elementum. Ut ullamcorper mi eu magna vestibulum interdum. Pellentesque in lorem diam. Nulla ligula neque, sodales non tristique sagittis, egestas at sapien. Curabitur nunc nunc, suscipit et mi ut, cursus molestie enim. Morbi blandit gravida risus, eget aliquet nunc tincidunt at. Mauris ut dapibus nisi. Vivamus turpis nunc, tempus tincidunt rhoncus vitae, porttitor ut diam.</p>', '2020-08-01 00:36:33', 1),
 (33, 6, 'John Wick: baddass!', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean auctor justo vel sollicitudin consectetur. Quisque varius dolor arcu, eget suscipit ex venenatis non. Sed cursus lacinia tempor. Maecenas venenatis eleifend pellentesque. Quisque venenatis sit amet urna id egestas. Nulla consectetur enim id dui euismod tincidunt. Donec semper mollis tortor, at interdum nulla hendrerit nec. Aenean sodales augue ac elit porta congue. Morbi ac est nunc. Duis ac tortor magna. Vivamus venenatis nulla vel rutrum sagittis. Phasellus nisl orci, luctus sed felis sit amet, placerat vehicula arcu.\r\n\r\nSed id mauris massa. Nunc quis dictum purus, sit amet pharetra augue. Nam mattis molestie ex semper convallis. Ut malesuada erat eu velit molestie lobortis. Maecenas feugiat turpis elit, vel fermentum est pharetra vitae. Integer dictum ex dictum, convallis justo in, tristique ipsum. Duis pretium convallis lorem, eget vehicula magna pharetra pretium. Proin ut consequat dui, a aliquet lorem. Aliquam facilisis semper pulvinar. Nunc fringilla sem sem, sit amet auctor neque finibus vel. In ac risus sed lorem mattis condimentum eu in urna. Nam leo turpis, maximus eget dictum sit amet, cursus eleifend metus. Morbi eu leo eu nisl bibendum blandit et at risus. ', '2020-08-09 22:34:24', 1),
 (34, 7, 'C\'était sans compter sur Chuck Norris', ' Etiam ut luctus sem. Fusce molestie ut arcu et ornare. Pellentesque ultrices, tortor a luctus bibendum, nunc magna venenatis magna, vitae fermentum justo mi id quam. Sed risus velit, egestas quis maximus non, pretium sit amet nunc. Maecenas bibendum molestie felis, ac bibendum ligula interdum at. Fusce aliquam dictum felis, eget iaculis felis eleifend ac. Suspendisse eu nunc quis nulla gravida faucibus vel eu quam.\r\n\r\nQuisque fermentum dolor nec magna viverra, tempor auctor sapien euismod. Donec ac condimentum massa. Donec lacinia iaculis turpis eget rutrum. Donec lacinia, elit tempus consequat pretium, augue velit feugiat augue, vitae placerat sapien augue ac sem. Phasellus sed odio vel nulla porta ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean vehicula leo in neque auctor lacinia. Nulla ut diam nec purus sodales varius in eget erat. Phasellus dictum congue vestibulum.\r\n\r\nVestibulum nec est turpis. Vestibulum vel tortor vitae lacus placerat volutpat. Donec interdum euismod ante sit amet viverra. Aenean eget efficitur sem. Proin eget lectus eleifend, placerat sapien vitae, bibendum quam. Quisque odio metus, porttitor a euismod nec, volutpat vitae mi. Pellentesque interdum eros nec sapien malesuada ultricies. Suspendisse pharetra odio vitae auctor laoreet. Fusce eu nulla ex. Donec pretium mi sit amet eros ultricies gravida. Integer quis urna tristique, pellentesque neque vulputate, egestas nibh. Fusce eu interdum tortor. Maecenas vel faucibus nisl. ', '2020-08-09 22:36:08', 1),
-(36, 8, 'L\'arrivée de Lorenzo Lama: le Rebelle!', '<p>Dit... le rebelle!</p>\r\n<p>Accompagn&eacute; de son ami l\'indien, tous les deux chasseurs de primes.</p>\r\n<p>r&eacute;vision 1</p>', '2020-08-18 00:16:50', 1);
+(36, 8, 'L\'arrivée de Lorenzo Lama: le Rebelle!', '<p>Dit... le rebelle!</p>\r\n<p>Accompagn&eacute; de son ami l\'indien, tous les deux chasseurs de primes.</p>\r\n<p>r&eacute;vision 1</p>', '2020-08-18 00:16:50', 1),
+(53, 10, 'test', '&#60;p&#62;vive la barbaque&#60;/p&#62;', '2020-08-24 17:42:52', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pass` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`username`, `pass`) VALUES
+('j_forteroche', '$2y$10$Bn7h4P.FJlirDTFrYoSTE.YzXxbeRbHrCB3775am.phhrSmchvfrW');
 
 --
 -- Contraintes pour les tables déchargées

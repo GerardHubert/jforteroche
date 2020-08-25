@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Model\{PostManager, CommentManager, LogManager, DraftManager};
+use App\Model\{PostManager, CommentManager, UserManager, DraftManager};
 use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
 use App\Service\Security\AccessControl;
-use App\Controller\BackOffice\{BackPostController, DraftController, BackCommentController};
+use App\Controller\BackOffice\{BackPostController, DraftController, BackCommentController, UserController};
 use App\Service\Http\Request;
+use App\Service\Http\Session;
 
 class Router
 {
@@ -18,7 +19,8 @@ class Router
     private $postController;
     private $commentController;
     private $errorController;
-    private $logManager;
+    private $userManager;
+    private $userController;
     private $draftManager;
     private $accessControl;
     private $backPostController;
@@ -40,9 +42,10 @@ class Router
         $this->postController = new PostController($this->postManager, $this->view, $this->commentManager);
         $this->commentController = new CommentController($this->commentManager);
         $this->errorController = new ErrorController($this->view);
-        $this->logManager = new LogManager($this->database);
+        $this->userManager = new UserManager($this->database);
+        $this->userController = new UserController($this->userManager, $this->view);
         $this->draftManager = new DraftManager($this->database);
-        $this->accessControl = new AccessControl($this->logManager, $this->view);
+        $this->accessControl = new AccessControl();
         $this->backPostController = new BackPostController($this->view, $this->postManager);
         $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view);
         $this->backCommentController = new BackCommentController($this->commentManager, $this->view);
@@ -201,22 +204,37 @@ class Router
 
             case 'authentification':
                 //Route: index.php?action=authentification
-                $this->accessControl->authentification();
-            break;
-
-            case 'new_user':
-                //Route: index.php/action=new_user
-                $this->accessControl->newUser($this->post);
+                $this->userController->authentification();
             break;
 
             case 'log_in':
                 //Route: index.php?action=log_in
-                $this->accessControl->logIn($this->post);
+                $this->userController->logIn($this->post);
+            break;
+
+            case 'forgotten_password':
+                //Route: index.php?action=forgotten_password
+                $this->userController->forgottenPassword();
+            break;
+
+            case 'change_password':
+                //Route: index.php?action=change_password
+                $this->userController->changePassword($this->post);
+            break;
+
+            case 'new_password':
+                //Route: index.php?action=new_password
+                $this->userController->newPassword();
+            break;
+
+            case 'update_password':
+                //route: index.php?action=update_password
+                $this->userController->updatePassword($this->post);
             break;
 
             case 'log_out':
                 //Route: index.php?action=log_out
-                $this->accessControl->logOut();
+                $this->userController->logOut();
             break;
 
             default:

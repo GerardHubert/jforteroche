@@ -6,8 +6,7 @@
 
     <div id="submit">
     <input id='login' type='submit' formaction='index.php?action=log_in' value='Se connecter' name='submit' />
-    <input type="submit" id="new_user" formaction='index.php?action=new_user' value='Enregistrer un nouvel utilisateur' name='submit' />
     </div>
 
-    <a href="index.php?action=modify_username">Modifier identifiant et mot de passe</a>
+    <a href="index.php?action=forgotten_password">Mot de passe oublié?</a>
 </form>

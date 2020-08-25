@@ -12,7 +12,7 @@
     </head>
 
     <header class='backoffice_header'>
-        <span id='login_welcome'>Bienvenue</span>
+        <span id='login_welcome'></span>
         <div id='front_link'>
             <a href='index.php'>
                 <span>Retour au blog</span>
