@@ -5,6 +5,7 @@ namespace App\Controller\BackOffice;
 
 use App\View\View;
 use App\Model\PostManager;
+use App\Service\Http\Session;
 
 class BackPostController
 {

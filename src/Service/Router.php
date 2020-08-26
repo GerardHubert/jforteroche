@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Service\Http\Session;
 use App\Model\{PostManager, CommentManager, UserManager, DraftManager};
 use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
 use App\Service\Security\AccessControl;
 use App\Controller\BackOffice\{BackPostController, DraftController, BackCommentController, UserController};
 use App\Service\Http\Request;
-use App\Service\Http\Session;
 
 class Router
 {
+    private $session;
     private $database;
     private $postManager;
     private $commentManager;
@@ -36,6 +37,8 @@ class Router
         // les dépendances du Router
         // injection des dépendances
         $this->database = new Database();
+        $this->session = new Session();
+        $this->accessControl = new AccessControl($this->session);
         $this->postManager = new PostManager($this->database);
         $this->commentManager = new CommentManager($this->database);
         $this->view = new View();
@@ -43,14 +46,11 @@ class Router
         $this->commentController = new CommentController($this->commentManager);
         $this->errorController = new ErrorController($this->view);
         $this->userManager = new UserManager($this->database);
-        $this->userController = new UserController($this->userManager, $this->view);
+        $this->userController = new UserController($this->userManager, $this->view, $this->session);
         $this->draftManager = new DraftManager($this->database);
-        $this->accessControl = new AccessControl();
         $this->backPostController = new BackPostController($this->view, $this->postManager);
         $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view);
         $this->backCommentController = new BackCommentController($this->commentManager, $this->view);
-        //$this->get = $_GET;
-        //$this->post = $_POST;
         $this->request = new Request();
         $this->get = $this->request->cleanGet();
         $this->post = $this->request->cleanPost();

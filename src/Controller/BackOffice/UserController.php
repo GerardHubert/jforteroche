@@ -5,6 +5,7 @@ namespace App\Controller\BackOffice;
 
 use App\Model\UserManager;
 use App\View\View;
+use App\Service\Http\Session;
 
 class UserController
 {
@@ -12,10 +13,12 @@ class UserController
     private $view;
     private $layout;
     private $template;
+    private $session;
 
-    public function __construct(UserManager $userManager, View $view)
+    public function __construct(UserManager $userManager, View $view, Session $session)
     {
         $this->userManager = $userManager;
+        $this->session = $session;
         $this->view = $view;
         $this->layout = '../templates/authentification/layout.html.php';
         $this->template = '../templates/authentification/';
@@ -39,6 +42,9 @@ class UserController
         
             switch (password_verify($pass, $users[0]['pass'])) {
                 case true:
+                    //on transmet à la classe session les variables à enregistrer
+                    //puis on redirige vers le backoffice
+                    $this->session->setSessionVar($user);
                     header('Location: index.php?action=backoffice');
                     exit;
                 break;
@@ -87,8 +93,10 @@ class UserController
 
     public function logOut() : void
     {
-        header('Location: index.php?action=authentfication');
-        exit;
+        $this->session->endSession();
+        //header('Location: index.php?action=authentfication');
+        //exit;
+        print_r($this->session);
     }
 
 }
