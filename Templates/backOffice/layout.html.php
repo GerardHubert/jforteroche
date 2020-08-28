@@ -1,3 +1,14 @@
+<?php
+    if ($this->isConnected === false) {
+        header('Location: index.php?action=authentification');
+        exit;
+    }
+    
+    /*if (empty($this->sessionVar)) {
+        header('Location: index.php?action=authentification');
+        exit;
+    }*/
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -13,6 +24,11 @@
 
     <header class='backoffice_header'>
         <span id='login_welcome'>
+            <?php
+                if (!empty($this->sessionVar)) {
+                    echo $this->sessionVar['username'];
+                }
+            ?>
         </span>
         <div id='front_link'>
             <a href='index.php'>

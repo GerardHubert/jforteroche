@@ -19,7 +19,7 @@ class Session
         $_SESSION['username'] = $username;
     }
 
-    public function getSessionData() : array
+    public function getSessionVar() : array
     {
         return $this->session;
     }

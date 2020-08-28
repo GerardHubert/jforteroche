@@ -45,8 +45,8 @@ class UserController
                     //on transmet à la classe session les variables à enregistrer
                     //puis on redirige vers le backoffice
                     $this->session->setSessionVar($user);
-                    header('Location: index.php?action=backoffice');
-                    exit;
+                    header('Location: index.php?action=episodes_list');
+                    //exit;
                 break;
 
                 case false:
@@ -94,9 +94,8 @@ class UserController
     public function logOut() : void
     {
         $this->session->endSession();
-        //header('Location: index.php?action=authentfication');
-        //exit;
-        print_r($this->session);
+        header('Location: index.php');
+        exit;
     }
 
 }

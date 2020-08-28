@@ -5,7 +5,6 @@ namespace App\Controller\BackOffice;
 
 use App\View\View;
 use App\Model\PostManager;
-use App\Service\Http\Session;
 
 class BackPostController
 {
@@ -22,11 +21,11 @@ class BackPostController
         $this->layout = '../templates/backoffice/layout.html.php';
     }
 
-    public function backofficeHome() : void{
+    /*public function backofficeHome() : void{
         $data=[];
         $template = $this->backTemplate.'home.html.php';
         $this->view->display($data, $template, $this->layout);
-    }
+    }*/
 
     public function savePost(int $numeroEpisode, string $title, string $content) : void
     {
