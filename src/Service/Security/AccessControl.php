@@ -13,14 +13,20 @@ class AccessControl
     public function __construct(Session $session)
     {
         $this->session = $session;
-        $this->sessionVar = $this->session->getSessionVar();
+        //$this->sessionVar = $this->session->getUsername();
     }
 
     public function isConnected() : bool
-    {
-        if (isset($this->sessionVar['username'])) {
+    {   
+        $test = $this->session->getUserName();
+        if (!empty($test) && isset($test)) {
             return true;
         }
         return false;
+    }
+
+    public function getUserName() : string
+    {
+        return $this->session->getUserName();
     }
 }

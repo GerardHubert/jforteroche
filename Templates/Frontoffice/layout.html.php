@@ -21,10 +21,11 @@
 							<li><a href="index.php"><i class="fas fa-home"></i>Accueil</a></li>
 							<li><a href="index.php?action=get_all&page=1"><i class="fas fa-pen-fancy"></i>Episodes</a></li>
 							<?php
-								if (isset($this->sessionVar['username'])) { ?>
+								if /*(!empty($this->session->getUserName()))*/($this->accessControl->isConnected() === true) {?>
 									<li><a href="index.php?action=episodes_list"><i class="fas fa-lock-open"></i>Backoffice</a></li>
-								<?php	
-								} elseif (!isset($this->sessionVar['username'])) { ?>
+								<?php
+								
+								} elseif /*(empty($this->session->getUserName()))*/ ($this->accessControl->isConnected() === false) {?>
 									<li><a href="index.php?action=authentification"><i class="fas fa-user-lock"></i>Administrateur</a></li>
 									<?php
 									}

@@ -1,5 +1,5 @@
 <?php
-    if ($this->isConnected === false) {
+    if ($this->accessControl->isConnected() === false) {
         header('Location: index.php?action=authentification');
         exit;
     }
@@ -25,10 +25,11 @@
     <header class='backoffice_header'>
         <span id='login_welcome'>
             <?php
-                if (!empty($this->sessionVar)) {
-                    echo $this->sessionVar['username'];
-                }
+                /*if (!empty($this->session->getUserName())) {
+                    echo $this->session->getUserName();
+                }*/
             ?>
+            <?=$this->accessControl->isConnected() ? $this->accessControl->getUserName() : 'Non connecté';?>
         </span>
         <div id='front_link'>
             <a href='index.php'>

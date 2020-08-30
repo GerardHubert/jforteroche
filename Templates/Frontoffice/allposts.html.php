@@ -7,7 +7,6 @@
         <span class='post_date'>Posté le <?=$entry['episode_date']?></span>
         <p><?=$entry['episode_content']?>... <span id="read_next"><a href='index.php?action=post&id=<?=$entry['episode_id']?>'>Lire la suite</a></p>
     </article>
-    </div>
 <?php
 }?>
 

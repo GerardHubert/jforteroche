@@ -44,9 +44,9 @@ class UserController
                 case true:
                     //on transmet à la classe session les variables à enregistrer
                     //puis on redirige vers le backoffice
-                    $this->session->setSessionVar($user);
+                    $this->session->setUserName($user);
                     header('Location: index.php?action=episodes_list');
-                    //exit;
+                    exit;
                 break;
 
                 case false:

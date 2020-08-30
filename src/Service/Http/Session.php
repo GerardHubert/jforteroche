@@ -14,14 +14,17 @@ class Session
         $this->session = $_SESSION;
     }
 
-    public function setSessionVar(string $username) : void
+    public function setUserName(string $username) : void
     {
         $_SESSION['username'] = $username;
     }
 
-    public function getSessionVar() : array
+    public function getUserName() : string
     {
-        return $this->session;
+        if (isset($this->session['username'])) {
+            return $this->session['username'];
+        }
+        return '';
     }
 
     public function endSession() : void
