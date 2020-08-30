@@ -12,7 +12,6 @@ class UserController
     private $userManager;
     private $view;
     private $layout;
-    private $template;
     private $session;
 
     public function __construct(UserManager $userManager, View $view, Session $session)
@@ -21,13 +20,12 @@ class UserController
         $this->session = $session;
         $this->view = $view;
         $this->layout = '../templates/authentification/layout.html.php';
-        $this->template = '../templates/authentification/';
     }
 
     public function authentification() : void
     {
         $data = [];
-        $template = $this->template.'logInPage.html.php';
+        $template = 'logInPage.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 
@@ -62,7 +60,7 @@ class UserController
     public function forgottenPassword() : void
     {
         $data = [];
-        $template = $this->template.'forgottenPassword.html.php';
+        $template = 'forgottenPassword.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 
@@ -80,7 +78,7 @@ class UserController
     public function newPassword() : void
     {
         $data = [];
-        $template = $this->template.'newPassword.html.php';
+        $template = 'newPassword.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 

@@ -10,22 +10,14 @@ class BackPostController
 {
     private $postManager;
     private $view;
-    private $backTemplate;
     private $layout;
 
     public function __construct(View $view, PostManager $postManager)
     {
         $this->postManager = $postManager;
         $this->view = $view;
-        $this->backTemplate = '../templates/backoffice/';
         $this->layout = '../templates/backoffice/layout.html.php';
     }
-
-    /*public function backofficeHome() : void{
-        $data=[];
-        $template = $this->backTemplate.'home.html.php';
-        $this->view->display($data, $template, $this->layout);
-    }*/
 
     public function savePost(int $numeroEpisode, string $title, string $content) : void
     {
@@ -48,13 +40,13 @@ class BackPostController
     public function addPost() : void
     {
         $data = [];
-        $template = $this->backTemplate.'newPost.html.php';
+        $template = 'newPost.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 
     public function getEpisodes() : void
     {
-        $template = $this->backTemplate.'episodesList.html.php';
+        $template = 'episodesList.html.php';
         $data = $this->postManager->backPostList();
         $this->view->display($data, $template, $this->layout);
     }
@@ -62,7 +54,7 @@ class BackPostController
     public function updateEpisode(int $episodeId) : void
     {
         $data = $this->postManager->getOneEpisode($episodeId);
-        $template = $this->backTemplate.'updatePost.html.php';
+        $template = 'updatePost.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 
@@ -86,7 +78,7 @@ class BackPostController
                 'episode_title' => $title,
                 'episode_content' => $content];
 
-        $template = $this->backTemplate.'getFormData.html.php';
+        $template = 'getFormData.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 }

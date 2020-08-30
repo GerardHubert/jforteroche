@@ -12,7 +12,6 @@ class DraftController
     private $draftManager;
     private $view;
     private $layout;
-    private $backTemplate;
 
     public function __construct(DraftManager $draftManager, PostManager $postManager, View $view)
     {
@@ -20,7 +19,6 @@ class DraftController
         $this->postManager = $postManager;
         $this->view = $view;
         $this->layout = '../templates/backoffice/layout.html.php';
-        $this->backTemplate = '../templates/backoffice/';
     }
 
     public function saveDraft(int $episode, string $title, string $content) : void
@@ -60,20 +58,20 @@ class DraftController
                 'episode_title' => $title,
                 'episode_content' => $content];
 
-        $template = $this->backTemplate.'getDraftData.html.php';
+        $template = 'getDraftData.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 
     public function displayDrafts() : void
     {
-        $template = $this->backTemplate.'draftsList.html.php';
+        $template = 'draftsList.html.php';
         $data = $this->draftManager->getDrafts();
         $this->view->display($data, $template, $this->layout);
     }
 
     public function updateDraft(int $episode) : void
     {
-        $template =$this->backTemplate.'updateDraft.html.php';
+        $template = 'updateDraft.html.php';
         $data = $this->draftManager->getOneDraft($episode);
         $this->view->display($data, $template, $this->layout);
     }

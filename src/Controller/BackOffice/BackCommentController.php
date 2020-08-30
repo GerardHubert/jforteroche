@@ -10,27 +10,25 @@ class BackCommentController
 {
     private $view;
     private $commentManager;
-    private $listTemplate;
     private $layout;
 
     public function __construct(CommentManager $commentManager, View $view)
     {
         $this->view = $view;
         $this->commentManager = $commentManager;
-        $this->listTemplate = '../templates/backoffice/';
         $this->layout = '../templates/backOffice/layout.html.php';
     }
 
     public function getReportedComments() : void
     {
-        $template = $this->listTemplate.'reportedComments.html.php';
+        $template = 'reportedComments.html.php';
         $data = $this->commentManager->getReportedComments();
         $this->view->display($data, $template, $this->layout);
     }
 
     public function getCommentsList() : void
     {
-        $template = $this->listTemplate.'commentsList.html.php';
+        $template = 'commentsList.html.php';
         $data = $this->commentManager->getCommentsList();
         $this->view->display($data, $template, $this->layout);
     }

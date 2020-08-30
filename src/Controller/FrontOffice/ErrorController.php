@@ -19,7 +19,7 @@ class ErrorController
     public function displayError() : void
     {
         $data = [];
-        $template = '../templates/frontOffice/error.html.php';
+        $template = 'error.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 }

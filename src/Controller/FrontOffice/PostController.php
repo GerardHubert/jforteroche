@@ -12,14 +12,12 @@ class PostController
     private $commentManager;
     private $view;
     private $layout;
-    private $frontTemplate;
 
     public function __construct(PostManager $postManager, View $view, CommentManager $commentManager)
     {
         $this->postManager = $postManager;
         $this->view = $view;
         $this->commentManager = $commentManager;
-        $this->frontTemplate = '../templates/frontOffice/';
         $this->layout = '../templates/frontOffice/layout.html.php';
     }
 
@@ -37,7 +35,7 @@ class PostController
             exit;
         }
 
-        $template = '../templates/frontOffice/onePost.html.php';
+        $template = 'onePost.html.php';
         $this->view->display(['episode' => $data[0][0],
             'comments' => $data[1],
             'totalEpisodes' => $data[2],
@@ -55,7 +53,7 @@ class PostController
         $errorMessage = 'merci de renseigner tous les champs';
         $data = [$episodeData, $commentsData, $totalEpisodes, $errorMessage, $pseudo, $comment];
 
-        $template = '../templates/frontOffice/commentError.html.php';
+        $template = 'commentError.html.php';
         $this->view->display(['episode' => $data[0][0],
             'comments' => $data[1],
             'totalEpisodes' => $data[2],
@@ -73,7 +71,7 @@ class PostController
         $commentsData = $this->commentManager->getComments($episode);
         $data = [$episodeData, $commentsData, $totalEpisodes];
 
-        $template = $this->frontTemplate.'onePost.html.php';
+        $template = 'onePost.html.php';
         $this->view->display(['episode' => $data[0][0], 'comments' => $data[1], 'totalEpisodes' => $data[2]], $template, $this->layout);
     }
 
@@ -85,7 +83,7 @@ class PostController
         $commentsData = $this->commentManager->getComments($episode);
         $data = [$episodeData, $commentsData, $totalEpisodes];
 
-        $template = $this->frontTemplate.'onePost.html.php';
+        $template = 'onePost.html.php';
         $this->view->display(['episode' => $data[0][0], 'comments' => $data[1], 'totalEpisodes' => $data[2]], $template, $this->layout);
     }
 
@@ -93,7 +91,7 @@ class PostController
     {
         //pour afficher les 3 derniers posts
         $data = $this->postManager->getThreeEpisodes();
-        $template = $this->frontTemplate.'home.html.php';
+        $template = 'home.html.php';
         $this->view->display($data, $template, $this->layout);
     }
 
@@ -107,7 +105,7 @@ class PostController
 
         $data = [$this->postManager->getAllEpisodes($offset), $page, $numberOfPages];
 
-        $template = $this->frontTemplate.'allPosts.html.php';
+        $template = 'allPosts.html.php';
         $this->view->display(['episode' => $data[0], 'currentPage' => $data[1], 'maxPages' => $data[2]], $template, $this->layout);
     }
 }
