@@ -33,6 +33,8 @@ class DraftController
 
     public function saveDraft(int $episode, string $title, string $content) : void
     {
+        $this->access();
+
         $test = $this->draftManager->testBeforeSave($episode);
         echo $test;
 
@@ -54,6 +56,8 @@ class DraftController
 
     public function publishDraft(int $id, array $draftData) : void
     {
+        $this->access();
+
         $this->postManager->publishDraft($id, $draftData);
         header('Location: index.php?action=episodes_list');
         exit;
@@ -91,6 +95,8 @@ class DraftController
 
     public function saveAndOverwrite(int $id, int $episode, string $title, string $content) : void
     {
+        $this->access();
+
         $this->draftManager->overwriteDraft($id, $episode, $title, $content);
         header('Location: index.php?action=drafts');
         exit;
@@ -98,6 +104,8 @@ class DraftController
 
     public function deleteDraft(int $episode) : void
     {
+        $this->access();
+        
         $this->draftManager->delete($episode);
         header('Location: index.php?action=drafts');
         exit;

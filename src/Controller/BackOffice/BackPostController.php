@@ -76,6 +76,8 @@ class BackPostController
 
     public function overwritePost(int $id, int $episode, string $title, string $content) : void
     {
+        $this->access();
+
         $this->postManager->overwriteEpisode($id, $episode, $title, $content);
         header('Location: index.php?action=episodes_list');
         exit;
@@ -83,6 +85,8 @@ class BackPostController
 
     public function deletePost(int $id) : void
     {
+        $this->access();
+        
         $this->postManager->deleteEpisode($id);
         header('Location: index.php?action=episodes_list');
         exit;

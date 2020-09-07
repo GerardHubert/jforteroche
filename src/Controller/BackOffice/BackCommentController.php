@@ -47,6 +47,7 @@ class BackCommentController
 
     public function deleteComment(int $id) : void
     {
+        $this->access();
         $this->commentManager->delete($id);
         header('Location: index.php?action=comments_list');
         exit;
@@ -54,6 +55,7 @@ class BackCommentController
 
     public function deleteReportedComment(int $id) : void
     {
+        $this->access();
         $this->commentManager->delete($id);
         header('Location: index.php?action=reported_comments');
         exit;
@@ -61,6 +63,7 @@ class BackCommentController
 
     public function validateComment(int $id) : void
     {
+        $this->access();
         $this->commentManager->validate($id);
         header('Location: index.php?action=reported_comments');
         exit;
