@@ -19,6 +19,32 @@ class Session
         $_SESSION['username'] = $username;
     }
 
+    public function setFlashMessage(string $message) : void
+    {
+        $_SESSION['authentificationMessage'] = $message;
+    }
+
+    public function setToken($token) : void
+    {
+        $_SESSION['token'] = $token;
+    }
+
+    public function getToken() : string
+    {
+        if (isset($_SESSION['token'])) {
+            return $_SESSION['token'];
+        }
+        return '';
+    }
+
+    public function getFlashMessage() : string
+    {
+        if (isset($this->session['authentificationMessage'])) {
+            return $this->session['authentificationMessage'];
+        }
+        return '';
+    }
+
     public function getUserName() : string
     {
         if (isset($this->session['username'])) {

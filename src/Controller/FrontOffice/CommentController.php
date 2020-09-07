@@ -4,19 +4,22 @@ declare(strict_types=1);
 namespace App\Controller\FrontOffice;
 
 use App\Model\CommentManager;
+use App\Service\Http\Session;
 
 class CommentController
 {
     private $commentManager;
     private $message;
+    private $session;
     
-    public function __construct(CommentManager $commentManager)
+    public function __construct(CommentManager $commentManager, Session $session)
     {
         $this->commentManager = $commentManager;
+        $this->session = $session;
         $this->message = 'Merci de renseigner tous les champs';
     }
 
-    public function saveComment(int $episodeId, array $commentForm) : void
+    public function saveComment(int $episodeId, array $commentForm, string $token) : void
     {
         $pseudo = $commentForm['pseudo'];
         $comment = $commentForm['comment'];
@@ -29,9 +32,14 @@ class CommentController
             break;
 
             case false :
-                $this->commentManager->postComment($episodeId, $pseudo, $comment);
-                header("Location: index.php?action=post&id=$episodeId/#comment_header");
-                exit;
+                if (!empty($this->session->getToken()) && $this->session->getToken() === $token) {
+                    $this->commentManager->postComment($episodeId, $pseudo, $comment);
+                    header("Location: index.php?action=post&id=$episodeId/#comment_header");
+                    exit;
+                }
+                echo 'Token pas OK ! <br />';
+                echo 'token en paramètre : ' . $token . '<br/>';
+                echo 'token en session :' . $this->session->getToken();
             break;
         }
     }

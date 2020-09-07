@@ -31,30 +31,44 @@ class UserController
 
     public function logIn(array $formData) : void
     {
-        //récupération id et mot de passe saisis
-        $user = $formData['identifiant'];
         $pass = $formData['password'];
-        $users = $this->userManager->getUsers();
+        $user = $this->userManager->getUser($formData['identifiant']);
+        $message = "Nom d'utilisateur ou mot de passe incorrect";
 
-        if ($user === $users[0]['username']) {
-        
-            switch (password_verify($pass, $users[0]['pass'])) {
+        //on cherche si le username saisi existe dans la table users
+        if (isset($user[0]['username']) && $user[0]['username'] === $formData['identifiant']) {
+            switch (password_verify($pass, $user[0]['pass'])) {
                 case true:
                     //on transmet à la classe session les variables à enregistrer
                     //puis on redirige vers le backoffice
-                    $this->session->setUserName($user);
+                    $this->session->setUserName($user[0]['username']);
                     header('Location: index.php?action=episodes_list');
                     exit;
                 break;
 
+                    //sinon, on renvoie un message d'erreur
                 case false:
-                    echo 'le mot de passe est incorrect <br/>';
+                    $this->session->setFlashMessage($message);
+                    header('Location: index.php?action=authentification');
+                    exit;
+                    //echo 'mot de passe incorrect';
                 break;
             }
         }
-        elseif ($user !== $users[0]['username']) {
-            echo 'utilisateur non trouvé <br/>';
+        elseif (empty($user[0]['username'])) {
+            //echo 'utilisateur inconnu';
+            $this->session->setFlashMessage($message);
+            header('Location: index.php?action=authentification');
+            exit;
         }
+    }
+
+    public function modifyUSer() : void
+    {
+        //Modification userName: demander confirmation de l'userName à changer
+
+
+        //Modification password: demander le userName dont il faut changer le password
     }
 
     public function forgottenPassword() : void
@@ -66,13 +80,16 @@ class UserController
 
     public function changePassword(array $formData) : void
     {
-        $users = $this->userManager->getUsers();
-        if ($formData['identifiant'] === $users[0]['username']) {
+        $message = "Nom d'utilisateur inconnu";
+        $this->session->setFlashMessage($message);
+        $users = $this->userManager->getUser($formData['identifiant']);
+        if ($formData['identifiant'] === $users['username']) {
             header('Location: index.php?action=new_password');
             exit;
         }
 
-        echo 'Utilisateur inconnu';
+        header('Location: index.php?action=forgotten_password');
+        exit;
     }
 
     public function newPassword() : void
@@ -84,9 +101,11 @@ class UserController
 
     public function updatePassword(array $formData) : void
     {
-        $hashedPassword = password_hash($formData['password'], PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($formData['password'], PASSWORD_BCRYPT);
         $this->userManager->updatePassword($hashedPassword);
         echo 'votre mot de passe a bien été modifié';
+        //header('Location: index.php?action=authentification');
+        exit;
     }
 
     public function logOut() : void
@@ -95,5 +114,4 @@ class UserController
         header('Location: index.php');
         exit;
     }
-
 }

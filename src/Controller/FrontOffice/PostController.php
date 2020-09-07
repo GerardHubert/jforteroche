@@ -5,6 +5,7 @@ namespace App\Controller\FrontOffice;
 
 use App\Model\{PostManager, CommentManager};
 use App\View\View;
+use App\Service\Http\Session;
 
 class PostController
 {
@@ -12,17 +13,31 @@ class PostController
     private $commentManager;
     private $view;
     private $layout;
+    private $session;
 
-    public function __construct(PostManager $postManager, View $view, CommentManager $commentManager)
+    public function __construct(PostManager $postManager, View $view, CommentManager $commentManager, Session $session)
     {
         $this->postManager = $postManager;
         $this->view = $view;
         $this->commentManager = $commentManager;
+        $this->session = $session;
         $this->layout = '../templates/frontOffice/layout.html.php';
     }
 
+    public function generateToken() : void
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        $token = '';
+        $tokenLength = 49;
+
+        for ($i = 0; $i <= $tokenLength; $i++) {
+            $token = $token.$characters[rand(0, strlen($characters) - 1)];
+        }
+        $this->session->setToken($token);
+    }
+
     public function displayOneEpisode(int $id) : void
-    {   
+    {   $this->generateToken();
         $totalEpisodes = $this->postManager->getNumberOfEpisodes();
         $episodeData = $this->postManager->getOneEpisode($id);
         $nextEpisode = $this->postManager->getNextPost($episodeData[0]['numero_episode'] + 1);
@@ -42,7 +57,6 @@ class PostController
             'previous' => $data[3],
             'next' => $data[4]],
             $template, $this->layout);
-
     }
 
     public function commentError(int $id, string $pseudo, string $comment) : void

@@ -10,7 +10,7 @@ class PostManager
 {
     private $database;
 
-    public function __construct(\PDO $database)
+    public function __construct(Database $database)
     {
         //objet Database en paramètre pour récupérer la connection
         $this->database = $database;

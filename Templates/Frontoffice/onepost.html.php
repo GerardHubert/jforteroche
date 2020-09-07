@@ -30,7 +30,7 @@
 
     <h3>COMMENTAIRES</h3>
 
-    <form class="comment_form" method="post" action="index.php?action=save_com&id=<?=$data['episode']['episode_id']?>">
+    <form class="comment_form" method="post" action="index.php?action=save_com&id=<?=$data['episode']['episode_id']?>&token=<?=$this->session->getToken(); ?>">
         <label for="pseudo">Pseudonyme</label>
         <input class="input_name" type="text" name="pseudo"/>
         <label for="comment">Commentaire</label>

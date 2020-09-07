@@ -42,15 +42,15 @@ class Router
         $this->postManager = new PostManager($this->database);
         $this->commentManager = new CommentManager($this->database);
         $this->view = new View($this->session, $this->accessControl);
-        $this->postController = new PostController($this->postManager, $this->view, $this->commentManager);
-        $this->commentController = new CommentController($this->commentManager);
+        $this->postController = new PostController($this->postManager, $this->view, $this->commentManager, $this->session);
+        $this->commentController = new CommentController($this->commentManager, $this->session);
         $this->errorController = new ErrorController($this->view);
         $this->userManager = new UserManager($this->database);
         $this->userController = new UserController($this->userManager, $this->view, $this->session);
         $this->draftManager = new DraftManager($this->database);
-        $this->backPostController = new BackPostController($this->view, $this->postManager);
-        $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view);
-        $this->backCommentController = new BackCommentController($this->commentManager, $this->view);
+        $this->backPostController = new BackPostController($this->view, $this->postManager, $this->accessControl);
+        $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view, $this->accessControl);
+        $this->backCommentController = new BackCommentController($this->commentManager, $this->view, $this->accessControl);
         $this->request = new Request();
         $this->get = $this->request->cleanGet();
         $this->post = $this->request->cleanPost();
@@ -92,7 +92,7 @@ class Router
                 //Route: index.php?action=save_com
                 //sauvegarde du commentaire en passant au commentController les éléments du formulaires
                 //$this->commentController->saveComment((int) $this->get['id'], $this->post['pseudo'], $this->post['comment']);
-                $this->commentController->saveComment((int) $this->get['id'], $this->post);
+                $this->commentController->saveComment((int) $this->get['id'], $this->post, $this->get['token']);
             break;
 
             case 'signal':
@@ -177,6 +177,11 @@ class Router
                 $this->backCommentController->getReportedComments();
             break;
 
+            case 'delete_reported_comment':
+                //Route: index.php?action=delete_reported_comment
+                $this->backCommentController->deleteReportedComment((int) $this->get['id']);
+            break;
+
             case 'comments_list':
                 //Route: index.php?action=comments_list
                 $this->backCommentController->getCommentsList();
@@ -235,6 +240,11 @@ class Router
             case 'log_out':
                 //Route: index.php?action=log_out
                 $this->userController->logOut();
+            break;
+
+            case 'modify_user':
+                //Route: index.php?action=modify_user
+                $this->userController->modifyUser();
             break;
 
             default:

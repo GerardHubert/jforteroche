@@ -16,11 +16,11 @@ class Request
 
     public function cleanGet()
     {
-        return $cleanedGet = filter_var_array($this->get, 515);
+        return $cleanedGet = filter_var_array($this->get, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
     public function cleanPost()
     {
-        return $cleanedPost = filter_var_array($this->post, 515);
+        return $cleanedPost = filter_var_array($this->post, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller\Backoffice;
 
 use App\Model\{DraftManager, PostManager};
 use App\View\View;
+use App\Service\Security\AccessControl;
 
 class DraftController
 {
@@ -12,13 +13,22 @@ class DraftController
     private $draftManager;
     private $view;
     private $layout;
+    private $accessControl;
 
-    public function __construct(DraftManager $draftManager, PostManager $postManager, View $view)
+    public function __construct(DraftManager $draftManager, PostManager $postManager, View $view, AccessControl $accessControl)
     {
         $this->draftManager = $draftManager;
         $this->postManager = $postManager;
         $this->view = $view;
         $this->layout = '../templates/backoffice/layout.html.php';
+        $this->accessControl = $accessControl;
+    }
+
+    public function access() : void
+    {
+        if ($this->accessControl->isConnected() ===  false) {
+            header('Location: index.php?action=authentification');
+        }
     }
 
     public function saveDraft(int $episode, string $title, string $content) : void
@@ -47,13 +57,12 @@ class DraftController
         $this->postManager->publishDraft($id, $draftData);
         header('Location: index.php?action=episodes_list');
         exit;
-        var_dump($id);
-        echo '<br/>';
-        var_dump($draftData);
     }
 
     public function getDraftData(int $episode, string $title, string $content) : void
     {
+        $this->access();
+
         $data = ['numero_episode' => $episode,
                 'episode_title' => $title,
                 'episode_content' => $content];
@@ -64,6 +73,8 @@ class DraftController
 
     public function displayDrafts() : void
     {
+        $this->access();
+        
         $template = 'draftsList.html.php';
         $data = $this->draftManager->getDrafts();
         $this->view->display($data, $template, $this->layout);
@@ -71,6 +82,8 @@ class DraftController
 
     public function updateDraft(int $episode) : void
     {
+        $this->access();
+        
         $template = 'updateDraft.html.php';
         $data = $this->draftManager->getOneDraft($episode);
         $this->view->display($data, $template, $this->layout);
