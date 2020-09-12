@@ -13,7 +13,7 @@
             <?php foreach ($data as $entry) {?>
             <tr>
                 <td id='pseudo_col'><?=$entry['pseudo']?></td>
-                <td><?=$entry['episode']?></td>
+                <td><?=$entry['correspondance_ep']?></td>
                 <td id='comment_col'><?=$entry['comment']?></td>
                 <td><a href='index.php?action=delete_reported_comment&id=<?=$entry['comment_id']?>'><button>Supprimer le commentaire</button></a></td>
                 <td><a href='index.php?action=validate_comment&id=<?=$entry['comment_id']?>'><button>Autoriser le commentaire</button></a></td>

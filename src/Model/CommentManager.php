@@ -27,13 +27,14 @@ class CommentManager
 
     public function postComment(int $episodeId, string $pseudo, string $comment) : void
     {
-        $postComment = $this->database->prepare("INSERT INTO commentaires (episode, pseudo, comment, comment_date) 
-            VALUES (:episode, :pseudo, :comment, NOW())");
+       $postComment = $this->database->prepare("INSERT INTO commentaires (correspondance_ep, episode, pseudo, comment, comment_date)
+            VALUES ((SELECT numero_episode
+            FROM episodes
+            WHERE episode_id = :episode), :episode, :pseudo, :comment, NOW())");
         $postComment->bindParam(':episode', $episodeId);
         $postComment->bindParam(':pseudo', $pseudo);
         $postComment->bindParam(':comment', $comment);
-
-        $postComment->execute();
+        $postComment->execute();    
     }
 
     public function saveCommentReport(int $commentId) : void
