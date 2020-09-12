@@ -6,6 +6,7 @@ namespace App\Controller\FrontOffice;
 use App\Model\{PostManager, CommentManager};
 use App\View\View;
 use App\Service\Http\Session;
+use App\Service\Security\Token;
 
 class PostController
 {
@@ -14,30 +15,20 @@ class PostController
     private $view;
     private $layout;
     private $session;
+    private $token;
 
-    public function __construct(PostManager $postManager, View $view, CommentManager $commentManager, Session $session)
+    public function __construct(PostManager $postManager, View $view, CommentManager $commentManager, Session $session, Token $token)
     {
         $this->postManager = $postManager;
         $this->view = $view;
         $this->commentManager = $commentManager;
         $this->session = $session;
+        $this->token = $token;
         $this->layout = '../templates/frontOffice/layout.html.php';
     }
 
-    public function generateToken() : void
-    {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        $token = '';
-        $tokenLength = 49;
-
-        for ($i = 0; $i <= $tokenLength; $i++) {
-            $token = $token.$characters[rand(0, strlen($characters) - 1)];
-        }
-        $this->session->setToken($token);
-    }
-
     public function displayOneEpisode(int $id) : void
-    {   $this->generateToken();
+    {   $this->token->setToken();
         $totalEpisodes = $this->postManager->getNumberOfEpisodes();
         $episodeData = $this->postManager->getOneEpisode($id);
         $nextEpisode = $this->postManager->getNextPost($episodeData[0]['numero_episode'] + 1);

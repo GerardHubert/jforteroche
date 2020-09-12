@@ -19,7 +19,7 @@ class CommentController
         $this->message = 'Merci de renseigner tous les champs';
     }
 
-    public function saveComment(int $episodeId, array $commentForm, string $token) : void
+    public function saveComment(int $episodeId, array $commentForm) : void
     {
         $pseudo = $commentForm['pseudo'];
         $comment = $commentForm['comment'];
@@ -32,13 +32,13 @@ class CommentController
             break;
 
             case false :
-                if (!empty($this->session->getToken()) && $this->session->getToken() === $token) {
+                if (!empty($this->session->getToken()) && $this->session->getToken() === $commentForm['hidden_input']) {
                     $this->commentManager->postComment($episodeId, $pseudo, $comment);
                     header("Location: index.php?action=post&id=$episodeId/#comment_header");
                     exit;
                 }
                 echo 'Token pas OK ! <br />';
-                echo 'token en paramètre : ' . $token . '<br/>';
+                echo 'token en paramètre : ' . $commentForm['hidden_input'] . '<br/>';
                 echo 'token en session :' . $this->session->getToken();
             break;
         }

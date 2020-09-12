@@ -7,7 +7,7 @@ use App\Service\Http\Session;
 use App\Model\{PostManager, CommentManager, UserManager, DraftManager};
 use App\View\View;
 use App\Controller\FrontOffice\{CommentController, ErrorController, PostController};
-use App\Service\Security\AccessControl;
+use App\Service\Security\{AccessControl, Token};
 use App\Controller\BackOffice\{BackPostController, DraftController, BackCommentController, UserController};
 use App\Service\Http\Request;
 
@@ -31,6 +31,7 @@ class Router
     private $get;
     private $post;
     private $request;
+    private $token;
 
     public function __construct()
     {
@@ -38,11 +39,12 @@ class Router
         // injection des dépendances
         $this->database = new Database();
         $this->session = new Session();
+        $this->token = new Token($this->session);
         $this->accessControl = new AccessControl($this->session);
         $this->postManager = new PostManager($this->database);
         $this->commentManager = new CommentManager($this->database);
         $this->view = new View($this->session, $this->accessControl);
-        $this->postController = new PostController($this->postManager, $this->view, $this->commentManager, $this->session);
+        $this->postController = new PostController($this->postManager, $this->view, $this->commentManager, $this->session, $this->token);
         $this->commentController = new CommentController($this->commentManager, $this->session);
         $this->errorController = new ErrorController($this->view);
         $this->userManager = new UserManager($this->database);
@@ -92,7 +94,7 @@ class Router
                 //Route: index.php?action=save_com
                 //sauvegarde du commentaire en passant au commentController les éléments du formulaires
                 //$this->commentController->saveComment((int) $this->get['id'], $this->post['pseudo'], $this->post['comment']);
-                $this->commentController->saveComment((int) $this->get['id'], $this->post, $this->get['token']);
+                $this->commentController->saveComment((int) $this->get['id'], $this->post);
             break;
 
             case 'signal':
