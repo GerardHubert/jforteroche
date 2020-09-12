@@ -80,6 +80,7 @@ class UserController
             $template = 'changeUSername.html.php';
             $this->view->display($data, $template, $this->layout);
         }
+
         elseif (!empty($formData)) {
             if ($formData['new_username'] === $formData['confirm_username']) {
                 $this->userManager->updateUsername($formData['new_username']);
@@ -87,13 +88,37 @@ class UserController
                 header('Location: index.php?action=authentification');
                 exit;
             }
+
             elseif ($formData['new_username'] !== $formData['confirm_username']) {
                 echo '<br/> Les usernames ne correspondent pas !';
             }
         }
     }
 
-    public function forgottenPassword() : void
+    public function changePassword(array $formData) : void
+    {
+        if (empty($formData)) {
+            $data = [];
+            $template = 'changePassword.html.php';
+            $this->view->display($data, $template, $this->layout);
+        }
+
+        elseif (!empty($formData)) {
+            if ($formData['new_password'] === $formData['confirm_password']) {
+                $this->userManager->updatePassword(password_hash($formData['new_password'], PASSWORD_BCRYPT));
+                $this->session->endSession();
+                header('Location: index.php?action=authentification');
+                exit;
+            }
+            
+            elseif ($formData['new_password'] !== $formData['confirm_password']) {
+                echo '<br/> Les mots de passe ne correspondent pas !';
+            }
+        }
+
+    }
+
+    /*public function forgottenPassword() : void
     {
         $data = [];
         $template = 'forgottenPassword.html.php';
@@ -128,7 +153,7 @@ class UserController
         echo 'votre mot de passe a bien été modifié';
         //header('Location: index.php?action=authentification');
         exit;
-    }
+    }*/
 
     public function logOut() : void
     {

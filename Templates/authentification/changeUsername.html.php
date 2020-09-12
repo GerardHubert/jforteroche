@@ -7,5 +7,5 @@
     <label for='confirm_username'>Confirmez le nouveau nom d'utilisateur</label>
     <input type='text' name='confirm_username' />
 
-    <input type='submit' valur='Modifier' />
+    <input type='submit' value='Modifier' />
 </form>

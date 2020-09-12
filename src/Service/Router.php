@@ -217,7 +217,7 @@ class Router
                 $this->userController->logIn($this->post);
             break;
 
-            case 'forgotten_password':
+            /*case 'forgotten_password':
                 //Route: index.php?action=forgotten_password
                 $this->userController->forgottenPassword();
             break;
@@ -235,7 +235,7 @@ class Router
             case 'update_password':
                 //route: index.php?action=update_password
                 $this->userController->updatePassword($this->post);
-            break;
+            break;*/
 
             case 'log_out':
                 //Route: index.php?action=log_out
@@ -252,9 +252,9 @@ class Router
                 $this->userController->changeUsername($this->post);
             break;
 
-            case 'update_username':
-                //Route: index.php?action=update_username
-                $this->userController->updateUsername($this->post);
+            case 'change_password':
+                //Route: index.php?action=change_password
+                $this->userController->changePassword($this->post);
             break;
 
             default:
