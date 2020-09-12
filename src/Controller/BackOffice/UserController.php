@@ -42,6 +42,9 @@ class UserController
                     //on transmet à la classe session les variables à enregistrer
                     //puis on redirige vers le backoffice
                     $this->session->setUserName($user[0]['username']);
+                    if(!empty($this->session->getFlashMessage())){
+                        $this->session->deleteFlashMessage();
+                    }
                     header('Location: index.php?action=episodes_list');
                     exit;
                 break;
@@ -56,19 +59,38 @@ class UserController
             }
         }
         elseif (empty($user[0]['username'])) {
-            //echo 'utilisateur inconnu';
             $this->session->setFlashMessage($message);
             header('Location: index.php?action=authentification');
             exit;
         }
     }
 
-    public function modifyUSer() : void
+    public function userPage() : void
     {
-        //Modification userName: demander confirmation de l'userName à changer
+        //méthode pour afficher la page de config utilisateur
+        $data = [];
+        $template = 'userSpace.html.php';
+        $this->view->display($data, $template, $this->layout);
+    }
 
-
-        //Modification password: demander le userName dont il faut changer le password
+    public function changeUsername(array $formData) : void
+    {
+        if (empty($formData)) {
+            $data = [];
+            $template = 'changeUSername.html.php';
+            $this->view->display($data, $template, $this->layout);
+        }
+        elseif (!empty($formData)) {
+            if ($formData['new_username'] === $formData['confirm_username']) {
+                $this->userManager->updateUsername($formData['new_username']);
+                $this->session->endSession();
+                header('Location: index.php?action=authentification');
+                exit;
+            }
+            elseif ($formData['new_username'] !== $formData['confirm_username']) {
+                echo '<br/> Les usernames ne correspondent pas !';
+            }
+        }
     }
 
     public function forgottenPassword() : void

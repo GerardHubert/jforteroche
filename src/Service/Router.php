@@ -242,9 +242,19 @@ class Router
                 $this->userController->logOut();
             break;
 
-            case 'modify_user':
-                //Route: index.php?action=modify_user
-                $this->userController->modifyUser();
+            case 'user_page':
+                //Route: index.php?action=user_page
+                $this->userController->userPage();
+            break;
+
+            case 'change_username':
+                //Route: index.php?action=change_username
+                $this->userController->changeUsername($this->post);
+            break;
+
+            case 'update_username':
+                //Route: index.php?action=update_username
+                $this->userController->updateUsername($this->post);
             break;
 
             default:

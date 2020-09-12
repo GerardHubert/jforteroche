@@ -12,20 +12,30 @@
     </head>
 
     <header class='backoffice_header'>
-        <span id='login_welcome'>
-            <?=$this->accessControl->isConnected() ? $this->accessControl->getUserName() : 'Non connecté';?>
-        </span>
+
+        <div id="parameters">
+            <a href='index.php?action=user_page'>
+                <i class='fas fa-user-cog'></i>
+                <span id='login_welcome'>
+                    <?=$this->accessControl->isConnected() ? $this->accessControl->getUserName() : 'Non connecté';?>
+                </span>
+            </a>
+        </div>
+        
+        
         <div id='front_link'>
             <a href='index.php'>
                 <span>Retour au blog</span>
             </a>
         </div>
+
         <div id='logout_link'>
             <a href='index.php?action=log_out'>
                 <i class='fas fa-sign-out-alt'></i>
                 <span>Se déconnecter</span>
             </a>
         </div>
+
     </header>
 
     <body>

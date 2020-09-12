@@ -24,6 +24,11 @@ class Session
         $_SESSION['authentificationMessage'] = $message;
     }
 
+    public function deleteFlashMessage()
+    {
+        unset($_SESSION['authentificationMessage']);
+    }
+
     public function setToken($token) : void
     {
         $_SESSION['token'] = $token;

@@ -24,6 +24,15 @@ class UserManager
         return $request->fetchAll();
     }
 
+    public function updateUsername($newUsername) : void
+    {
+        //requete pour enregistrer le nouveau nom d'utilisateur
+        $request = $this->database->prepare('UPDATE users
+            SET username = :new_username');
+        $request->bindParam(':new_username', $newUsername);
+        $request->execute();
+    }
+
     public function updatePassword(string $newHash) : void
     {
         $request = $this->database->prepare('UPDATE users
