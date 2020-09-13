@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  sam. 12 sep. 2020 à 23:23
+-- Généré le :  Dim 13 sep. 2020 à 21:18
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
   `comment_date` datetime NOT NULL,
   `reported_comment` tinyint(1) NOT NULL,
   PRIMARY KEY (`comment_id`),
-  KEY `from_episode` (`episode`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
+  KEY `episodeId` (`episode`)
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaires`
@@ -76,7 +76,6 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `correspondance_ep`, `pseud
 (104, 22, 4, 'jean-jacques', 'j&#39;adore la musique', '2020-09-07 17:13:17', 0),
 (105, 2, 2, 'oss_117', '&#39;mais les gens ne portent donc pas de souliers ici ?!&#39;', '2020-09-12 17:57:40', 0),
 (106, 2, 2, 'gérard', 'test numéro 2257&#13;&#10;', '2020-09-12 18:04:07', 0),
-(110, 55, 9, 'geronimo', 'indian fever', '2020-09-13 01:18:59', 0),
 (111, 15, 5, 'Diego', 'Bonjour, j&#39;suis le cousin de Dora l&#39;exploratrice !', '2020-09-13 01:20:25', 0);
 
 -- --------------------------------------------------------
@@ -95,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `episodes` (
   `episode_status` int(1) NOT NULL,
   PRIMARY KEY (`episode_id`),
   UNIQUE KEY `unicite` (`numero_episode`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
@@ -109,8 +108,7 @@ INSERT INTO `episodes` (`episode_id`, `numero_episode`, `episode_title`, `episod
 (28, 1, 'Le début de la fin', '&#60;p&#62;&#60;strong&#62;Etiam rhoncus vel massa eget eleifend. Aenean pretium ante lobortis turpis dictum faucibus. Quisque vitae velit enim. Cras ac venenatis dolor. Maecenas consectetur augue vel enim egestas hendrerit. Morbi eget enim urna. Sed a enim elit. Duis accumsan faucibus sapien a venenatis. Pellentesque hendrerit lorem eu lorem placerat, sed semper sapien aliquam. Vestibulum ac nunc nibh. Suspendisse ut risus id purus eleifend placerat. Vestibulum faucibus nisl felis, eget consequat ipsum consequat eu. Donec et lobortis metus, sed finibus nunc. Nam nisl lacus, gravida et mi et, vehicula commodo orci. Maecenas porttitor sem id sapien posuere, porta convallis lorem suscipit. Ut feugiat neque id feugiat congue. Maecenas finibus sapien neque, ultrices rhoncus neque vulputate non. Donec gravida massa in dolor tincidunt bibendum non et lacus. Proin at vehicula massa, non finibus ipsum. Aenean suscipit nunc et mattis sollicitudin. Duis in eros sodales, porttitor tortor non, rhoncus augue. Donec consequat molestie viverra. In condimentum sit amet diam eu tristique. Vestibulum quis luctus libero, in mattis leo. Integer eu mattis tellus. Donec malesuada laoreet semper. Curabitur tempor est eu ex tempus, eget bibendum nunc rutrum. Praesent eu tristique sem. Nulla scelerisque dui ac velit facilisis pulvinar nec vitae enim. Nulla volutpat tellus enim, sit amet posuere tortor viverra et. Pellentesque et mattis nulla, eu consectetur eros. Pellentesque ut tristique nisl, lacinia luctus lectus. Fusce elementum, lectus eu pellentesque ullamcorper, urna sapien feugiat leo, eget sodales risus ex eget sapien. Nunc interdum quam in leo gravida porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ut blandit nibh. Praesent eu facilisis tortor. Fusce euismod id leo ac faucibus. Ut ornare dolor tristique mattis euismod. Cras eget risus tincidunt, laoreet purus sed, imperdiet neque. Etiam et lorem mollis, tempus ligula ac, scelerisque eros. Donec hendrerit euismod pretium. Etiam vitae libero scelerisque magna blandit finibus. Ut posuere lorem id justo pharetra, in tincidunt enim rhoncus. Aliquam leo massa, tristique lob&#60;/strong&#62;ortis facilisis eu, ornare eget ante. Nulla facilisi. Nulla elementum sed nisi ac luctus. Donec maximus metus vitae mauris tempus, vel luctus lectus accumsan. Mauris congue quis erat a interdum. Duis viverra ante quis tincidunt volutpat. Vestibulum vestibulum odio dui, nec porta dolor scelerisque et. Cras finibus pharetra aliquam. Mauris tempor porttitor vestibulum. In hac habitasse platea dictumst. Etiam et pretium nibh, eget venenatis nunc. Sed sit amet elit ac nisl mattis eleifend at vitae elit. Duis ipsum tellus, malesuada ut tincidunt in, semper eget diam. Aenean blandit tempor tellus ut ornare. Pellentesque massa sem, pellentesque id vulputate id, eleifend in orci. Pellentesque egestas volutpat orci, pellentesque consectetur nibh iaculis eu. Sed ac sapien felis. Vivamus ut nulla at felis efficitur imperdiet quis non est. Integer eget enim vitae sem aliquet faucibus nec sed arcu. Morbi iaculis quam enim, ac pretium sem accumsan ac. Etiam sollicitudin lorem urna, vel semper quam aliquam vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur consequat non purus nec ullamcorper. Etiam nec orci leo. Suspendisse vel fermentum nunc. Quisque id aliquam nunc. Donec tempor lacus id quam auctor, nec rutrum augue dapibus. Praesent lacinia efficitur tellus, ut hendrerit nisi bibendum non. In egestas posuere quam, a blandit ipsum condimentum sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc arcu lacus, tristique id euismod quis, feugiat a lacus. Sed scelerisque, libero vitae varius porta, purus ligula aliquam sem, a euismod diam nunc vitae metus. Curabitur euismod nunc eu felis venenatis, id efficitur tellus aliquet. Pellentesque sollicitudin posuere vulputate. Phasellus vitae ex ipsum. In hac habitasse platea dictumst. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean orci tellus, tempus sed hendrerit at, porta sit amet mi. Duis pharetra ante a fermentum lacinia. Nullam id nulla convallis, porttitor arcu eget, malesuada magna. Cras pharetra justo in odio consequat elementum. Ut ullamcorper mi eu magna vestibulum interdum. Pellentesque in lorem diam. Nulla ligula neque, sodales non tristique sagittis, egestas at sapien. Curabitur nunc nunc, suscipit et mi ut, cursus molestie enim. Morbi blandit gravida risus, eget aliquet nunc tincidunt at. Mauris ut dapibus nisi. Vivamus turpis nunc, tempus tincidunt rhoncus vitae, porttitor ut diam.&#60;/p&#62;', '2020-08-01 00:36:33', 1),
 (33, 6, 'John Wick: baddass!', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean auctor justo vel sollicitudin consectetur. Quisque varius dolor arcu, eget suscipit ex venenatis non. Sed cursus lacinia tempor. Maecenas venenatis eleifend pellentesque. Quisque venenatis sit amet urna id egestas. Nulla consectetur enim id dui euismod tincidunt. Donec semper mollis tortor, at interdum nulla hendrerit nec. Aenean sodales augue ac elit porta congue. Morbi ac est nunc. Duis ac tortor magna. Vivamus venenatis nulla vel rutrum sagittis. Phasellus nisl orci, luctus sed felis sit amet, placerat vehicula arcu.\r\n\r\nSed id mauris massa. Nunc quis dictum purus, sit amet pharetra augue. Nam mattis molestie ex semper convallis. Ut malesuada erat eu velit molestie lobortis. Maecenas feugiat turpis elit, vel fermentum est pharetra vitae. Integer dictum ex dictum, convallis justo in, tristique ipsum. Duis pretium convallis lorem, eget vehicula magna pharetra pretium. Proin ut consequat dui, a aliquet lorem. Aliquam facilisis semper pulvinar. Nunc fringilla sem sem, sit amet auctor neque finibus vel. In ac risus sed lorem mattis condimentum eu in urna. Nam leo turpis, maximus eget dictum sit amet, cursus eleifend metus. Morbi eu leo eu nisl bibendum blandit et at risus. ', '2020-08-09 22:34:24', 1),
 (34, 7, 'C\'était sans compter sur Chuck Norris', ' Etiam ut luctus sem. Fusce molestie ut arcu et ornare. Pellentesque ultrices, tortor a luctus bibendum, nunc magna venenatis magna, vitae fermentum justo mi id quam. Sed risus velit, egestas quis maximus non, pretium sit amet nunc. Maecenas bibendum molestie felis, ac bibendum ligula interdum at. Fusce aliquam dictum felis, eget iaculis felis eleifend ac. Suspendisse eu nunc quis nulla gravida faucibus vel eu quam.\r\n\r\nQuisque fermentum dolor nec magna viverra, tempor auctor sapien euismod. Donec ac condimentum massa. Donec lacinia iaculis turpis eget rutrum. Donec lacinia, elit tempus consequat pretium, augue velit feugiat augue, vitae placerat sapien augue ac sem. Phasellus sed odio vel nulla porta ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean vehicula leo in neque auctor lacinia. Nulla ut diam nec purus sodales varius in eget erat. Phasellus dictum congue vestibulum.\r\n\r\nVestibulum nec est turpis. Vestibulum vel tortor vitae lacus placerat volutpat. Donec interdum euismod ante sit amet viverra. Aenean eget efficitur sem. Proin eget lectus eleifend, placerat sapien vitae, bibendum quam. Quisque odio metus, porttitor a euismod nec, volutpat vitae mi. Pellentesque interdum eros nec sapien malesuada ultricies. Suspendisse pharetra odio vitae auctor laoreet. Fusce eu nulla ex. Donec pretium mi sit amet eros ultricies gravida. Integer quis urna tristique, pellentesque neque vulputate, egestas nibh. Fusce eu interdum tortor. Maecenas vel faucibus nisl. ', '2020-08-09 22:36:08', 1),
-(36, 8, 'L\'arrivée de Lorenzo Lama: le Rebelle!', '<p>Dit... le rebelle!</p>\r\n<p>Accompagn&eacute; de son ami l\'indien, tous les deux chasseurs de primes.</p>\r\n<p>r&eacute;vision 1</p>', '2020-08-18 00:16:50', 1),
-(55, 9, 'test', '&lt;h1&gt;ajout &eacute;pisode&lt;/h1&gt;', '2020-09-01 00:32:59', 1);
+(36, 8, 'L\'arrivée de Lorenzo Lama: le Rebelle!', '<p>Dit... le rebelle!</p>\r\n<p>Accompagn&eacute; de son ami l\'indien, tous les deux chasseurs de primes.</p>\r\n<p>r&eacute;vision 1</p>', '2020-08-18 00:16:50', 1);
 
 -- --------------------------------------------------------
 
@@ -131,6 +129,16 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`username`, `pass`) VALUES
 ('gérard', '$2y$10$lCHkNev36i3g7SUDDJNhz.rqcZR1bFtjqMYxLQVin6QCMUtUyXR1G');
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  ADD CONSTRAINT `episodeId` FOREIGN KEY (`episode`) REFERENCES `episodes` (`episode_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

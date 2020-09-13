@@ -1,6 +1,6 @@
 <article>
-    <h3>Episode <?=$data['episode']['numero_episode']?> : <?=$data['episode']['episode_title']?></h3>
-    <p><?=$data['episode']['episode_content']?></p>
+    <h3>Episode <?=$data['episode']['numero_episode']?> : <?=htmlspecialchars_decode($data['episode']['episode_title'])?></h3>
+    <p><?=htmlspecialchars_decode($data['episode']['episode_content'])?></p>
 </article>
 
 <div id="prev_next">
