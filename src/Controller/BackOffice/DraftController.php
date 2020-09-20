@@ -36,7 +36,6 @@ class DraftController
         $this->access();
 
         $test = $this->draftManager->testBeforeSave($episode);
-        echo $test;
 
         switch ($test) {
             case true : 
@@ -96,10 +95,19 @@ class DraftController
     public function saveAndOverwrite(int $id, int $episode, string $title, string $content) : void
     {
         $this->access();
+        $test = $this->draftManager->testBeforeSave($episode);
+        switch ($test) {
+            case true: 
+                header("Location: index.php?action=get_draft_data&episode=$episode&title=$title&content=$content");
+                exit;
+            break;
 
-        $this->draftManager->overwriteDraft($id, $episode, $title, $content);
-        header('Location: index.php?action=drafts');
-        exit;
+            case false:
+                $this->draftManager->overwriteDraft($id, $episode, $title, $content);
+                header('Location: index.php?action=drafts');
+                exit;
+            break;
+        }
     }
 
     public function deleteDraft(int $episode) : void

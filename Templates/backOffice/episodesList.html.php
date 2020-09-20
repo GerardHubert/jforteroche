@@ -1,5 +1,5 @@
 <section id="backoffice_content">
-    <h2 id='backoffice_title'>Liste des épisodes</h2>
+    <h2 id='backoffice_title'>Liste des épisodes publiés</h2>
     <table id='episodes_table'>
         <thead>
             <tr>

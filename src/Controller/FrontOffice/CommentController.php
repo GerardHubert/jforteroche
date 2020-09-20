@@ -34,12 +34,14 @@ class CommentController
             case false :
                 if (!empty($this->session->getToken()) && $this->session->getToken() === $commentForm['hidden_input']) {
                     $this->commentManager->postComment($episodeId, $pseudo, $comment);
+                    $this->session->deleteFlashMessage();
                     header("Location: index.php?action=post&id=$episodeId/#comment_header");
                     exit;
                 }
-                echo 'Token pas OK ! <br />';
-                echo 'token en paramètre : ' . $commentForm['hidden_input'] . '<br/>';
-                echo 'token en session :' . $this->session->getToken();
+                $errorMessage = "Vous n'êtes pas autorisé à poster un commentaire";
+                $this->session->setFlashMessage($errorMessage);
+                header("Location: index.php?action=post&id=$episodeId");
+                exit;
             break;
         }
     }

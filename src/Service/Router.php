@@ -46,9 +46,9 @@ class Router
         $this->view = new View($this->session, $this->accessControl);
         $this->postController = new PostController($this->postManager, $this->view, $this->commentManager, $this->session, $this->token);
         $this->commentController = new CommentController($this->commentManager, $this->session);
-        $this->errorController = new ErrorController($this->view);
+        $this->errorController = new ErrorController($this->view,$this->session);
         $this->userManager = new UserManager($this->database);
-        $this->userController = new UserController($this->userManager, $this->view, $this->session, $this->accessControl);
+        $this->userController = new UserController($this->userManager, $this->view, $this->session, $this->accessControl, $this->token);
         $this->draftManager = new DraftManager($this->database);
         $this->backPostController = new BackPostController($this->view, $this->postManager, $this->accessControl);
         $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view, $this->accessControl);
@@ -102,12 +102,6 @@ class Router
                 //on prend en compte le signalement du commentaire
                 $this->commentController->reportComment((int) $this->get['comment_id'], (int) $this->get['id']);
             break;
-
-            /*case 'backoffice':
-                //Route: index.php?action=back_home
-                //accueil du backoffice, après login
-                $this->backPostController->backofficeHome();
-            break;*/
 
             case 'new_post':
                 //Route: index.php?action=new_post

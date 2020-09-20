@@ -31,8 +31,8 @@ class BackPostController
 
     public function savePost(int $numeroEpisode, string $title, string $content) : void
     {
+        $this->access();
         $test = $this->postManager->testBeforeSave($numeroEpisode);
-        
         switch($test) {
             case true :
                 header("Location: index.php?action=get_form_data&episode=$numeroEpisode&title=$title&episode_text=$content");

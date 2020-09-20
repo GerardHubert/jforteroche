@@ -402,3 +402,10 @@ footer{
     padding: 5px;
     background-color: white;
 }
+
+#unauthorized{
+    color: red;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}

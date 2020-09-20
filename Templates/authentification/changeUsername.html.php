@@ -9,3 +9,10 @@
 
     <input type='submit' value='Modifier' />
 </form>
+
+<?php
+    if (!empty($this->session->getFlashMessage())) { ?>
+        <p id="authentification_error_message"><?= $this->session->getFlashMessage(); ?></p>
+    <?php    
+    }
+    ?>

@@ -6,7 +6,7 @@ namespace App\Controller\BackOffice;
 use App\Model\UserManager;
 use App\View\View;
 use App\Service\Http\Session;
-use App\Service\Security\AccessControl;
+use App\Service\Security\{AccessControl, Token};
 
 class UserController
 {
@@ -15,13 +15,15 @@ class UserController
     private $layout;
     private $session;
     private $accessControl;
+    private $token;
 
-    public function __construct(UserManager $userManager, View $view, Session $session, AccessControl $accessControl)
+    public function __construct(UserManager $userManager, View $view, Session $session, AccessControl $accessControl, Token $token)
     {
         $this->userManager = $userManager;
         $this->session = $session;
         $this->view = $view;
         $this->accessControl = $accessControl;
+        $this->token = $token;  
         $this->layout = '../templates/authentification/layout.html.php';
     }
 
@@ -34,7 +36,7 @@ class UserController
 
     public function authentification() : void
     {
-        
+        $this->token->setToken();
         $data = [];
         $template = 'logInPage.html.php';
         $this->view->display($data, $template, $this->layout);
@@ -47,33 +49,39 @@ class UserController
         $user = $this->userManager->getUser($formData['identifiant']);
         $message = "Nom d'utilisateur ou mot de passe incorrect";
 
-        //on cherche si le username saisi existe dans la table users
-        if (isset($user[0]['username']) && $user[0]['username'] === $formData['identifiant']) {
-            switch (password_verify($pass, $user[0]['pass'])) {
-                case true:
-                    //on transmet à la classe session les variables à enregistrer
-                    //puis on redirige vers le backoffice
-                    $this->session->setUserName($user[0]['username']);
-                    if(!empty($this->session->getFlashMessage())){
-                        $this->session->deleteFlashMessage();
-                    }
-                    header('Location: index.php?action=episodes_list');
-                    exit;
-                break;
-
-                    //sinon, on renvoie un message d'erreur
-                case false:
-                    $this->session->setFlashMessage($message);
-                    header('Location: index.php?action=authentification');
-                    exit;
-                    //echo 'mot de passe incorrect';
-                break;
-            }
-        }
-        elseif (empty($user[0]['username'])) {
-            $this->session->setFlashMessage($message);
+        if ($this->session->getToken() !== $formData['hidden_input']) {
+            $this->session->setFlashMessage('Vous ne disposez pas des droits requis');
             header('Location: index.php?action=authentification');
             exit;
+        }
+        elseif ($this->session->getToken() === $formData['hidden_input']) {
+            //on cherche si le username saisi existe dans la table users
+            if (isset($user[0]['username']) && $user[0]['username'] === $formData['identifiant']) {
+                switch (password_verify($pass, $user[0]['pass'])) {
+                    case true:
+                        //on transmet à la classe session les variables à enregistrer
+                        //puis on redirige vers le backoffice
+                        $this->session->setUserName($user[0]['username']);
+                        if(!empty($this->session->getFlashMessage())){
+                            $this->session->deleteFlashMessage();
+                        }
+                        header('Location: index.php?action=episodes_list');
+                        exit;
+                    break;
+
+                        //sinon, on renvoie un message d'erreur
+                    case false:
+                        $this->session->setFlashMessage($message);
+                        header('Location: index.php?action=authentification');
+                        exit;
+                    break;
+                }
+            }
+            elseif (empty($user[0]['username'])) {
+                $this->session->setFlashMessage($message);
+                header('Location: index.php?action=authentification');
+                exit;
+            }
         }
     }
 
@@ -104,7 +112,9 @@ class UserController
             }
 
             elseif ($formData['new_username'] !== $formData['confirm_username']) {
-                echo '<br/> Les usernames ne correspondent pas !';
+                $this->session->setFlashMessage('Les noms utilisateurs ne sorrespondent pas !');
+                header('Location : index.php?action=change_username');
+                exit;
             }
         }
     }
@@ -127,7 +137,9 @@ class UserController
             }
             
             elseif ($formData['new_password'] !== $formData['confirm_password']) {
-                echo '<br/> Les mots de passe ne correspondent pas !';
+                $this->session->setFlashMessage('Les mots de passe ne correspondent pas !');
+                header('Location: index.php?action=change_password');
+                exit;
             }
         }
 

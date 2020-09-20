@@ -106,7 +106,7 @@ class PostManager
         $test->execute();
         $results = $test->fetchAll();
 
-        if (isset($results[0]['numero_episode']) && $results[0]['numero_episode'] === 1) {
+        if (isset($results[0]['numero_episode'])) {
             return true;
         }
         

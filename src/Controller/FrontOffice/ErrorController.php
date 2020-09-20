@@ -4,15 +4,18 @@ declare(strict_types=1);
 namespace App\Controller\FrontOffice;
 
 use App\View\View;
+use App\Service\Http\Session;
 
 class ErrorController
 {
     private $view;
     private $layout;
+    private $session;
     
-    public function __construct(View $view)
+    public function __construct(View $view, Session $session)
     {
         $this->view = $view;
+        $this->session = $session;
         $this->layout = '../templates/frontOffice/layout.html.php';
     }
 

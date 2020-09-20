@@ -30,6 +30,11 @@
 
     <h3>COMMENTAIRES</h3>
 
+    <?php
+        if (!empty($this->session->getFlashMessage())) { ?>
+            <p id='unauthorized'><?= $this->session->getFlashMessage(); 
+        } ?></p>
+
     <form class="comment_form" method="post" action="index.php?action=save_com&id=<?=$data['episode']['episode_id']?>">
         <label for="pseudo">Pseudonyme</label>
         <input class="input_name" type="text" name="pseudo"/>
@@ -38,6 +43,8 @@
         <input class="submit" type="submit" value="Poster"/>
         <input class="hidden" type="hidden" name="hidden_input" value="<?=$this->session->getToken(); ?>" />
     </form>
+
+    
 
     <div id='comments_container'>
         <?php

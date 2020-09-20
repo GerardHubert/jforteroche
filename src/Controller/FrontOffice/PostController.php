@@ -28,7 +28,9 @@ class PostController
     }
 
     public function displayOneEpisode(int $id) : void
-    {   $this->token->setToken();
+    {   
+        $this->token->setToken();
+        $this->session->deleteFlashMessage();
         $totalEpisodes = $this->postManager->getNumberOfEpisodes();
         $episodeData = $this->postManager->getOneEpisode($id);
         $nextEpisode = $this->postManager->getNextPost($episodeData[0]['numero_episode'] + 1);

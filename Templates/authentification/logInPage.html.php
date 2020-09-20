@@ -3,6 +3,7 @@
     <input type='text' name='identifiant' />
     <label for='password'>Mot de passe</label>
     <input type='password' name='password' />
+    <input type='hidden' name='hidden_input' value="<?=$this->session->getToken(); ?>" />
 
     <div id="submit">
         <input id='login' type='submit' formaction='index.php?action=log_in' value='Se connecter' name='submit' />

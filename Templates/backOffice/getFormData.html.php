@@ -1,3 +1,4 @@
+<section id="backoffice_content"><h2 id='backoffice_title'>Ajouter un épisode</h2>
 <section class="editor">
         
     <form class="comment_post" method='post'>
@@ -14,4 +15,5 @@
     </form>
     <span id='error_message'>Un épisode avec le même numéro existe déjà. Veuillez le publier avec un autre numéro</span>
 
+</section>
 </section>
