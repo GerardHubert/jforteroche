@@ -48,7 +48,7 @@
                     <li><a href='index.php?action=new_post'>Ajouter un épisode</a></li>
                     <li><a href='index.php?action=drafts'>Brouillons</a></li>
                     <li><a href='index.php?action=reported_comments'>Modérer les Commentaires</a></li>
-                    <li><a href='index.php?action=comments_list'>Tous les commentaires</a></li>
+                    <li><a href='index.php?action=comments_list&page=1'>Tous les commentaires</a></li>
                 </ul>
             </nav>
 

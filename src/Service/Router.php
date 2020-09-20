@@ -48,7 +48,7 @@ class Router
         $this->commentController = new CommentController($this->commentManager, $this->session);
         $this->errorController = new ErrorController($this->view);
         $this->userManager = new UserManager($this->database);
-        $this->userController = new UserController($this->userManager, $this->view, $this->session);
+        $this->userController = new UserController($this->userManager, $this->view, $this->session, $this->accessControl);
         $this->draftManager = new DraftManager($this->database);
         $this->backPostController = new BackPostController($this->view, $this->postManager, $this->accessControl);
         $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view, $this->accessControl);
@@ -185,8 +185,8 @@ class Router
             break;
 
             case 'comments_list':
-                //Route: index.php?action=comments_list
-                $this->backCommentController->getCommentsList();
+                //Route: index.php?action=comments_list&page
+                $this->backCommentController->getCommentsList((int) $this->get['page']);
             break;
 
             case 'validate_comment':

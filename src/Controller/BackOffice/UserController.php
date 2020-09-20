@@ -6,6 +6,7 @@ namespace App\Controller\BackOffice;
 use App\Model\UserManager;
 use App\View\View;
 use App\Service\Http\Session;
+use App\Service\Security\AccessControl;
 
 class UserController
 {
@@ -13,17 +14,27 @@ class UserController
     private $view;
     private $layout;
     private $session;
+    private $accessControl;
 
-    public function __construct(UserManager $userManager, View $view, Session $session)
+    public function __construct(UserManager $userManager, View $view, Session $session, AccessControl $accessControl)
     {
         $this->userManager = $userManager;
         $this->session = $session;
         $this->view = $view;
+        $this->accessControl = $accessControl;
         $this->layout = '../templates/authentification/layout.html.php';
+    }
+
+    public function access() : void
+    {
+        if ($this->accessControl->isConnected() ===  false) {
+            header('Location: index.php?action=authentification');
+        }
     }
 
     public function authentification() : void
     {
+        
         $data = [];
         $template = 'logInPage.html.php';
         $this->view->display($data, $template, $this->layout);
@@ -31,6 +42,7 @@ class UserController
 
     public function logIn(array $formData) : void
     {
+        $this->access();
         $pass = $formData['password'];
         $user = $this->userManager->getUser($formData['identifiant']);
         $message = "Nom d'utilisateur ou mot de passe incorrect";
@@ -67,6 +79,7 @@ class UserController
 
     public function userPage() : void
     {
+        $this->access();
         //méthode pour afficher la page de config utilisateur
         $data = [];
         $template = 'userSpace.html.php';
@@ -75,6 +88,7 @@ class UserController
 
     public function changeUsername(array $formData) : void
     {
+        $this->access();
         if (empty($formData)) {
             $data = [];
             $template = 'changeUSername.html.php';
@@ -97,6 +111,7 @@ class UserController
 
     public function changePassword(array $formData) : void
     {
+        $this->access();
         if (empty($formData)) {
             $data = [];
             $template = 'changePassword.html.php';
@@ -117,43 +132,6 @@ class UserController
         }
 
     }
-
-    /*public function forgottenPassword() : void
-    {
-        $data = [];
-        $template = 'forgottenPassword.html.php';
-        $this->view->display($data, $template, $this->layout);
-    }
-
-    public function changePassword(array $formData) : void
-    {
-        $message = "Nom d'utilisateur inconnu";
-        $this->session->setFlashMessage($message);
-        $users = $this->userManager->getUser($formData['identifiant']);
-        if ($formData['identifiant'] === $users['username']) {
-            header('Location: index.php?action=new_password');
-            exit;
-        }
-
-        header('Location: index.php?action=forgotten_password');
-        exit;
-    }
-
-    public function newPassword() : void
-    {
-        $data = [];
-        $template = 'newPassword.html.php';
-        $this->view->display($data, $template, $this->layout);
-    }
-
-    public function updatePassword(array $formData) : void
-    {
-        $hashedPassword = password_hash($formData['password'], PASSWORD_BCRYPT);
-        $this->userManager->updatePassword($hashedPassword);
-        echo 'votre mot de passe a bien été modifié';
-        //header('Location: index.php?action=authentification');
-        exit;
-    }*/
 
     public function logOut() : void
     {

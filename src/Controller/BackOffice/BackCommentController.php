@@ -37,12 +37,16 @@ class BackCommentController
         $this->view->display($data, $template, $this->layout);
     }
 
-    public function getCommentsList() : void
+    public function getCommentsList(int $page) : void
     {
         $this->access();
+        $commentsNumber = $this->commentManager->getCommentsNumber();
+        $commentsToDisplay = 10;
+        $numberOfPages = ceil($commentsNumber / $commentsToDisplay);
+        $offset = ($page - 1) * 10;
         $template = 'commentsList.html.php';
-        $data = $this->commentManager->getCommentsList();
-        $this->view->display($data, $template, $this->layout);
+        $data = [$this->commentManager->getCommentsList($offset), $page, $numberOfPages];
+        $this->view->display(['comments' => $data[0], 'currentPage' => $data[1], 'maxPages' => $data[2]], $template, $this->layout);
     }
 
     public function deleteComment(int $id) : void
