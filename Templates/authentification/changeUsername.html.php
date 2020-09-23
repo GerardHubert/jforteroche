@@ -6,13 +6,14 @@
 
     <label for='confirm_username'>Confirmez le nouveau nom d'utilisateur</label>
     <input type='text' name='confirm_username' />
+    <input type='hidden' name='hidden_input' value='<?= $this->session->getToken(); ?>' />
 
     <input type='submit' value='Modifier' />
-</form>
-
-<?php
+    <?php
     if (!empty($this->session->getFlashMessage())) { ?>
         <p id="authentification_error_message"><?= $this->session->getFlashMessage(); ?></p>
     <?php    
     }
     ?>
+</form>
+

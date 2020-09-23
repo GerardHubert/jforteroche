@@ -50,7 +50,7 @@ class Router
         $this->userManager = new UserManager($this->database);
         $this->userController = new UserController($this->userManager, $this->view, $this->session, $this->accessControl, $this->token);
         $this->draftManager = new DraftManager($this->database);
-        $this->backPostController = new BackPostController($this->view, $this->postManager, $this->accessControl);
+        $this->backPostController = new BackPostController($this->view, $this->postManager, $this->accessControl, $this->session, $this->token);
         $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view, $this->accessControl);
         $this->backCommentController = new BackCommentController($this->commentManager, $this->view, $this->accessControl);
         $this->request = new Request();
@@ -118,7 +118,7 @@ class Router
             case 'publish':
                 //Route: index.php?action=publish
                 //Enregistrement du post dans la BDD
-                $this->backPostController->savePost((int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
+                $this->backPostController->savePost((int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text'], $this->post['hidden_input']);
             break;
 
             case 'publish_draft':
@@ -160,7 +160,7 @@ class Router
 
             case 'save_updated_post':
                 //Route: index.php/action=save_updated_post&episode_id
-                $this->backPostController->overwritePost((int) $this->get['episode_id'], (int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text']);
+                $this->backPostController->overwritePost((int) $this->get['episode_id'], (int) $this->post['episode'], (string) $this->post['title'], (string) $this->post['episode_text'], $this->post['hidden_input']);
             break;
 
             case 'delete_post':

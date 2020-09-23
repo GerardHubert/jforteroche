@@ -97,23 +97,30 @@ class UserController
     public function changeUsername(array $formData) : void
     {
         $this->access();
+
         if (empty($formData)) {
+            $this->token->setToken();
             $data = [];
             $template = 'changeUSername.html.php';
             $this->view->display($data, $template, $this->layout);
+            $this->session->deleteFlashMessage();
         }
 
         elseif (!empty($formData)) {
-            if ($formData['new_username'] === $formData['confirm_username']) {
+            if ($formData['hidden_input'] !== $this->session->getToken()) {
+                $this->session->setFlashMessage("Vous ne disposez pas des droits nécessaires");
+                header('Location: index.php?action=change_username');
+                exit;
+            }
+            elseif ($formData['new_username'] === $formData['confirm_username'] && $formData['hidden_input'] === $this->session->getToken()) {
                 $this->userManager->updateUsername($formData['new_username']);
                 $this->session->endSession();
                 header('Location: index.php?action=authentification');
                 exit;
             }
-
             elseif ($formData['new_username'] !== $formData['confirm_username']) {
                 $this->session->setFlashMessage('Les noms utilisateurs ne sorrespondent pas !');
-                header('Location : index.php?action=change_username');
+                header('Location: index.php?action=change_username');
                 exit;
             }
         }
@@ -123,12 +130,20 @@ class UserController
     {
         $this->access();
         if (empty($formData)) {
+            $this->token->setToken();
             $data = [];
             $template = 'changePassword.html.php';
             $this->view->display($data, $template, $this->layout);
+            $this->session->deleteFlashMessage();
         }
 
         elseif (!empty($formData)) {
+            if ($formData['hidden_input'] !== $this->session->getToken()) {
+                $this->session->setFlashMessage("Vous n'avez pas les droits nécessaires");
+                header('Location: index.php?action=change_password');
+                exit;
+            }
+
             if ($formData['new_password'] === $formData['confirm_password']) {
                 $this->userManager->updatePassword(password_hash($formData['new_password'], PASSWORD_BCRYPT));
                 $this->session->endSession();

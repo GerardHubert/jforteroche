@@ -409,3 +409,16 @@ footer{
     margin: auto;
     text-align: center;
 }
+
+/*----------------------breakpoint 432*768---------------------------*/
+
+@media screen and (max-width: 432px) {
+
+    header{
+        display: flex;
+    }
+
+
+
+
+}
