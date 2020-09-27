@@ -2,8 +2,9 @@
 <html lang="fr">
 
 	<head>
-        <meta charset="utf-8" />
-		<link rel="icon" type="image.png" href="/images/encrier.ico" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/images/encrier.ico" />
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<link rel="stylesheet" href="/fontawesome/css/all.css" />
 		<title>Billet simple pour l'Alaska</title>
@@ -26,7 +27,7 @@
 								<?php
 								
 								} elseif ($this->accessControl->isConnected() === false) {?>
-									<li><a href="index.php?action=authentification"><i class="fas fa-user-lock"></i>Administrateur</a></li>
+									<li id='admin_link'><a href="index.php?action=authentification"><i class="fas fa-user-lock"></i>Administrateur</a></li>
 									<?php
 									}
 							?>
@@ -54,32 +55,36 @@
 		<div class='front_content'>
 
 			<section class="episodes_and_comments">
-			<?=$content?>
+				<?=$content?>
 			</section>
 			
 
 			<aside class="about_me">
 				<h3>A propos de l'auteur</h3>
-				<figure>
-					<img class="portrait" src="/images/portrait.jpg" alt="Portrait de Jean Forteroche" />
-					<figcaption>Portrait de Jean Forteroche</figcaption>
-				</figure>
-				<p>Jean Forteroche est connu pour quelques grands rôles au cinéma, mais il est avant tout un auteur de romans d'aventure. 
-					Rien de plus normal lorsqu'on sait qu'il est l'enfant d'une mère enseignante de littérature et d'un père aventurier.</p>
-				<p>L'Illiade et l'Ile au trésor sont ses livres de chevet et l'auteur James Rollins un modèle. C'est donc l'esprit nourri de toutes
-					ces grandes aventures qu'il décide de prendre la plume à l'année de ses 20 ans.</p>
-				<p>Aujourd'hui, après 30 ans de carrière et une vingtaine d'ouvrage, il joue également le personnage principal de l'adaptation de son premier livre. Une consécration.</p>
+				<div id="portrait_desc">
+					<figure>
+						<img class="portrait" src="/images/portrait.jpg" alt="Portrait de Jean Forteroche" />
+						<figcaption>Portrait de Jean Forteroche</figcaption>
+					</figure>
+					<div id="description">
+						<p>Jean Forteroche est connu pour quelques grands rôles au cinéma, mais il est avant tout un auteur de romans d'aventure. 
+							Rien de plus normal lorsqu'on sait qu'il est l'enfant d'une mère enseignante de littérature et d'un père aventurier.</p>
+						<p>L'Illiade et l'Ile au trésor sont ses livres de chevet et l'auteur James Rollins un modèle. C'est donc l'esprit nourri de toutes
+							ces grandes aventures qu'il décide de prendre la plume à l'année de ses 20 ans.</p>
+						<p>Aujourd'hui, après 30 ans de carrière et une vingtaine d'ouvrage, il joue également le personnage principal de l'adaptation de son premier livre. Une consécration.</p>
+					</div>
+				</div>
 			</aside>
 
 		</div>
 
-		<footer>
+		<!--<footer>
 			<div class="footer_links">
 				<a href="mentions.html">Mentions Légales</a>
 				<a href="site_plan.html">Plan du site</a>
 			</div>
 		</footer>
-
+		-->
 		
 	</body>
 

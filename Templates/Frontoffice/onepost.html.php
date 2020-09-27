@@ -1,3 +1,4 @@
+<h2>Lecture d'un épisode</h2>
 <article>
     <h3>Episode <?=$data['episode']['numero_episode']?> : <?=htmlspecialchars_decode($data['episode']['episode_title'])?></h3>
     <p><?=htmlspecialchars_decode($data['episode']['episode_content'])?></p>
@@ -9,7 +10,7 @@
         ?>
         <span id="previous">
             <a href="index.php?action=post&id=<?=$data['previous']?>">
-                <button>Episode précédent</button>
+                Episode précédent
             </a>
         </span>
         <?php
@@ -18,7 +19,7 @@
         ?>
         <span id="next">
             <a href="index.php?action=post&id=<?=$data['next']?>">
-                <button>Episode suivant</button>
+                Episode suivant
             </a>
         </span>
         <?php
@@ -33,13 +34,13 @@
     <?php
         if (!empty($this->session->getFlashMessage())) { ?>
             <p id='unauthorized'><?= $this->session->getFlashMessage(); 
-        } ?></p>
+        } ?>
 
     <form class="comment_form" method="post" action="index.php?action=save_com&id=<?=$data['episode']['episode_id']?>">
         <label for="pseudo">Pseudonyme</label>
-        <input class="input_name" type="text" name="pseudo"/>
+        <input id="pseudo" type="text" name="pseudo"/>
         <label for="comment">Commentaire</label>
-        <textarea class="comment_area" name="comment" rows="10" cols="40"></textarea>
+        <textarea id="comment" name="comment" rows="10" cols="40"></textarea>
         <input class="submit" type="submit" value="Poster"/>
         <input class="hidden" type="hidden" name="hidden_input" value="<?=$this->session->getToken(); ?>" />
     </form>
@@ -50,14 +51,14 @@
         <?php
             foreach($data['comments'] as $commentsData) {
         ?>
-        <div id='comments'>
-            <div id='comment_header'>
+        <div class='comments'>
+            <div class='comment_header'>
                 <h4>De <?=$commentsData['pseudo']?>, le <?=$commentsData['comment_date']?></h4>
                 <?php
                 switch ($commentsData['reported_comment']) {
                     case '0' :
                     ?>
-                        <span id='report_comment'>
+                        <span class='report_comment'>
                             <a href="index.php?action=signal&id=<?=$data['episode']['episode_id']?>&comment_id=<?=$commentsData['comment_id']?>">
                             <i class="fas fa-flag"></i>Signaler ce commentaire</a>
                     </span>
@@ -65,14 +66,14 @@
                     break;
                     case '1' :
                     ?>
-                    <span id='waiting_moderation'>
+                    <span class='waiting_moderation'>
                         <i class="fas fa-clock"></i>Commentaire signalé, modération en cours
                     </span>
                 <?php
                     break;
                     case '2' :
                     ?>
-                    <span id='validated_comment'>
+                    <span class='validated_comment'>
                         <i class="fas fa-check"></i>Commentaire validé par le modérateur
                     </span>
                 <?php
@@ -80,7 +81,7 @@
                 }
                 ?>
             </div>
-            <p id='comment_text'><?=$commentsData['comment']?></p>
+            <p class='comment_text'><?=$commentsData['comment']?></p>
             </div>
 
         <?php

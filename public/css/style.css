@@ -137,6 +137,13 @@ article  p{
     text-align: justify;
 }
 
+#previous a, #next a{
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: white;
+}
+
 footer{
     margin-top: 10px;
     width: 100%;
@@ -167,11 +174,11 @@ footer{
     margin: auto;
 }
 
-.input_name{
+#pseudo{
     height: 30px;
 }
 
-.comment_form .input_name, .comment_form .comment_area{
+.comment_form #pseudo, .comment_form #comment{
     border-radius: 15px;
     padding-left: 10px;
     padding-right: 10px;
@@ -188,7 +195,7 @@ footer{
     margin-top: 10px;
     
 }
-.input_name:focus, .comment_area:focus{
+#pseudo:focus, #comment:focus{
     background-color:#c9e8e8;
     border: 3px solid #95a9a9;
 }
@@ -311,7 +318,7 @@ footer{
     width: 10%;
 }
 
-#report_comment, #waiting_moderation, #validated_comment{
+.report_comment, .waiting_moderation, .validated_comment{
     font-style: italic;
     font-size: 0.8rem;
 }
@@ -320,24 +327,24 @@ footer{
     margin-right: 10px;
 }
 
-.fa-flag, #report_comment a{
+.fa-flag, .report_comment a{
     color: red;
 }
 
-.fa-check, #validated_comment{
+.fa-check, .validated_comment{
     color: green;
 }
 
-.fa-clock, #waiting_moderation{
+.fa-clock, .waiting_moderation{
     color: blue;
 }
 
-#comment_header{
+.comment_header{
     display: flex;
     justify-content: space-between;
 }
 
-#comment_header h4{
+.comment_header h4{
     margin: 0;
     font-size: 0.9rem;
     font-style: italic;
@@ -348,7 +355,7 @@ footer{
     margin: auto;
 }
 
-#comments{
+.comments{
     background-color: white;
     padding: 5px;
     margin-top: 10px;
@@ -356,12 +363,12 @@ footer{
     border-radius: 10px;
 }
 
-#comment_text{
+.comment_text{
     padding-left: 40px;
     margin-top: 0;
 }
 
-#read_next > a{
+.read_next > a{
     font-size: 0.8rem;
     font-style: italic;
     font-weight: bold;
@@ -412,13 +419,145 @@ footer{
 
 /*----------------------breakpoint 432*768---------------------------*/
 
-@media screen and (max-width: 432px) {
+@media screen and (max-width: 433px) {
 
-    header{
-        display: flex;
+    html{
+        font-size: 0.8rem;
     }
 
+    .headband{
+        width: 100%;
+        justify-content: center;
+    }
 
+    .logo{
+        display: none;
+    }
 
+    .front_nav{
+        width: 100%;
+    }
 
+    .menu_container{
+        width: 100%;
+    }
+
+    .menu li i{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header_img{
+        height: 150px;
+    }
+
+    header h1{
+        padding: 0;
+        width: 100%;
+        font-size: 1.1rem;
+        left: 20%;
+        bottom: 50%;
+    }
+
+    .welcoming_text{
+        font-size: 0.8rem;
+    }
+
+    .welcoming_text p{
+        width: 100%;
+    }
+
+    .front_content{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .episodes_and_comments{
+        width: 100%;
+        padding: 0;
+    }
+
+    .about_me{
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 225px;
+    
+    }
+
+    .about_me figure{
+        display: none;
+    }
+
+    .commentaires .comment_form, .commentaires #comments_container{
+        width: 100%;
+    }
+
+    .commentaires .submit{
+        align-self: center;
+    }
+}
+
+@media screen and (min-width: 433px) and (max-width: 768px) {
+
+    .logo{
+        display: none;
+    }
+
+    .headband{
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .front_nav{
+        width: 100%;
+    }
+
+    .header_img{
+        width: 100%;
+    }
+
+    header h1{
+        font-size: 1.2rem;
+        width: 100%;
+    }
+
+    .menu_container{
+        width: 100%;
+    }
+
+    .menu li i{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .welcoming_text p{
+        width: 90%;
+    }
+
+    .front_content{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .episodes_and_comments{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .about_me{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        height: 400px;;
+    }
+
+    #portrait_desc{
+        width: 100%;
+        display: flex;
+        padding-right: 30px;
+    }
 }

@@ -4,8 +4,8 @@
         <a href="index.php?action=post&id=<?=$entry['episode_id']?>">
             <h3 class='episode_title'>Episode <?=$entry['numero_episode']?>: <?=$entry['episode_title']?></h3>
         </a>
-        <span class='post_date'>Posté le <?=$entry['episode_date']?></span>
-        <p><?=htmlspecialchars_decode($entry['episode_content'])?>... <span id="read_next"><a href='index.php?action=post&id=<?=$entry['episode_id']?>'>Lire la suite</a></p>
+        <span class='post_date'>Posté le <?=$entry['episode_date']?></span><br/>
+        <?=htmlspecialchars_decode($entry['episode_content'])?>... <span class="read_next"><a href='index.php?action=post&id=<?=$entry['episode_id']?>'>Lire la suite</a></span>
     </article>
 <?php
 }?>
@@ -16,7 +16,7 @@
     ?>
     <span id="previous">
         <a href="index.php?action=get_all&page=<?=$data['currentPage'] - 1?>">
-            <button>Page Précédente</button>
+            Page Précédente
         </a>
     </span>
     <?php
@@ -24,9 +24,11 @@
     if ($data['currentPage'] < $data['maxPages'] && $data['currentPage'] >= 1) {
     ?>
     <span id="next">
-        <a href="index.php?action=get_all&page=<?=$data['currentPage'] + 1?>">
-            <button>Page suivante</button>
-        </a>
+        
+            <a href="index.php?action=get_all&page=<?=$data['currentPage'] + 1?>">
+                Page suivante
+            </a>
+        
     </span>
     <?php
     }
