@@ -14,7 +14,7 @@
                 <input type='submit' formaction='index.php?action=publish' name='publish' value='Publier'/>
             </div>
         </form>
-        <span id="error_message">Un brouillon avec le même numéro d'épisode est déjà enregistré. Veuillez le mettre à jour ou enregistrer ce brouillon sous un autre numéro</span>
+        <span id="error_message">Un épisode avec le même numéro est déjà enregistré. Veuillez le mettre à jour ou enregistrer ce brouillon sous un autre numéro</span>
 
     </section>
 </section

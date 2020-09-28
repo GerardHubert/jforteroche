@@ -15,7 +15,7 @@ class View
     {
         $this->session = $session;
         $this->accessControl = $accessControl;
-        $this->paths = set_include_path("../templates/frontOffice;../templates/backOffice;../templates/authentification");
+        $this->paths = set_include_path("../templates/frontOffice;../templates/backOffice;../templates/authentification;");
     }
     public function display(array $data, string $template, string $layout) : void
     {

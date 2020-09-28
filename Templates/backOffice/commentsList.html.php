@@ -29,7 +29,7 @@
             if ($data['currentPage'] <= $data['maxPages'] && $data['currentPage'] > 1) { ?>
                 <span id="previous">
                     <a href="index.php?action=comments_list&page=<?=$data['currentPage'] - 1; ?>">
-                        <button>Comentaires précédents</button>
+                        Comentaires précédents
                     </a>
                 </span>
             <?php
@@ -40,7 +40,7 @@
             if ($data['currentPage'] < $data['maxPages'] && $data['currentPage'] >= 1) { ?>
                 <span id="next">
                     <a href="index.php?action=comments_list&page=<?=$data['currentPage'] + 1; ?>">
-                        <button>Commentaires suivants</button>
+                        Commentaires suivants
                     </a>
                 </span>
             <?php
