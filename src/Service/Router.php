@@ -75,7 +75,7 @@ class Router
             case 'get_all':
                 //Route: index.php?action=get_all&page
                 //affiche la liste de tous les épisodes
-                $this->postController->displayAllPosts((int) $this->get['page']);
+                isset($this->get['page']) ? $this->postController->displayAllPosts((int) $this->get['page']) : $this->postController->displayAllPosts((int) $this->get['page'] = 1);
             break;
 
             case 'post':
@@ -180,7 +180,7 @@ class Router
 
             case 'comments_list':
                 //Route: index.php?action=comments_list&page
-                $this->backCommentController->getCommentsList((int) $this->get['page']);
+                isset($this->get['page']) ? $this->backCommentController->getCommentsList((int) $this->get['page']) : $this->backCommentController->getCommentsList((int) $this->get['page'] = 1);
             break;
 
             case 'validate_comment':

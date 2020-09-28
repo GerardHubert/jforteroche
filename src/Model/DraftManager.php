@@ -27,28 +27,16 @@ class DraftManager
 
     public function testBeforeSave(int $episode) : bool
     {
-        /*$test = $this->database->prepare('SELECT episode FROM drafts WHERE episode = :draftToInsert');
-        $test->bindParam(':draftToInsert', $episode);
-        $test->execute();
-        $array = $test->fetchAll();
-        
-        if (isset($array[0]['episode'])) {
-            return true;
-        }
-
-        return false;*/
-
-        $test = $this->database->prepare('SELECT episode_status FROM episodes WHERE numero_episode = :episode');
+        $test = $this->database->prepare('SELECT * FROM episodes WHERE numero_episode = :episode');
         $test->bindParam(':episode', $episode);
         $test->execute();
         $result = $test->fetchAll();
 
-        if (isset($result[0]['episode_status'])) {
+        if (isset($result[0]['numero_episode'])) {
             return true;
         }
 
         return false;
-       
     }
 
     public function getDrafts() : array
