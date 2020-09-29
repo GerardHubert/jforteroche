@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  lun. 28 sep. 2020 à 22:10
+-- Généré le :  mar. 29 sep. 2020 à 01:06
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
   `reported_comment` int(10) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `episodeId` (`episode`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaires`
@@ -60,11 +60,9 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `pseudo`, `comment`, `comme
 (76, 22, 'bob_dylan', 'j\'adore le rock', '0000-00-00 00:00:00', 1),
 (78, 3, 'gianluigi_buffon', 'je suis le plus grand gardien de but de l\'histoire, et j\'adore ta barbe!', '2020-08-05 14:28:12', 0),
 (79, 3, 'gérard', 'commentaire ok?', '2020-08-10 14:57:37', 0),
-(80, 34, 'gégé', 'test commentaire?', '2020-08-10 14:58:41', 2),
 (81, 33, 'franco', 'commentaire sur épisode 6?', '2020-08-10 14:59:09', 1),
 (82, 15, 'gérard', 'cet épisode ne s\'affiche pas très bien...', '2020-08-10 14:59:59', 2),
 (83, 22, 'lewis hamilton', 'plus rapide que moi, y a pas!', '2020-08-10 15:00:26', 0),
-(91, 34, 'RealChuckNorris', 'Chuck Norris a déjà compté jusqu\'à l\'infini... 2 fois.', '2020-08-13 14:02:57', 2),
 (92, 22, 'delafuentes', 'test de commentaire !', '2020-08-16 09:05:38', 0),
 (98, 28, 'gérard', 'test', '2020-09-06 22:18:13', 1),
 (99, 28, 'gerard', 'test - bis', '2020-09-06 22:19:34', 1),
@@ -75,9 +73,7 @@ INSERT INTO `commentaires` (`comment_id`, `episode`, `pseudo`, `comment`, `comme
 (106, 2, 'gérard', 'test numéro 2257&#13;&#10;', '2020-09-12 18:04:07', 0),
 (111, 15, 'Diego', 'Bonjour, j&#39;suis le cousin de Dora l&#39;exploratrice !', '2020-09-13 01:20:25', 0),
 (114, 33, 'gérard', 'test 2', '2020-09-14 17:50:00', 1),
-(115, 33, 'gérard', 'commentaire', '2020-09-14 22:26:39', 1),
-(117, 34, 'gerard', '&#60;h1&#62;test&#60;/h1&#62;', '2020-09-21 17:46:21', 1),
-(118, 34, 'alphonse', 'est ce que les commentaires fonctionnent ?', '2020-09-27 14:47:54', 2);
+(115, 33, 'gérard', 'commentaire', '2020-09-14 22:26:39', 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `episodes` (
   `episode_status` int(1) NOT NULL,
   PRIMARY KEY (`episode_id`),
   UNIQUE KEY `unicite` (`numero_episode`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
@@ -108,10 +104,9 @@ INSERT INTO `episodes` (`episode_id`, `numero_episode`, `episode_title`, `episod
 (22, 4, 'Le quatuor infernal', '&#60;p&#62;Les expendables sont l&#38;agrave;: Stallone, Schwarzennegger, VanDamme et WesleySnipes!&#60;/p&#62;', '2020-07-21 22:49:53', 1),
 (28, 1, 'Le début de la fin', '&#60;p&#62;r&#38;eacute;vision 1&#60;/p&#62;&#13;&#10;&#60;p&#62;On ajoute un paragraphe ici !&#60;/p&#62;&#13;&#10;&#60;p&#62;Vestibulum faucibus nisl felis, eget consequat ipsum consequat eu. Donec et lobortis metus, sed finibus nunc. Nam nisl lacus, gravida et mi et, vehicula commodo orci. Maecenas porttitor sem id sapien posuere, porta convallis lorem suscipit. Ut feugiat neque id feugiat congue. Maecenas finibus sapien neque, ultrices rhoncus neque vulputate non. Donec gravida massa in dolor tincidunt bibendum non et lacus. Proin at vehicula massa, non finibus ipsum. Aenean suscipit nunc et mattis sollicitudin. Duis in eros sodales, porttitor tortor non, rhoncus augue. Donec consequat molestie viverra. In condimentum sit amet diam eu tristique. Vestibulum quis luctus libero, in mattis leo. Integer eu mattis tellus. Donec malesuada laoreet semper. Curabitur tempor est eu ex tempus, eget bibendum nunc rutrum. Praesent eu tristique sem. Nulla scelerisque dui ac velit facilisis pulvinar nec vitae enim. Nulla volutpat tellus enim, sit amet posuere tortor viverra et. Pellentesque et mattis nulla, eu consectetur eros. Pellentesque ut tristique nisl, lacinia luctus lectus. Fusce elementum, lectus eu pellentesque ullamcorper, urna sapien feugiat leo, eget sodales risus ex eget sapien. Nunc interdum quam in leo gravida porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ut blandit nibh. Praesent eu facilisis tortor. Fusce euismod id leo ac faucibus. Ut ornare dolor tristique mattis&#60;/p&#62;', '2020-08-01 00:36:33', 1),
 (33, 6, 'John Wick: baddass!', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean auctor justo vel sollicitudin consectetur. Quisque varius dolor arcu, eget suscipit ex venenatis non. Sed cursus lacinia tempor. Maecenas venenatis eleifend pellentesque. Quisque venenatis sit amet urna id egestas. Nulla consectetur enim id dui euismod tincidunt. Donec semper mollis tortor, at interdum nulla hendrerit nec. Aenean sodales augue ac elit porta congue. Morbi ac est nunc. Duis ac tortor magna. Vivamus venenatis nulla vel rutrum sagittis. Phasellus nisl orci, luctus sed felis sit amet, placerat vehicula arcu.\r\n\r\nSed id mauris massa. Nunc quis dictum purus, sit amet pharetra augue. Nam mattis molestie ex semper convallis. Ut malesuada erat eu velit molestie lobortis. Maecenas feugiat turpis elit, vel fermentum est pharetra vitae. Integer dictum ex dictum, convallis justo in, tristique ipsum. Duis pretium convallis lorem, eget vehicula magna pharetra pretium. Proin ut consequat dui, a aliquet lorem. Aliquam facilisis semper pulvinar. Nunc fringilla sem sem, sit amet auctor neque finibus vel. In ac risus sed lorem mattis condimentum eu in urna. Nam leo turpis, maximus eget dictum sit amet, cursus eleifend metus. Morbi eu leo eu nisl bibendum blandit et at risus. ', '2020-08-09 22:34:24', 1),
-(34, 7, 'C\'était sans compter sur Chuck Norris', ' Etiam ut luctus sem. Fusce molestie ut arcu et ornare. Pellentesque ultrices, tortor a luctus bibendum, nunc magna venenatis magna, vitae fermentum justo mi id quam. Sed risus velit, egestas quis maximus non, pretium sit amet nunc. Maecenas bibendum molestie felis, ac bibendum ligula interdum at. Fusce aliquam dictum felis, eget iaculis felis eleifend ac. Suspendisse eu nunc quis nulla gravida faucibus vel eu quam.\r\n\r\nQuisque fermentum dolor nec magna viverra, tempor auctor sapien euismod. Donec ac condimentum massa. Donec lacinia iaculis turpis eget rutrum. Donec lacinia, elit tempus consequat pretium, augue velit feugiat augue, vitae placerat sapien augue ac sem. Phasellus sed odio vel nulla porta ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean vehicula leo in neque auctor lacinia. Nulla ut diam nec purus sodales varius in eget erat. Phasellus dictum congue vestibulum.\r\n\r\nVestibulum nec est turpis. Vestibulum vel tortor vitae lacus placerat volutpat. Donec interdum euismod ante sit amet viverra. Aenean eget efficitur sem. Proin eget lectus eleifend, placerat sapien vitae, bibendum quam. Quisque odio metus, porttitor a euismod nec, volutpat vitae mi. Pellentesque interdum eros nec sapien malesuada ultricies. Suspendisse pharetra odio vitae auctor laoreet. Fusce eu nulla ex. Donec pretium mi sit amet eros ultricies gravida. Integer quis urna tristique, pellentesque neque vulputate, egestas nibh. Fusce eu interdum tortor. Maecenas vel faucibus nisl. ', '2020-08-09 22:36:08', 1),
-(67, 8, 'test', '&#60;p&#62;brouillon initial&#60;/p&#62;', '2020-09-28 17:46:18', 1),
-(74, 9, 'test 2', '&#60;p&#62;cet &#38;eacute;pisode a &#38;eacute;t&#38;eacute; &#38;eacute;crit avec amour, &#38;agrave; la main.&#60;/p&#62;', '2020-09-28 22:34:10', 1),
-(75, 10, 'test', '&#60;p&#62;brouillon 2 initial&#60;/p&#62;&#13;&#10;&#60;p&#62;r&#38;eacute;vision 1&#60;/p&#62;', '2020-09-28 23:04:29', 0);
+(75, 10, 'test révision 1', '&#60;p&#62;brouillon 2 initial&#60;/p&#62;&#13;&#10;&#60;p&#62;r&#38;eacute;vision 1&#60;/p&#62;&#13;&#10;&#60;p&#62;r&#38;eacute;vision 2&#60;/p&#62;', '2020-09-28 23:04:29', 1),
+(76, 55, 'coucou', '&#60;p&#62;test&#60;/p&#62;', '2020-09-29 02:40:25', 1),
+(77, 79, 'test', '', '2020-09-29 02:40:50', 0);
 
 -- --------------------------------------------------------
 
@@ -131,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `pass`) VALUES
-('forteroche', '$2y$10$nET2GXwuP/VGNrlvv1pFCe4bJWUsn0DKAh3rgefADf2y82VA7Aiim');
+('gerard', '$2y$10$nET2GXwuP/VGNrlvv1pFCe4bJWUsn0DKAh3rgefADf2y82VA7Aiim');
 
 --
 -- Contraintes pour les tables déchargées

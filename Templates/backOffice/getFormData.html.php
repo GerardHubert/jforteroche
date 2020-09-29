@@ -11,6 +11,7 @@
         <div class='buttons'>
             <input type='submit' formaction='index.php?action=save_draft' name='save_draft' value='Enregistrer le brouillon'/>
             <input type='submit' formaction='index.php?action=publish' name='publish' value='Publier'/>
+            <input type='hidden' value='<?= $this->session->getToken(); ?>' name='hidden_input' />
         </div>
     </form>
     <span id='error_message'>Un épisode avec le même numéro existe déjà. Veuillez le publier avec un autre numéro</span>

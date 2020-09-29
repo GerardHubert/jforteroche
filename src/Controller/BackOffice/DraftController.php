@@ -20,7 +20,7 @@ class DraftController
         $this->draftManager = $draftManager;
         $this->postManager = $postManager;
         $this->view = $view;
-        $this->layout = '../templates/backoffice/layout.html.php';
+        $this->layout = '../templates/backOffice/layout.html.php';
         $this->accessControl = $accessControl;
     }
 

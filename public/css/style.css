@@ -418,6 +418,19 @@ footer{
     text-align: center;
 }
 
+#action_buttons, h1{
+    text-align: center;
+}
+
+#action_buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+#action_buttons button{
+    margin: 10px;
+}
+
 /*----------------------breakpoint 432*768---------------------------*/
 
 @media screen and (max-width: 433px) {

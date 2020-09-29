@@ -101,7 +101,7 @@ class UserController
         if (empty($formData)) {
             $this->token->setToken();
             $data = [];
-            $template = 'changeUSername.html.php';
+            $template = 'changeUsername.html.php';
             $this->view->display($data, $template, $this->layout);
             $this->session->deleteFlashMessage();
         }

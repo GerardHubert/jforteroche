@@ -21,7 +21,7 @@ class BackPostController
     {
         $this->postManager = $postManager;
         $this->view = $view;
-        $this->layout = '../templates/backoffice/layout.html.php';
+        $this->layout = '../templates/backOffice/layout.html.php';
         $this->accessControl = $accessControl;
         $this->session = $session;
         $this->token = $token;
@@ -117,6 +117,7 @@ class BackPostController
     public function getPostData(int $episode, string $title, string $content) : void
     {
         $this->access();
+        $this->token->setToken();
         
         $data = ['numero_episode' => $episode,
                 'episode_title' => $title,
