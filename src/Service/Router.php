@@ -232,7 +232,7 @@ class Router
                 //Route: index.php?action=change_password
                 $this->userController->changePassword($this->post);
             break;
-
+            
             default:
                 //Route: index.php?action=error
                 //On affiche une page d'erreur
