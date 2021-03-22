@@ -5,7 +5,7 @@ namespace App\Controller\Backoffice;
 
 use App\Model\{DraftManager, PostManager};
 use App\View\View;
-use App\Service\Security\AccessControl;
+use App\Service\Security\{AccessControl, Token};
 
 class DraftController
 {
@@ -14,14 +14,16 @@ class DraftController
     private $view;
     private $layout;
     private $accessControl;
+    private$token;
 
-    public function __construct(DraftManager $draftManager, PostManager $postManager, View $view, AccessControl $accessControl)
+    public function __construct(DraftManager $draftManager, PostManager $postManager, View $view, AccessControl $accessControl, Token $token)
     {
         $this->draftManager = $draftManager;
         $this->postManager = $postManager;
         $this->view = $view;
         $this->layout = '../templates/backOffice/layout.html.php';
         $this->accessControl = $accessControl;
+        $this->token = $token;
     }
 
     public function access() : void
@@ -41,6 +43,7 @@ class DraftController
             case true : 
                 //Le numéro d'épisode  qu'on essaie d'enregistrer existe déjà
                 header("Location: index.php?action=get_draft_data&episode=$episode&title=$title&content=$content");
+                $this->token->setToken();
                 exit;
             break;
 

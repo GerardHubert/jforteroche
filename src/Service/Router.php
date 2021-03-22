@@ -51,7 +51,7 @@ class Router
         $this->userController = new UserController($this->userManager, $this->view, $this->session, $this->accessControl, $this->token);
         $this->draftManager = new DraftManager($this->database);
         $this->backPostController = new BackPostController($this->view, $this->postManager, $this->accessControl, $this->session, $this->token);
-        $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view, $this->accessControl);
+        $this->draftController = new DraftController($this->draftManager, $this->postManager, $this->view, $this->accessControl, $this->token);
         $this->backCommentController = new BackCommentController($this->commentManager, $this->view, $this->accessControl);
         $this->request = new Request();
         $this->get = $this->request->cleanGet();

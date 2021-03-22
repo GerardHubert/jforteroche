@@ -51,6 +51,7 @@ class BackPostController
         switch($test) {
             case true :
                 header("Location: index.php?action=get_form_data&episode=$numeroEpisode&title=$title&episode_text=$content");
+                $this->token->setToken();
                 exit;
             break;
 
